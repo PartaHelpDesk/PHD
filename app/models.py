@@ -1,6 +1,13 @@
 from app import db
 from datetime import datetime
 
+relatedTickets = db.Table(
+    'related_tickets',
+    db.Column('TicketId1', db.Integer, db.ForeignKey('tickets.id')),
+    db.Column('TicketId2', db.Integer, db.ForeignKey('tickets.id')),
+)
+
+
 class User(db.Model):
 
     __tablename__ = 'users'
