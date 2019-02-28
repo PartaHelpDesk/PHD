@@ -5,16 +5,16 @@ class BaseConfig:
 
 class Product(BaseConfig):
 
+    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://phdadmin@partahelpdeskserver:Capstone2019!@PartaHelpDesk'
+
     DEBUG = False
 
 
 class Development(BaseConfig):
 
-    SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://PartaHelpDesk:Capstone2019!@PartaHelpDesk'
+    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://phdadmin@partahelpdeskserver:Capstone2019!@PartaHelpDesk'
 
     DEBUG = True
-
-    pass
 
 
 config = {
