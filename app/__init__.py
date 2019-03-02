@@ -11,7 +11,7 @@ def create_app(config_name='default'):
     app.config.from_object(config.get(config_name))
     db.init_app(app)
 
-    app.app_context().push()
-    db.session.execute("show tables")
+    from app.user import user_blueprint
+    app.register_blueprint(user_blueprint)
 
     return app
