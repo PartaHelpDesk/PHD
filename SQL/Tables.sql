@@ -7,7 +7,9 @@ GO
 
 CREATE TABLE [dbo].[Users](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[FirstName] [varchar](128) NOT NULL,
+	[Level] [int] NOT NULL,
+	[Username] [varchar](16) NOT NULL UNIQUE,
+	[FirstName] [varchar](128) NOT NULL ,
 	[LastName] [varchar](128) NOT NULL,
 	[Email] [varchar](128)NOT NULL,
 	[Password] [varchar](256) NOT NULL,
