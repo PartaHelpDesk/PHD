@@ -34,7 +34,7 @@ def login():
 	return '''
 <html>
 <head>
-<title>PartaHelpDesk 1.0.0</title>
+<title>PHD Login</title>
 </head>
 <body>
 
@@ -43,7 +43,7 @@ def login():
   Email:<br>
   <input type="text" name="Email"><br>
   Password:<br>
-  <input type="text" name="Password"> <br>
+  <input type="password" name="Password"> <br>
   <input type="submit" value="Submit">
 </form> 
 </body>
