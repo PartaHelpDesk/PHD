@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <style type="text/css">
+    .logo{
+      width: 280px;
+      height: 300px;
+      background: green;
+      margin: 100px auto 140px auto;
+    }
+    .login{
+      position: relative;
+      width: 660px;
+      height: 280px;
+      background: green;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    .login_form{
+      width: 300px;
+      margin: 35px auto 0 auto;
+      text-align: center;
+    }
+    .login_title{
+      margin: 0;
+    }
+    input{
+      width: 300px;
+      height: 35px;
+      margin-top: 25px;
+    }
+    .login_btn{
+      width: 110px;
+      height: 45px;
+      margin-top: 25px;
+      background: yellow;
+    }
+    .forget{
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+
+  </div>
+  <div class="login">
+    <form class="login_form">
+      <h3 class="login_title">Please Enter Credentials</h3>
+      <label>
+        <input class="input_username" type="text" placeholder=" Username">
+      </label>
+      <label>
+        <input class="input_password" type="password" placeholder=" Password">
+      </label>
+      <button type="button" class="login_btn">Login</button>
+    </form>
+    <a class="forget" href="#">Forget Password?</a>
+  </div>
+</body>
+</html>
