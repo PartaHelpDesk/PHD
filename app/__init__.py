@@ -14,4 +14,7 @@ def create_app(config_name='default'):
     from app.user import user_blueprint
     app.register_blueprint(user_blueprint)
 
+    from app.main import main_blueprint
+    app.register_blueprint(main_blueprint)
+
     return app
