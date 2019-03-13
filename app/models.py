@@ -1,5 +1,13 @@
 from app import db
 from datetime import datetime
+from flask_login import UserMixin, AnonymousUserMixin
+from app import login_manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
 
 relatedTickets = db.Table(
     'related_tickets',
@@ -8,7 +16,7 @@ relatedTickets = db.Table(
 )
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     __tablename__ = 'users'
 
