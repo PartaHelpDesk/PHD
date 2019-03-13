@@ -22,6 +22,7 @@ def index():
   </p>
   <p>
     <a href="http://127.0.0.1:5000/login">Click Here to Login</a> 
+    <a href="http://127.0.0.1:5000/email_test">Email Test</a>
   </p>
   </div>
 </body>
@@ -49,3 +50,5 @@ def login():
 </body>
 </html>
 '''
+
+@app.route('email_test')
