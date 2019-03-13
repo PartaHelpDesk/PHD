@@ -5,32 +5,8 @@ from flask import render_template
 @frontend.route('/')
 @frontend.route('/index')
 def index():
-	return '''
-<html>
-  <style>
-    .content {
-      max-width:500px;
-        margin: auto;
-    }
-  </style>
-<head>
-<title>PartaHelpDesk 1.0.0</title>
-</head>
-<body>
-<div class="content">
-<h1 >Welcome to the PHD Ticketing System</h1>
- <p>
-  A ticketing system made for PARTA
-  </p>
-  <p>
-    <a href="http://127.0.0.1:5000/login">Click Here to Login</a> 
-    <a href="http://127.0.0.1:5000/email_test">Email Test</a>
-  </p>
-  </div>
-</body>
-</html>
-
-'''
+	user = {'username': 'PHD User'}
+	return render_template('index.html', title='PartaHelpDesk 1.0.0', user=user)
 
 @frontend.route('/login')
 def login():
@@ -56,20 +32,7 @@ def login():
 @frontend.route('/email_test')
 def email_test():
 	form = EmailForm()
-	return '''
-    <h1>Email Test</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.rAddr.label }}
-            {{ form.rAddr(size=32) }}
-        </p>
-        <p>
-            {{ form.emailBody.label }}<br>
-            {{ form.emailBody(size=32) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-'''
+	user = {'username': 'PHD User'}
+	return render_template('email.html', title='Email Testing', form=form, user=user)
 
 
