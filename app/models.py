@@ -1,5 +1,14 @@
 from app import db
 from datetime import datetime
+from flask_login import UserMixin, AnonymousUserMixin
+from app import login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
 
 relatedTickets = db.Table(
     'related_tickets',
@@ -8,7 +17,7 @@ relatedTickets = db.Table(
 )
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     __tablename__ = 'users'
 
@@ -16,13 +25,24 @@ class User(db.Model):
     first_name = db.Column(db.VARCHAR(128))
     last_name = db.Column(db.VARCHAR(128))
     email = db.Column(db.VARCHAR(128))
-    password = db.Column(db.VARCHAR(256), nullable=False)
+    password_hash = db.Column('password', db.VARCHAR(256), nullable=False)
     active = db.Column(db.Boolean, nullable=False)
 
     level_id = db.Column(db.Integer, db.ForeignKey('user_level.id'))
 
     # relationship
     level = db.relationship('UserLevel')
+
+    @property
+    def password(self):
+        raise AttributeError('Not allowed to read password!')
+
+    @password.setter
+    def password(self, pwd):
+        self.password_hash = generate_password_hash(pwd)
+
+    def verify_password(self, pwd):
+        return check_password_hash(self.password_hash, pwd)
 
 
 class UserLevel(db.Model):
