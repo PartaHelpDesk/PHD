@@ -10,7 +10,7 @@ class email_service:
 	def sendEmail():
 		mail.send(self.email)
 
-	def build(emailMessage, recieversAddrs, email):
+	def build(emailMessage, recieversAddrs):
 		self.message = emailMessage
 		self.receivers = recieversAddrs
 		self.email = Message(str(self.message), self.senderAddr, self.receivers)
