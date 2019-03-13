@@ -51,3 +51,18 @@ def login():
 </html>
 '''
 
+@frontend.route('/email_test')
+def email_test():
+	return '''
+	<html>
+   <form>
+  Enter Recipient Address:
+  <input type="text" name="rAddr"><br>
+     Enter Email Body:<br>
+     <input type="text" name="rAddr"><br><hr>
+     <input type="submit" value="Submit">
+</form> 
+</html>
+'''
+
+
