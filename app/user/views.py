@@ -19,7 +19,8 @@ def login():
         if not user:
             flash('Login failed, user not found.')
             return redirect(url_for('login'))
-
+        if not user.verify_password(password):
+            flash('Login failed, your password seems wrong.')
     return render_template('login.html')
 
 
