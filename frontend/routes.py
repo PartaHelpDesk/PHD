@@ -1,4 +1,6 @@
 from frontend import frontend
+from frontend.forms import EmailForm
+from flask import render_template
 
 @frontend.route('/')
 @frontend.route('/index')
@@ -53,16 +55,21 @@ def login():
 
 @frontend.route('/email_test')
 def email_test():
+	form = EmailForm()
 	return '''
-	<html>
-   <form>
-  Enter Recipient Address:
-  <input type="text" name="rAddr"><br>
-     Enter Email Body:<br>
-     <input type="text" name="rAddr"><br><hr>
-     <input type="submit" value="Submit">
-</form> 
-</html>
+    <h1>Email Test</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.rAddr.label }}
+            {{ form.rAddr(size=32) }}
+        </p>
+        <p>
+            {{ form.emailBody.label }}<br>
+            {{ form.emailBody(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
 '''
 
 
