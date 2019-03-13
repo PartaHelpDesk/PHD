@@ -1,1 +1,1 @@
-from app import app
+from frontend import frontend

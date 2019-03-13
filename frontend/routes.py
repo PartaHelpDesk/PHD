@@ -1,7 +1,7 @@
-from app import app
+from frontend import frontend
 
-@app.route('/')
-@app.route('/index')
+@frontend.route('/')
+@frontend.route('/index')
 def index():
 	return '''
 <html>
@@ -30,7 +30,7 @@ def index():
 
 '''
 
-@app.route('/login')
+@frontend.route('/login')
 def login():
 	return '''
 <html>
