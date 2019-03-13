@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
+    {% block head %}
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>
+        {% endblock %}
+    </div>
+=======
     <meta charset="UTF-8">
     <style>
         div.main{
@@ -96,5 +109,6 @@
     {% block body %}
     {% endblock %}
 </div>
+>>>>>>> 1b247f07a4cf090013c05afe7db546f4442fbfa6
 </body>
 </html>
