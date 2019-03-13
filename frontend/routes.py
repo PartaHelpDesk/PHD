@@ -51,4 +51,3 @@ def login():
 </html>
 '''
 
-@app.route('email_test')
