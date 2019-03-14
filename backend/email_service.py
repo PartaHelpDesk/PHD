@@ -1,7 +1,7 @@
 from flask_mail import Message
 
 class email_service:
-	def __init__(message, senderAddr, receivers, email):
+	def __init__(self):
 		self.message = ""
 		self.senderAddr = "PartaHelpDesk@gmail.com"
 		self.receivers = []
