@@ -1,6 +1,7 @@
 from frontend import frontend
 from frontend.forms import EmailForm
-from flask import render_template
+from flask import render_template, flash, redirect
+from backend import email_service
 
 @frontend.route('/')
 @frontend.route('/index')
@@ -29,10 +30,14 @@ def login():
 </html>
 '''
 
-@frontend.route('/email_test')
+@frontend.route('/email_test', methods=['GET', 'POST'])
 def email_test():
 	form = EmailForm()
 	user = {'username': 'PHD User'}
+	if form.validate_on_submit():
+		ES = email_service.email_service()
+		#flash('Email sent to {}'.format(form.rAddr.data))
+		return redirect('/index')
 	return render_template('email.html', title='Email Testing', form=form, user=user)
 
 
