@@ -1,4 +1,5 @@
 from frontend import frontend
+from flask import render_template, request
 
 @frontend.route('/')
 @frontend.route('/index')
@@ -30,24 +31,11 @@ def index():
 
 '''
 
-@frontend.route('/login')
+@frontend.route('/login', methods=['GET', 'POST'])
 def login():
-	return '''
-<html>
-<head>
-<title>PHD Login</title>
-</head>
-<body>
+  if request.method == 'GET':
+    return render_template('login.html')
+  else:
+    return request.form
 
-<h1 >PHD Login Page</h1>
- <form>
-  Email:<br>
-  <input type="text" name="Email"><br>
-  Password:<br>
-  <input type="password" name="Password"> <br>
-  <input type="submit" value="Submit">
-</form> 
-</body>
-</html>
-'''
 
