@@ -13,14 +13,17 @@ def main():
 @user_blueprint.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()
         if not user:
             flash('Login failed, user not found.')
-            return redirect(url_for('login'))
+            return redirect(url_for('user.login'))
         if not user.verify_password(password):
             flash('Login failed, your password seems wrong.')
+            return redirect(url_for('user.login'))
+        login_user(user)
+        return redirect(url_for('main.dashboard'))
     return render_template('login.html')
 
 

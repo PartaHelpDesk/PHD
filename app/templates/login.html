@@ -43,9 +43,20 @@
       right: 10px;
       bottom: 10px;
     }
+    .message{
+        width: 1200px;
+        margin: 0 auto;
+    }
+
   </style>
 </head>
 <body>
+
+    <div class="message">
+        {% for msg in get_flashed_messages() %}
+            {{ msg }}
+        {% endfor %}
+    </div>
   <div class="logo">
 
   </div>
@@ -53,12 +64,12 @@
     <form class="login_form" method="post">
       <h3 class="login_title">Please Enter Credentials</h3>
       <label>
-        <input class="input_username" type="text" placeholder=" Username" name="username">
+        <input class="input_username" type="text" placeholder=" Username" name="email">
       </label>
       <label>
-        <input class="input_password" type="password" placeholder=" Password", name="password">
+        <input class="input_password" type="password" placeholder=" Password" name="password">
       </label>
-      <button type="button" class="login_btn">Login</button>
+      <button class="login_btn">Login</button>
     </form>
     <a class="forget" href="#">Forget Password?</a>
   </div>
