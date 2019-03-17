@@ -11,7 +11,7 @@ class Product(BaseConfig):
 
 class Development(BaseConfig):
     SECRET_KEY = 'WelcomePartaHelpDesk'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/partahelpdesk?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://hliu32:123456@120.79.9.56/partahelpdesk?charset=utf8'
 
     DEBUG = True
 

@@ -6,6 +6,8 @@ app.app_context().push()
 
 from app.models import User, Category, Ticket
 
+db.create_all()
+
 db.session.execute("SET FOREIGN_KEY_CHECKS=0")
 # User Generate
 db.session.execute('truncate table users')
