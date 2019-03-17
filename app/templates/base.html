@@ -97,7 +97,7 @@
                 <img id="head-pic" src="{{ url_for('static', filename='images/head_pic.jpg') }}" alt="loading..">
             <div class="dropdown-content">
                 <a href="#">Account</a>
-                <a href="#">Log Out</a>
+                <a href="{{ url_for('user.logout') }}">Log Out</a>
             </div>
             </div>
         </div>

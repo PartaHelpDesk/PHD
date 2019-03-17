@@ -6,7 +6,8 @@
   <style type="text/css">
     .logo{
       width: 280px;
-      height: 300px;
+      height: 320px;
+        padding: 10px;
       background: green;
       margin: 100px auto 140px auto;
     }
@@ -58,7 +59,7 @@
         {% endfor %}
     </div>
   <div class="logo">
-
+      <img width="280px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
   </div>
   <div class="login">
     <form class="login_form" method="post">
