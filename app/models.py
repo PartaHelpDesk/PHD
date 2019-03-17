@@ -27,7 +27,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.VARCHAR(128))
     password_hash = db.Column('password', db.VARCHAR(256), nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    priority = db.Column(db.VARCHAR(128), default="Low", nullable=False)
 
     level_id = db.Column(db.Integer, db.ForeignKey('user_level.id'))
 
@@ -61,13 +60,19 @@ class Ticket(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.VARCHAR(256), nullable=False)
-    created_user_id = db.Column(db.Integer, nullable=False)
-    category = db.Column(db.VARCHAR(256))
+    created_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    # category = db.Column(db.VARCHAR(256))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     status = db.Column(db.VARCHAR(256))
     created_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     closed_date = db.Column(db.DateTime)
     location = db.Column(db.VARCHAR(256))
     description = db.Column(db.VARCHAR(256))
+    priority = db.Column(db.VARCHAR(128), default="Low", nullable=False)
+
+    # relation
+    author = db.relationship('User', primaryjoin=created_user_id==User.id, uselist=False)
+    category = db.relationship('Category', uselist=False, backref='tickets')
 
 
 class TicketHistory(db.Model):
@@ -93,7 +98,7 @@ class Status(db.Model):
     description = db.Column(db.VARCHAR(256))
 
 
-class Categories(db.Model):
+class Category(db.Model):
 
     __tablename__ = 'categories'
 

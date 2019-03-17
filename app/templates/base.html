@@ -17,7 +17,6 @@
             width: 100px;
             height: 100px;
             float: left;
-            border: 1px solid white;
             margin: 20px 20px;
         }
         div.logo:hover{
@@ -26,20 +25,26 @@
         .logo:hover .dropdown-content {
             display: block;
         }
-
+        .head-pic:hover .dropdown-content{
+            display: block;
+        }
+        
         .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
+            color: white;
+            padding: 10px 8px;
             text-decoration: none;
             display: block;
+            border-top: 1px solid rgba(240, 255, 252, 0.99);
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background: green;
+            border-radius: 10px;
+            font-size: 12px;
         }
         div.center{
             float: left;
@@ -88,8 +93,13 @@
 
         <div class="left-nav">
             <label style="color: white;">{{ current_user.first_name }}</label>
-            <img id="head-pic" src="{{ url_for('static', filename='images/head_pic.jpg') }}" alt="loading..">
-
+            <div class="head-pic">
+                <img id="head-pic" src="{{ url_for('static', filename='images/head_pic.jpg') }}" alt="loading..">
+            <div class="dropdown-content">
+                <a href="#">Account</a>
+                <a href="#">Log Out</a>
+            </div>
+            </div>
         </div>
 
     </div>
