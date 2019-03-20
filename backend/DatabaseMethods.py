@@ -1,7 +1,4 @@
-try:
-    import pyodbc
-except ImportError:
-    import odbc as pyodbc
+import pyodbc
     
 class DatabaseMethods:
     server = ''
