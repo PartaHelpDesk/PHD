@@ -35,8 +35,11 @@ def email_test():
 	form = EmailForm()
 	user = {'username': 'PHD User'}
 	if form.validate_on_submit():
-		ES = email_service.email_service()
 		#flash('Email sent to {}'.format(form.rAddr.data))
+		recipients = []
+		recipients.append(form.rAddr.data)
+		print(form.emailBody.data)
+		email_service.send_email(None, "PartaHelpDesk@gmail.com", recipients, form.emailBody.data, None)
 		return redirect('/index')
 	return render_template('email.html', title='Email Testing', form=form, user=user)
 
