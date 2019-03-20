@@ -1,5 +1,5 @@
 import DatabaseMethods
 
-dbm = DatabaseMethods
+dbm = DatabaseMethods.DatabaseMethods()
 
-dbm.getdatatable()
+dbm.GetDataTable()
