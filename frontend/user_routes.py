@@ -1,15 +1,15 @@
 from frontend.models import User
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
-from . import user_blueprint
+from . import frontend
 
 
-@user_blueprint.route('/')
+@frontend.route('/hliu32')
 def main():
-    return redirect(url_for('user.login'))
+    return redirect(url_for('login'))
 
 
-@user_blueprint.route('/login', methods=['POST', 'GET'])
+@frontend.route('/hliu32/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -26,8 +26,8 @@ def login():
     return render_template('login.html')
 
 
-@user_blueprint.route('/logout')
+@frontend.route('/hliu32/logout')
 @login_required
 def logout():
     login_user(current_user)
-    return redirect(url_for('user.login'))
+    return redirect(url_for('login'))
