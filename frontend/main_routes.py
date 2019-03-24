@@ -6,7 +6,7 @@ from .utils import *
 
 @frontend.route('/hliu32/dashboard')
 @login_required
-def dashboard():
+def dashboard_2():
     my_tickets = get_my_tickets()
     tickets_queue = get_tickets_queue()
     return render_template("dashboard.html", my_tickets=my_tickets, tickets_queue=tickets_queue)
@@ -15,4 +15,4 @@ def dashboard():
 @frontend.route('/hliu32')
 @login_required
 def index_2():
-    return redirect(url_for('login'))
+    return redirect(url_for('login_2'))
