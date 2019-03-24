@@ -1,10 +1,10 @@
-from app import create_app, db
+from frontend import create_app, db
 
 app = create_app("dev")
 app.app_context().push()
 
 
-from app.models import User, Category, Ticket
+from frontend.models import User, Category, Ticket
 
 db.create_all()
 

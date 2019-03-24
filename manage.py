@@ -1,7 +1,7 @@
-from app import create_app, db
+from frontend import create_app, db
 from flask_script import Command, Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
-from app.models import User
+from frontend.models import User
 
 
 def make_app_context():
