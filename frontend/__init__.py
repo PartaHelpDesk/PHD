@@ -1,26 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from config import config
+from flask_mail import Mail
 
-db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.login_message = 'Please log in before you do anything else.'
-login_manager.session_protection = 'strong'
-login_manager.login_view = 'user.login'
+frontend = Flask(__name__)
+mail = Mail(frontend)
 
-
-def create_app(config_name='default'):
-
-    # Initialize application
-    app = Flask(__name__)
-    app.config.from_object(config.get(config_name))
-    db.init_app(app)
-    login_manager.init_app(app)
-
-    from frontend.main import main_blueprint
-    app.register_blueprint(main_blueprint)
-
-    from frontend.user import user_blueprint
-    app.register_blueprint(user_blueprint, url_prefix='/user')
-    return app
+from frontend import routes, main_routes, user_routes
+from frontend import initialization

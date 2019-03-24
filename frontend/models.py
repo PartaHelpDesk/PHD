@@ -1,7 +1,7 @@
-from frontend import db
+from frontend.config import db
 from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
-from frontend import login_manager
+from frontend.config import login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 
 

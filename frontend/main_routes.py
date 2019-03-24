@@ -1,18 +1,18 @@
-from . import main_blueprint
+from . import frontend
 from flask import render_template, redirect, url_for
 from flask_login import login_required
-from .service import *
+from .utils import *
 
 
-@main_blueprint.route('/dashboard')
+@frontend.route('/hliu32/dashboard')
 @login_required
-def dashboard():
+def dashboard_2():
     my_tickets = get_my_tickets()
     tickets_queue = get_tickets_queue()
     return render_template("dashboard.html", my_tickets=my_tickets, tickets_queue=tickets_queue)
 
 
-@main_blueprint.route('/')
+@frontend.route('/hliu32')
 @login_required
-def index():
-    return redirect(url_for('user.login'))
+def index_2():
+    return redirect(url_for('login_2'))
