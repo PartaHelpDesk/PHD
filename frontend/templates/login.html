@@ -6,18 +6,18 @@
   <style type="text/css">
     .logo{
       width: 280px;
-      height: 300px;
-      background: green;
+      height: 320px;
+        padding: 10px;
       margin: 100px auto 140px auto;
     }
     .login{
       position: relative;
       width: 660px;
       height: 280px;
-      background: green;
       margin: 0 auto;
       overflow: hidden;
       border-radius: 5px;
+      background: green;
     }
     .login_form{
       width: 300px;
@@ -43,22 +43,33 @@
       right: 10px;
       bottom: 10px;
     }
+    .message{
+        width: 1200px;
+        margin: 0 auto;
+    }
+
   </style>
 </head>
 <body>
-  <div class="logo">
 
+    <div class="message">
+        {% for msg in get_flashed_messages() %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+  <div class="logo">
+      <img width="280px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
   </div>
   <div class="login">
     <form class="login_form" method="post">
       <h3 class="login_title">Please Enter Credentials</h3>
       <label>
-        <input class="input_username" type="text" placeholder=" Username" name="username">
+        <input class="input_username" type="text" placeholder=" Username" name="email">
       </label>
       <label>
-        <input class="input_password" type="password" placeholder=" Password", name="password">
+        <input class="input_password" type="password" placeholder=" Password" name="password">
       </label>
-      <button type="button" class="login_btn">Login</button>
+      <button class="login_btn">Login</button>
     </form>
     <a class="forget" href="#">Forget Password?</a>
   </div>

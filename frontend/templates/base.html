@@ -1,13 +1,115 @@
-<html>
-	<title> {%%block title %%}{%% endblock%%}</title> 
-	<nav>
-		<ul>
-			<div id="icon"> <h1>PHD</h1> </div>
-			<li>Dashbaord</li>
-			<li>New Ticket</li>
-			<li>View All</li>
-			<li>Reports</li>
-			<li>Admin</li>
-		<ul>
-	<nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div.main{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        div.nav{
+            background: green;
+            height: 150px;
+            width: 1000px;
+        }
+        div.logo{
+            background-size: contain;
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 20px 20px;
+        }
+        div.logo:hover{
+            cursor: pointer;
+        }
+        .logo:hover .dropdown-content {
+            display: block;
+        }
+        .head-pic:hover .dropdown-content{
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: white;
+            padding: 10px 8px;
+            text-decoration: none;
+            display: block;
+            border-top: 1px solid rgba(240, 255, 252, 0.99);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background: green;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        div.center{
+            float: left;
+            width: 700px;
+            height: 100px;
+            text-align: center;
+            color: white;
+
+        }
+        div.left-nav{
+            float: right;
+            width: 100px;
+            height: 100%;
+            margin-right: 20px;
+        }
+        #head-pic{
+            width: 100px;
+        }
+        .center h1{
+            margin-top: 50px;
+        }
+
+    </style>
+    <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
+    {% block head %}{{ super() }}{% endblock %}
+</head>
+<body>
+<div class="main">
+    <div class="nav">
+        <div class="logo">
+            <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="LOGO" width="100px" height="100px">
+              <div class="dropdown-content">
+                <a href="#">Dashboard</a>
+                <a href="#">New Ticket</a>
+                <a href="#">View All</a>
+                <a href="#">Reports</a>
+                <a href="#">Admin</a>
+                <a href="#">Users</a>
+                <a href="#">Enumerations</a>
+              </div>
+        </div>
+
+        <div class="center">
+            <h1>Welcome {{ current_user.first_name }} {{ current_user.last_name }}</h1>
+        </div>
+
+        <div class="left-nav">
+            <label style="color: white;">{{ current_user.first_name }}</label>
+            <div class="head-pic">
+                <img id="head-pic" src="{{ url_for('static', filename='images/head_pic.jpg') }}" alt="loading..">
+            <div class="dropdown-content">
+                <a href="#">Account</a>
+                <a href="{{ url_for('user.logout') }}">Log Out</a>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="message">
+        {% for msg in get_flashed_messages() %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
 </html>
