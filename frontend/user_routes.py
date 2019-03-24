@@ -31,3 +31,9 @@ def login_2():
 def logout_2():
     login_user(current_user)
     return redirect(url_for('login_2'))
+
+
+@frontend.route('/hliu32/user')
+@login_required
+def user():
+    return render_template('user.html')

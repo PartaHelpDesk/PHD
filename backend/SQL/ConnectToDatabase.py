@@ -1,11 +1,11 @@
-import pyodbc 
+import pymssql
 server = 'partahelpdeskserver.database.windows.net'
 database = 'PartaHelpDesk'
 username = 'phdadmin'
 password = 'Capstone2019!'
 driver= '{ODBC Driver 13 for SQL Server}'
 
-cnxn = pyodbc.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)
+cnxn = pymssql.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)
 cursor = cnxn.cursor()
 
 cursor.execute("SELECT username, email FROM users")
