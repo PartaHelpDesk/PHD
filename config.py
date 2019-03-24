@@ -4,7 +4,7 @@ class BaseConfig:
 
 class Product(BaseConfig):
     SECRET_KEY = 'Lp7dZry7DcURWMoG'
-    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://phdadmin@partahelpdeskserver:Capstone2019!@partahelpdeskserver.database.windows.net/@PartaHelpDesk'
+    SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://phdadmin@partahelpdeskserver:Capstone2019!@partahelpdeskserver.database.windows.net:1433/PartaHelpDesk'
 
     DEBUG = False
 

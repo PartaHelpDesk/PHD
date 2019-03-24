@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block head %}
+    <style>
+    .ticket_queue table{
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .ticket_queue h3{
+        text-align: center;
+    }
+
+    div.table-head{
+        width: 800px;
+        margin: 0 auto;
+    }
+
+
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="ticket_queue">
+        <div class="table-head">
+            <h3>Active Users</h3>
+            <div class="new-user-btn">
+                <button>Add New User</button>
+            </div>
+        </div>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Level</td>
+                    <td>Username</td>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Commands</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in actives %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.level }}</td>
+                        <td>{{ t.username }}</td>
+                        <td>{{ t.first_name + ' ' + t.last_name }}</td>
+                        <td>{{ t.email }}</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Deactive</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        <h3>Inactive Users</h3>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Level</td>
+                    <td>Username</td>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Commands</td>
+                </tr>
+            </thead>
+        <tbody>
+            {% for t in inactives %}
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.level }}</td>
+                    <td>{{ t.username }}</td>
+                    <td>{{ t.first_name + ' ' + t.last_name }}</td>
+                    <td>{{ t.email }}</td>
+                    <td>
+                        <button>active</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

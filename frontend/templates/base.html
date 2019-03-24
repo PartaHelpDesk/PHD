@@ -8,7 +8,7 @@
             margin: 0 auto;
         }
         div.nav{
-            background: green;
+            background: rgb(1, 79, 40);
             height: 150px;
             width: 1000px;
         }
@@ -18,6 +18,8 @@
             height: 100px;
             float: left;
             margin: 20px 20px;
+            background: white;
+            border-radius: 5px;
         }
         div.logo:hover{
             cursor: pointer;
@@ -42,14 +44,14 @@
             position: absolute;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            background: green;
+            background: rgb(1, 79, 40);
             border-radius: 10px;
             font-size: 12px;
         }
         div.center{
             float: left;
             width: 700px;
-            height: 100px;
+            height: 100pDx;
             text-align: center;
             color: white;
 
@@ -67,6 +69,47 @@
             margin-top: 50px;
         }
 
+    button{
+        background-color: rgb(1, 79, 40);
+        color: rgb(227, 204, 4);
+        border-radius: 5px;
+        border: 0;
+        padding: 8px;
+        margin: 2px;
+        outline: none;
+    }
+
+    button:hover{
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+
+    .table thead tr{
+        background-color: rgb(1, 79, 40);
+        border: 0;
+        border-radius: 8px;
+    }
+
+    .table{
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid black;
+    }
+
+    .table td{
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    .table tbody tr:nth-child(odd){
+        background-color: rgb(189, 189, 189);
+    }
+
+    .table thead{
+        color: white;
+        font-weight: bold;
+    }
+
     </style>
     <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
     {% block head %}{{ super() }}{% endblock %}
@@ -77,12 +120,12 @@
         <div class="logo">
             <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="LOGO" width="100px" height="100px">
               <div class="dropdown-content">
-                <a href="#">Dashboard</a>
+                <a href="{{ url_for('dashboard_2') }}">Dashboard</a>
                 <a href="#">New Ticket</a>
                 <a href="#">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>
-                <a href="#">Users</a>
+                <a href="{{ url_for('user_2') }}">Users</a>
                 <a href="#">Enumerations</a>
               </div>
         </div>
