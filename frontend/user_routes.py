@@ -2,6 +2,7 @@ from frontend.models import User
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from . import frontend
+from frontend.utils import *
 
 
 @frontend.route('/hliu32')
@@ -35,5 +36,7 @@ def logout_2():
 
 @frontend.route('/hliu32/user')
 @login_required
-def user():
-    return render_template('user.html')
+def user_2():
+    actives = get_active_users()
+    inactives = get_inactive_users()
+    return render_template('user.html', actives=actives, inactives=inactives)
