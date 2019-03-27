@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.VARCHAR(128))
     email = db.Column(db.VARCHAR(128))
     password_hash = db.Column('password', db.VARCHAR(256), nullable=False)
-    active = db.Column(db.Boolean, nullable=False)
+    active = db.Column(db.Boolean, nullable=False, default=1)
 
     level_id = db.Column(db.Integer, db.ForeignKey('user_level.id'))
 
