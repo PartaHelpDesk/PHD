@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block head %}
+    <style>
+    h3{
+        text-align: center;
+    }
+    table tbody tr td:nth-child(1){
+        background-color: rgb(1, 79, 40);
+        color: white;
+        text-align: right;
+    }
+    .table-container{
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    table{
+        width: 100%;
+    }
+
+    table tr{
+        height: 30px;
+    }
+
+    input[type='text']{
+        width: 90%;
+    }
+
+    div.submit{
+        text-align: center;
+    }
+
+
+
+    </style>
+{% endblock %}
+{% block body %}
+    <h3>Edit User {{ u.id }}</h3>
+    <form action="" method="post">
+    <div class="table-container">
+    <table border="1" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td>{{ u.id }}</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" value="{{ u.first_name }}" name="first_name"></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" value="{{ u.last_name }}" name="last_name"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" value="{{ u.email }}" name="email"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="submit">
+        <button type="submit">Save</button>
+    </div>
+    </div>
+    </form>
+{% endblock %}
