@@ -100,7 +100,7 @@ def deactive_2(id):
     user.active = 0
     db.session.commit()
     flash("Successfully deactive user {} {}!".format(user.first_name, user.last_name))
-    return redirect(url_for("user_2"))
+    return "ok"
 
 
 @frontend.route("/hliu32/active/<int:id>", methods=["POST"])
@@ -114,4 +114,4 @@ def active_2(id):
     user.active = 1
     db.session.commit()
     flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
-    return redirect(url_for("user_2"))
+    return "ok"

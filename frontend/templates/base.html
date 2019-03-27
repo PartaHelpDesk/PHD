@@ -111,6 +111,13 @@
         font-weight: bold;
     }
 
+    div.message{
+        background-color: rgb(159, 240, 72);
+        border-radius: 5px;
+        margin-top: 5px;
+        padding: 10px;
+    }
+
     </style>
     <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
     {% block head %}{{ super() }}{% endblock %}
@@ -147,11 +154,14 @@
         </div>
 
     </div>
-    <div class="message">
         {% for msg in get_flashed_messages() %}
-            {{ msg }}
+        <div class="message">
+                {{ msg }}
+        </div>
         {% endfor %}
-    </div>
+    <script>
+        setTimeout("$('div.message').slideUp();", 3000)
+    </script>
     {% block body %}
     {% endblock %}
 </div>
