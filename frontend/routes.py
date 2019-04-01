@@ -1,5 +1,5 @@
 from frontend import frontend
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 
 @frontend.route('/')
 @frontend.route('/index')
@@ -33,9 +33,21 @@ def index():
 
 @frontend.route('/login', methods=['GET', 'POST'])
 def login():
-  if request.method == 'GET':
-    return render_template('login.html')
-  else:
-    return request.form
+  if request.method == 'POST':
+    
+    username = request.form['username']
+    password = request.form['password']
+    error = None
+
+    if not username:
+      error = 'Must enter username'
+    elif not password:
+      error = 'Must enter password'
+    if error is None:
+      return redirect(url_for('dashboard'))   
+  return render_template('login.html')
 
 
+@frontend.route('/dashboard', methods=['GET','POST'])
+def dashboard():
+  return render_template('dashboard.html')
