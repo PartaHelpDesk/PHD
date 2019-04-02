@@ -1,6 +1,6 @@
+
 import pyodbc
 from array import *
-    
 
 class DatabaseMethods:
     server = ''
@@ -14,7 +14,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 10 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params):
          #connect to DB
@@ -30,7 +30,7 @@ class DatabaseMethods:
         return cursor
 
     def Test(self):
-        cnxn = pyodbc.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
+        cnxn = pymssql.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
         cursor = cnxn.cursor()
 
         cursor.execute("SELECT * FROM users")
@@ -41,6 +41,7 @@ class DatabaseMethods:
 
     def GetValue(self, sqlstring, params):
         cursor = DatabaseMethods.ExecuteSql(self, sqlstring, params)
+
 
         result = cursor.fetchone()
 
