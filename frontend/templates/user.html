@@ -60,7 +60,7 @@
                         <td>{{ t.email }}</td>
                         <td>
                             <button><a href="{{ url_for('edit_user_2', id=t.id) }}">Edit</a></button>
-                            <button id="deactive_user" post_url="{{ url_for('deactive_2', id=t.id) }}" user_id="{{ t.id }}">Deactive</button>
+                            <button id="deactive_user" post_url="{{ url_for('deactive_2', id=t.id) }}" user_id="{{ t.id }}">Deactivate</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -88,7 +88,7 @@
                     <td>{{ t.first_name + ' ' + t.last_name }}</td>
                     <td>{{ t.email }}</td>
                     <td>
-                        <button id="active_user" post_url="{{ url_for('active_2', id=t.id) }}">active</button>
+                        <button id="active_user" post_url="{{ url_for('active_2', id=t.id) }}">Activate</button>
                     </td>
                 </tr>
             {% endfor %}
