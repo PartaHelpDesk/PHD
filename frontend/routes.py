@@ -54,6 +54,7 @@ def create_ticket():
 		recipients.append('minusben@gmail.com')
 		print(form.ticketDescription.data)
 		tSubject = 'TicketTester'
-		email_service.send_email(tSubject, "PartaHelpDesk@gmail.com", recipients, form.ticketDescription.data, None)
+		emailMessage = email_service.format_email(form.department.data,form.ticketDate.data,form.ticketDescription.data)
+		email_service.send_email(tSubject, "PartaHelpDesk@gmail.com", recipients, emailMessage, None)
 		return redirect('/index')
 	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)

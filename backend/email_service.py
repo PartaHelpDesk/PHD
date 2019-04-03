@@ -16,6 +16,14 @@ from frontend import mail
 		#self.receivers = recieversAddrs
 		#self.email = Message(str(self.message), self.senderAddr, self.receivers)
 
+def format_email(department, date, description):
+	result = '' 
+	result += ('Department:\t\t' + department + '\n\n')
+	result += ('Date:\t\t' + date + '\n\n')
+	result += ('What\'s the problem?:\n' + description + '\n\n')
+	return result
+
+
 def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
