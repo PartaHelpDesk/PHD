@@ -14,7 +14,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 10 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params):
          #connect to DB
