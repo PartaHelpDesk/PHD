@@ -35,7 +35,6 @@ def email_test():
 	form = EmailForm()
 	user = {'username': 'PHD User'}
 	if form.validate_on_submit():
-		#flash('Email sent to {}'.format(form.rAddr.data))
 		recipients = []
 		recipients.append(form.rAddr.data)
 		print(form.emailBody.data)
@@ -49,7 +48,6 @@ def create_ticket():
 	form =  TicketForm()
 	user = {'username' : 'PHD User'}
 	if form.validate_on_submit():
-		#flash('Email sent to {}'.format(form.rAddr.data))
 		recipients = []
 		recipients.append('minusben@gmail.com')
 		print(form.ticketDescription.data)
