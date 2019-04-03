@@ -1,14 +1,76 @@
-{% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}
+    Dashborad
+{% endblock %}
+
 {% block head %}
-    {{ super() }}
-    <style type="text/css">
-        .important { color: #336699; }
+    <style>
+    .ticket_queue table{
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .ticket_queue h3{
+        text-align: center;
+    }
+
     </style>
 {% endblock %}
-{% block content %}
-    <h1>Dashboard</h1>
-    <p class="important">
-      Welcome to our dashboard page
-    </p>
+{% block body %}
+    <div class="ticket_queue">
+        <h3>Ticket Queue</h3>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+            <thead>
+                <tr>
+                    <td>Ticket</td>
+                    <td>Status</td>
+                    <td>Created</td>
+                    <td>Category</td>
+                    <td>Title</td>
+                    <td>Priority</td>
+                    <td>Author</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tickets_queue %}
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.status }}</td>
+                    <td>{{ t.created_date }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.priority }}</td>
+                    <td>{{ t.author.first_name }}</td>
+                    <td>{{ t.description }}</td>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        <h3>My Ticket</h3>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+            <thead>
+                <tr>
+                    <td>Ticket</td>
+                    <td>Status</td>
+                    <td>Created</td>
+                    <td>Category</td>
+                    <td>Title</td>
+                    <td>Priority</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in my_tickets %}
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.status }}</td>
+                    <td>{{ t.created_date }}</td>
+                    <td>{{ t.category.description }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.priority }}</td>
+                    <td>{{ t.description }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
