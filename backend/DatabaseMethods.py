@@ -71,6 +71,8 @@ class DatabaseMethods:
         
         return results
 
+    def GetITEmails(self):
+        return DatabaseMethods.GetDataTable(self, "SELECT Email from Users WHERE [Level] in (2,3)", None)
         
 
         # while row:
