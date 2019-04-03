@@ -1,5 +1,5 @@
 from frontend import frontend
-from frontend.forms import EmailForm
+from frontend.forms import EmailForm, TicketForm
 from flask import render_template, flash, redirect
 from backend import email_service
 
@@ -46,46 +46,14 @@ def email_test():
 
 @frontend.route('/create_ticket', methods=['GET', 'POST'])
 def create_ticket():
-	return '''
-	<html>
-<style>
-.content {
-  max-width: 500px;
-  margin: auto;
-}
-  
-#tickForm {
-  display: none;
-  align: center;
-}
-  
- #f1 {
-   width: 100%;
-   align: center;
-}
-  
-</style>
-<body class="content">
-<h1>Create a Ticket Test:</h1>
-<button onclick="startTicket()">Start a Ticket</button><br><br>
-<div id="tickForm">
-<form>
-  <fieldset id="f1">
-    <legend>Ticket Information</legend>
-  </fieldset>
-  </form>
-</div>
-</body>
-<script>
-function startTicket() {
-  var x = document.getElementById("tickForm");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
-</script>
-</html>
- '''
-
+	form =  TicketForm()
+	user = {'username' : 'PHD User'}
+	if form.validate_on_submit():
+		#flash('Email sent to {}'.format(form.rAddr.data))
+		recipients = []
+		recipients.append('minusben@gmail.com')
+		print(form.ticketDescription.data)
+		tSubject = 'TicketTester'
+		email_service.send_email(tSubject, "PartaHelpDesk@gmail.com", recipients, form.ticketDescription.data, None)
+		return redirect('/index')
+	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)
