@@ -30,7 +30,7 @@ class DatabaseMethods:
         return cursor
 
     def Test(self):
-        cnxn = pymssql.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
+        cnxn = pyodbc.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
         cursor = cnxn.cursor()
 
         cursor.execute("SELECT * FROM users")
@@ -71,6 +71,8 @@ class DatabaseMethods:
         
         return results
 
+    def GetITEmails(self):
+        return DatabaseMethods.GetDataTable(self, "SELECT Email from Users WHERE [Level] in (2,3)", None)
         
 
         # while row:
