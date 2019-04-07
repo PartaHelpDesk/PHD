@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <style>
+{% endblock %}
+<style>
     div.container {
         margin: 0 auto;
-        width: 300px;
-    }
-    table tr td:nth-child(1){
-        text-align: right;
+        width: 600px;
     }
     h3{
-        text-align: center;
+    text-align: center;
     }
-    </style>
-{% endblock %}
+    table{
+        width: 100%;
+    }
+    table tbody tr td:nth-child(1){
+        background-color: rgb(1, 79, 40);
+        color: white;
+        text-align: right;
+        width: 100px;
+        height: 32px;
+    }
+</style>
 
 {% block body %}
 <div class="container">
@@ -21,7 +28,7 @@
         <h3>Ticket Details</h3>
         <button onclick="location.href='{{ url_for("update_ticket", ticket_id=t.id) }}'">update</button>
         <button onclick="location.href='{{ url_for("edit_ticket", ticket_id=t.id) }}'">edit</button>
-        <table>
+        <table border="1" cellspacing="0">
             <tr>
                 <td>Register:</td>
                 <td>{{ t.register }}</td>
