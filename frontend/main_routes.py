@@ -51,3 +51,9 @@ def edit_ticket(ticket_id):
     categories = Category.query.all()
     return render_template("edit_ticket.html", t=ticket, status=status, categories=categories)
 
+
+@frontend.route("/hliu32/view_all")
+@login_required
+def view_all():
+    tickets = Ticket.query.all()
+    return render_template("view_all.html", tickets=tickets)
