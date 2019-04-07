@@ -37,7 +37,6 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <h1>My Account</h1>
         <p class="important">
           Welcome to your account page.
         </p>
@@ -49,7 +48,7 @@
                 Your Account
             </div>
             <div class="btn-float">
-                <button>edit</button>
+                <button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button>
             </div>
         </div>
         <div class="account_info">

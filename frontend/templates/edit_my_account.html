@@ -47,23 +47,29 @@
         <tbody>
             <tr>
                 <td>First Name</td>
-                <td><input type="text" value="" name="first_name"></td>
+                <td><input type="text" value="{{ current_user.first_name }}" name="first_name"></td>
             </tr>
             <tr>
                 <td>Last Name</td>
-                <td><input type="text" value="" name="last_name"></td>
+                <td><input type="text" value="{{ current_user.last_name }}" name="last_name"></td>
             </tr>
             <tr>
                 <td>Username</td>
-                <td><input type="text" value="" name="username"></td>
+                <td><input type="text" value="{{ current_user.username }}" name="username"></td>
             </tr>
             <tr>
                 <td>Email Address</td>
-                <td><input type="text" value="" name="email_address"></td>
+                <td><input type="text" value="{{ current_user.email }}" name="email_address"></td>
             </tr>
             <tr>
                 <td>Department</td>
-                <td><input type="text" value="" name="department"></td>
+                <td>
+                    <select name="new_status" id="">
+                        {% for s in departments %}
+                            <option value="{{ s.description }}" {% if current_user.department==s %}selected="selected"{% endif %}>{{ s.description }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Password</td>
@@ -72,7 +78,7 @@
         </tbody>
     </table>
     <div class="submit">
-        <button type="submit" style="width: 100px; margin-top: 8px;">Add</button>
+        <button type="submit" style="width: 100px; margin-top: 8px;">save</button>
     </div>
     </div>
     </form>

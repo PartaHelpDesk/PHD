@@ -122,3 +122,19 @@ def active_2(id):
 def account():
 
     return render_template("account.html")
+
+
+@frontend.route("/hliu32/edit_account", methods=["POST", "GET"])
+@login_required
+def edit_my_account():
+    if request.method == "POST":
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        email = request.form.get("email_address")
+        password = request.form.get("password")
+        username = request.form.get("username")
+        department = request.form.get("department")
+        flash("Successfully save your information!")
+        return redirect("account")
+
+    return render_template("edit_my_account.html")
