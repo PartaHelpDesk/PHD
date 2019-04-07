@@ -24,8 +24,8 @@ PRIMARY KEY CLUSTERED
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Tickets](
 	[TicketID] [int] IDENTITY(1,1) NOT NULL,
-	[Category] [int] NOT NULL,
 	[Title] [varchar](128) NOT NULL,
+	[Category] [int] NOT NULL,
 	[CreatedUserID] [int] NOT NULL,
 	[Status] [int] NOT NULL,
 	[CreateDate] [datetime] DEFAULT GETDATE(),

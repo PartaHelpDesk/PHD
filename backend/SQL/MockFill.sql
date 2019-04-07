@@ -73,4 +73,20 @@ VALUES
 ('tnaungay', 1, 'Taylor', 'Naungayan','tnaungay@kent.edu', 'password', 1),
 ('administrator', 1, 'Administrator', '','administrator@partaonline.org', 'password', 1)
 
+
+INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description])
+VALUES
+('Test Title 0',0,65,0,2,1,'Test Description 0'),
+('Test Title 1',1,65,0,2,1,'Test Description 1'),
+('Test Title 2',2,65,0,2,1,'Test Description 2'),
+('Test Title 3',3,65,0,2,1,'Test Description 3'),
+('Test Title 4',4,65,0,2,1,'Test Description 4')
+
 --Categories
+INSERT INTO Categories 
+VALUES
+('Harware'),
+('Software'),
+('Network'),
+('Phone Server'),
+('Login')
