@@ -44,6 +44,7 @@
                     <td>{{ t.priority }}</td>
                     <td>{{ t.author.first_name }}</td>
                     <td>{{ t.description }}</td>
+                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button></td>
                 {% endfor %}
             </tbody>
 
@@ -59,6 +60,7 @@
                     <td>Title</td>
                     <td>Priority</td>
                     <td>Description</td>
+                    <td>Commands</td>
                 </tr>
             </thead>
             <tbody>
@@ -70,6 +72,9 @@
                     <td>{{ t.title }}</td>
                     <td>{{ t.priority }}</td>
                     <td>{{ t.description }}</td>
+                    <td>
+                        <button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button>
+                    </td>
                 {% endfor %}
             </tbody>
         </table>

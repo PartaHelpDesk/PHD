@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <style>
+    div.container {
+        margin: 0 auto;
+        width: 300px;
+    }
+    table tr td:nth-child(1){
+        text-align: right;
+    }
+    h3{
+        text-align: center;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="ticket_detail">
+        <h3>Ticket Details</h3>
+        <button>update</button>
+        <button>edit</button>
+        <table>
+            <tr>
+                <td>Register:</td>
+                <td>{{ t.register }}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{ t.category.description }}</td>
+            </tr>
+            <tr>
+                <td>last_modified:</td>
+                <td>{{ t.last_modified }}</td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td>{{ t.status }}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{ t.description }}</td>
+            </tr>
+        </table>
+        <hr>
+    </div>
+    <div class="ticket_comment">
+        comments({{ t.comments.__len__() }})<br>
+        Developing...
+    </div>
+</div>
+{% endblock %}
