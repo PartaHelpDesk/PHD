@@ -2,8 +2,12 @@ import DatabaseMethods
 
 dbm = DatabaseMethods.DatabaseMethods()
 
-#dbm.Test()
-
-name = dbm.GetValue("SELECT username from users where FirstName = 'taylr'", None)
+name = dbm.GetValue("SELECT username from users where FirstName = 'taylor'", None)
 print(name)
-#dbm.GetDataTable("Select * from users", 4)
+
+result = dbm.GetDataTable("SELECT * FROM Users", None)
+i = 0
+while i < len(result):
+    print(result[i])
+    i = i + 1
+

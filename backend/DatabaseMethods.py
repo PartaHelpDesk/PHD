@@ -1,5 +1,7 @@
-import pymssql
-    
+
+import pyodbc
+from array import *
+
 class DatabaseMethods:
     server = ''
     database = ''
@@ -12,10 +14,23 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 10 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
+
+    def ExecuteSql(self, sqlstring, params):
+         #connect to DB
+        cnxn = pyodbc.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
+        cursor = cnxn.cursor()
+        
+        #If user has params use them
+        if params is not None:
+            cursor.execute(sqlstring, params)
+        else:
+            cursor.execute(sqlstring)
+
+        return cursor
 
     def Test(self):
-        cnxn = pymssql.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
+        cnxn = pyodbc.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
         cursor = cnxn.cursor()
 
         cursor.execute("SELECT * FROM users")
@@ -25,15 +40,8 @@ class DatabaseMethods:
             row = cursor.fetchone()
 
     def GetValue(self, sqlstring, params):
-        #connect to DB
-        cnxn = pymssql.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
-        cursor = cnxn.cursor()
-        
-        #If user has params use them
-        if params is not None:
-            cursor.execute(sqlstring, params)
-        else:
-            cursor.execute(sqlstring)
+        cursor = DatabaseMethods.ExecuteSql(self, sqlstring, params)
+
 
         result = cursor.fetchone()
 
@@ -41,15 +49,31 @@ class DatabaseMethods:
         if result is None:
             return None
         else:
-            return result[0]    
+            return result[0] 
+        
+        cursor.close()
+           
       
       
 
-    def GetDataTable(self, sqlstring, columncount):
-        cnxn = pymssql.connect('DRIVER='+self.driver+';PORT=1433;SERVER='+self.server+';PORT=1443;DATABASE='+self.database+';UID='+self.username+';PWD='+ self.password)
-        cursor = cnxn.cursor()
+    def GetDataTable(self, sqlstring, params):
+        cursor = DatabaseMethods.ExecuteSql(self, sqlstring, params)
+
+        #make a 2D array
+        columns = [column[0] for column in cursor.description]
+
+
+        results  = []
+        for row in cursor.fetchall():
+            results.append(dict(zip(columns, row)))
+
+
         
-        cursor.execute(sqlstring)
+        return results
+
+    def GetITEmails(self):
+        return DatabaseMethods.GetDataTable(self, "SELECT Email from Users WHERE [Level] in (2,3)", None)
+        
 
         # while row:
         #     i = 0

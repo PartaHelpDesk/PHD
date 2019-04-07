@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Users
+    Edit Your Account
 {% endblock %}
 
 {% block head %}
@@ -40,15 +40,11 @@
     </style>
 {% endblock %}
 {% block body %}
-    <h3>Edit User {{ u.id }}</h3>
+    <h3>Edit Your Account</h3>
     <form action="" method="post">
     <div class="table-container">
     <table border="1" cellspacing="0">
         <tbody>
-            <tr>
-                <td>Id</td>
-                <td>{{ u.id }}</td>
-            </tr>
             <tr>
                 <td>First Name</td>
                 <td><input type="text" value="" name="first_name"></td>
@@ -76,7 +72,7 @@
         </tbody>
     </table>
     <div class="submit">
-        <button type="submit">Save</button>
+        <button type="submit" style="width: 100px; margin-top: 8px;">Add</button>
     </div>
     </div>
     </form>
