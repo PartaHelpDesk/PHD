@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Update Ticket{% endblock %}
+
+{% block head %}
+    <style>
+    div.update_detail{
+        margin: 20px auto 0 auto;
+        width: 400px;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="update_detail">
+        <h3>Update Ticket {{ t.id }}</h3>
+        <form action="">
+            <table>
+                <tr>
+                    <td>New Status: </td>
+                    <td>
+                        <select name="new_status" id="">
+                            {% for s in status %}
+                                <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>{{ s.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comment: </td>
+                    <td>
+                        <textarea name="new_comment" id="" cols="30" rows="10"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+{% endblock %}
