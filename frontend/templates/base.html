@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,7 +98,7 @@
         border: 1px solid black;
     }
 
-    .table td{
+    .table td,th{
         border-right: 1px solid black;
         border-bottom: 1px solid black;
     }
@@ -130,7 +131,7 @@
               <div class="dropdown-content">
                 <a href="{{ url_for('dashboard_2') }}">Dashboard</a>
                 <a href="#">New Ticket</a>
-                <a href="#">View All</a>
+                <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>
                 <a href="{{ url_for('user_2') }}">Users</a>
@@ -147,7 +148,7 @@
             <div class="head-pic">
                 <img id="head-pic" src="{{ url_for('static', filename='images/icon logo.png') }}" alt="loading..">
             <div class="dropdown-content">
-                <a href="#">Account</a>
+                <a href="{{ url_for('account') }}">Account</a>
                 <a href="{{ url_for('logout_2') }}">Log Out</a>
             </div>
             </div>

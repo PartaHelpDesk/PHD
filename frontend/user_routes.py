@@ -115,3 +115,26 @@ def active_2(id):
     db.session.commit()
     flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
     return "ok"
+
+
+@frontend.route("/hliu32/account")
+@login_required
+def account():
+
+    return render_template("account.html")
+
+
+@frontend.route("/hliu32/edit_account", methods=["POST", "GET"])
+@login_required
+def edit_my_account():
+    if request.method == "POST":
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        email = request.form.get("email_address")
+        password = request.form.get("password")
+        username = request.form.get("username")
+        department = request.form.get("department")
+        flash("Successfully save your information!")
+        return redirect("account")
+
+    return render_template("edit_my_account.html")

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}My Account{% endblock %}
+{% block head %}
+    <style type="text/css">
+    .important { color: #336699; }
+    table tbody tr td:nth-child(1){
+        background-color: rgb(1, 79, 40);
+        color: white;
+        text-align: right;
+    }
+
+    img#avatar{
+        width: 64px;
+        height: 64px;
+    }
+    div.container{
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    table{
+        width: 100%;
+    }
+
+    div.btn-float{float: right;}
+
+    div.avatar{float:left;}
+
+    div.title{
+        padding-top: 10px;
+        text-align: center;
+        width: 500px;
+        float: left;
+    }
+
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <p class="important">
+          Welcome to your account page.
+        </p>
+        <div class="header">
+            <div class="avatar">
+                <img src="{{ url_for('static', filename='images/icon logo.png') }}" alt="avatar" id="avatar">
+            </div>
+            <div class="title">
+                Your Account
+            </div>
+            <div class="btn-float">
+                <button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button>
+            </div>
+        </div>
+        <div class="account_info">
+            <table border="1" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ current_user.first_name + " " + current_user.last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{ current_user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ current_user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Department</td>
+                    <td>{{ current_user.department }}</td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>******</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
