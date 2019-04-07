@@ -2,7 +2,7 @@ from . import frontend
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required
 from .utils import *
-from frontend.models import Status
+from frontend.models import Status, Category
 
 
 @frontend.route('/hliu32/dashboard')
@@ -47,5 +47,7 @@ def edit_ticket(ticket_id):
     ticket = Ticket.query.get(ticket_id)
     if not ticket:
         abort(404)
-    return render_template("edit_ticket.html", t=ticket)
+    status = Status.query.all()
+    categories = Category.query.all()
+    return render_template("edit_ticket.html", t=ticket, status=status, categories=categories)
 
