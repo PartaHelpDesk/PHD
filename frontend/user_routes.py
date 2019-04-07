@@ -115,3 +115,10 @@ def active_2(id):
     db.session.commit()
     flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
     return "ok"
+
+
+@frontend.route("/hliu32/account")
+@login_required
+def account():
+
+    return render_template("account.html")
