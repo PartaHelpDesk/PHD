@@ -66,7 +66,15 @@
                 <td>
                     <select name="new_status" id="">
                         {% for s in departments %}
-                            <option value="{{ s.description }}" {% if current_user.department==s %}selected="selected"{% endif %}>{{ s.description }}</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Scheduling</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Administration</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Planning</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Human Resources</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Maintenance</option>
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Operations</option>
                         {% endfor %}
                     </select>
                 </td>
