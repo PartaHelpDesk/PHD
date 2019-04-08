@@ -63,7 +63,11 @@
             </tr>
             <tr>
                 <td>Department:</td>
-                <td><input type="text" value="" name="department"></td>
+                <td><select name="department" id="">
+                    {% for s in department %}
+                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>{{ s.department }}</option>
+                    {% endfor %}
+                </select></td>
             </tr>
             <tr>
                 <td>Password:</td>
