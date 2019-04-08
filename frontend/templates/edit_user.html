@@ -69,7 +69,15 @@
                 <td>Department:</td>
                 <td><select name="department" id="">
                     {% for s in department %}
-                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>{{ s.department }}</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Scheduling</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Administration</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Planning</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Human Resources</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Maintenance</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Operations</option>
                     {% endfor %}
                 </select></td>
             </tr>
