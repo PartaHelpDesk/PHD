@@ -27,6 +27,7 @@
                 <th>Category</th>
                 <th>Last Modified</th>
                 <th>Status</th>
+                <th>Commands</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
                     <td>{{ t.category.description }}</td>
                     <td>{{ t.last_modified }}</td>
                     <td>{{ t.status }}</td>
+                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button></td>
                 </tr>
             {% endfor %}
         </tbody>
