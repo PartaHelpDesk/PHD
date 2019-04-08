@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import frontend
 from frontend.utils import *
+from backend import DatabaseMethods, Datatable, DataRow
 
 
 @frontend.route('/hliu32')
@@ -15,14 +16,15 @@ def login_2():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if not user:
+        dbm = DatabaseMethods.DatabaseMethods()
+        db_password = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?",(email))
+        
+        if db_password == password:
+            flash('password match')
+            return redirect(url_for('dashboard_2'))
+        else:
             flash('Login failed, user not found.')
-            return redirect(url_for('login_2'))
-        if not user.verify_password(password):
-            flash('Login failed, your password seems wrong.')
-            return redirect(url_for('login_2'))
-        login_user(user)
+            return redirect(url_for('login_2'))    
         return redirect(url_for('dashboard_2'))
     return render_template('login.html')
 

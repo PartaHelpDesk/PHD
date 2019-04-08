@@ -1,4 +1,6 @@
-import pyodbc, Datatable, DataRow
+import pyodbc #, DatabaseMethods, Datatable, DataRow #DEBUG
+from backend import Datatable #SERVER
+from backend import DataRow #SERVER
 from array import *
 
 class DatabaseMethods:
