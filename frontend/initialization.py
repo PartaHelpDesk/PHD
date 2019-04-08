@@ -14,4 +14,4 @@ login_manager.login_view = 'login_2'
 # load config
 frontend.config.from_object(config.get('dev'))
 
-from frontend import models
+import models

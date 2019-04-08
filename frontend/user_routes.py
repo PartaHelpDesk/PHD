@@ -5,12 +5,12 @@ from . import frontend
 from frontend.utils import *
 
 
-@frontend.route('/hliu32')
+@frontend.route('/')
 def main_2():
     return redirect(url_for('login_2'))
 
 
-@frontend.route('/hliu32/login', methods=['POST', 'GET'])
+@frontend.route('/login', methods=['POST', 'GET'])
 def login_2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -27,14 +27,14 @@ def login_2():
     return render_template('login.html')
 
 
-@frontend.route('/hliu32/logout')
+@frontend.route('/logout')
 @login_required
 def logout_2():
     login_user(current_user)
     return redirect(url_for('login_2'))
 
 
-@frontend.route('/hliu32/user')
+@frontend.route('/user')
 @login_required
 def user_2():
     actives = get_active_users()
@@ -42,7 +42,7 @@ def user_2():
     return render_template('user.html', actives=actives, inactives=inactives)
 
 
-@frontend.route('/hliu32/add_user', methods=["POST", "GET"])
+@frontend.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user_2():
 
@@ -64,7 +64,7 @@ def add_user_2():
     return render_template('add_user.html')
 
 
-@frontend.route("/hliu32/edit_user/<int:id>", methods=["POST", "GET"])
+@frontend.route("/edit_user/<int:id>", methods=["POST", "GET"])
 @login_required
 def edit_user_2(id):
     user = User.query.get(id)
@@ -89,7 +89,7 @@ def edit_user_2(id):
     return render_template("edit_user.html", u=user)
 
 
-@frontend.route("/hliu32/deactive/<int:id>", methods=["POST"])
+@frontend.route("/deactive/<int:id>", methods=["POST"])
 @login_required
 def deactive_2(id):
 
@@ -103,7 +103,7 @@ def deactive_2(id):
     return "ok"
 
 
-@frontend.route("/hliu32/active/<int:id>", methods=["POST"])
+@frontend.route("/active/<int:id>", methods=["POST"])
 @login_required
 def active_2(id):
 

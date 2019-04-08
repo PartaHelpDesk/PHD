@@ -4,7 +4,7 @@ from flask_login import login_required
 from .utils import *
 
 
-@frontend.route('/hliu32/dashboard')
+@frontend.route('/dashboard')
 @login_required
 def dashboard_2():
     my_tickets = get_my_tickets()
