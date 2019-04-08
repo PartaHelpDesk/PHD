@@ -26,19 +26,19 @@
 <div class="container">
     <div class="ticket_detail">
         <h3>Ticket Details</h3>
-        <button onclick="location.href='{{ url_for("update_ticket", ticket_id=t.id) }}'">update</button>
-        <button onclick="location.href='{{ url_for("edit_ticket", ticket_id=t.id) }}'">edit</button>
+        <button onclick="location.href='{{ url_for("update_ticket", ticket_id=t.id) }}'">Update</button>
+        <button onclick="location.href='{{ url_for("edit_ticket", ticket_id=t.id) }}'">Edit</button>
         <table border="1" cellspacing="0">
             <tr>
-                <td>Register:</td>
-                <td>{{ t.register }}</td>
+                <td>Requestor:</td>
+                <td>{{ t.requestor }}</td>
             </tr>
             <tr>
                 <td>Category:</td>
                 <td>{{ t.category.description }}</td>
             </tr>
             <tr>
-                <td>last_modified:</td>
+                <td>Last Modified:</td>
                 <td>{{ t.last_modified }}</td>
             </tr>
             <tr>
