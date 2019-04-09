@@ -30,6 +30,21 @@ def login():
 </html>
 '''
 
+@frontend.route('/ticket_submitted')
+def login():
+	return '''
+<html>
+<head>
+<title>Submitted</title>
+</head>
+<body>
+
+<h1 >Ticket Submitted!</h1>
+
+</body>
+</html>
+'''
+
 @frontend.route('/email_test', methods=['GET', 'POST'])
 def email_test():
 	form = EmailForm()
@@ -62,5 +77,5 @@ def create_ticket():
 		emailMessage = email_service.format_email(ticketTitle,tickDepartment,ticketCategory,'New',tickDescription)
 		email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
 		dbm.CreateTicket(ticketTitle,ticketCategory,133,'New',tickDepartment,tickDescription)
-		return redirect('/index')
+		return redirect('/ticket_submitted')
 	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)
