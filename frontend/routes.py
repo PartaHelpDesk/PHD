@@ -31,7 +31,7 @@ def login():
 '''
 
 @frontend.route('/ticket_submitted')
-def login():
+def ticket_submitted():
 	return '''
 <html>
 <head>
