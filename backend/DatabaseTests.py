@@ -25,6 +25,7 @@ dt = dbm.GetDataTable("SELECT * FROM categories", None)
 
 # dt.SetDataTable(results)
 
+
 value = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?" , ('tnaungay'))
 print (value)
 

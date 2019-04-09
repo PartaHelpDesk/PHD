@@ -1,6 +1,8 @@
-import pyodbc , DatabaseMethods, Datatable, DataRow #DEBUG
-# from backend import Datatable #SERVER
-# from backend import DataRow #SERVER
+
+#import pyodbc ,Datatable, DataRow #DEBUG
+from backend import Datatable #SERVER
+from backend import DataRow #SERVER
+import pyodbc
 from array import *
 
 class DatabaseMethods:
@@ -74,7 +76,14 @@ class DatabaseMethods:
 
     def GetITEmails(self):
         sql = "SELECT Email from Users WHERE [Level] in (2,3)"
-        return DatabaseMethods.GetDataTable(self, sql, None)
+        dt = DatabaseMethods.GetDataTable(self, sql, None)
+        index = 0
+        list_of_emails = []
+        while index != dt.get_Size():
+            dr = dt.GetRow(index)
+            list_of_emails.append(dr.GetColumnValue("Email"))
+            index += 1
+        return list_of_emails
 
     def GetUserAccountInfo(self, user_id):
         sql = "SELECT * FROM Users WHERE UserID = ?"
@@ -92,5 +101,6 @@ class DatabaseMethods:
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):
         #Get current ticket info
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
+
         results = DatabaseMethods.GetDataTable(self, sql, (ticket_id))
 
