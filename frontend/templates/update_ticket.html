@@ -30,7 +30,12 @@
                     <td>
                         <select name="new_status" id="">
                             {% for s in status %}
-                                <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>{{ s.description }}</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Recieved</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>On Hold</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>In Processs</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Closed</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Escalated</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Reopened</option>
                             {% endfor %}
                         </select>
                     </td>

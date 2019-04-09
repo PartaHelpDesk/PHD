@@ -18,25 +18,18 @@
         width: 500px;
         margin: 0 auto;
     }
-
     table{
         width: 100%;
     }
-
     table tr{
         height: 30px;
     }
-
     input[type='text']{
         width: 90%;
     }
-
     div.submit{
         text-align: center;
     }
-
-
-
     </style>
 {% endblock %}
 {% block body %}
@@ -46,31 +39,42 @@
     <table border="1" cellspacing="0">
         <tbody>
             <tr>
-                <td>Current Status</td>
+                <td>Current Status:</td>
                 <td>
                     <select name="new_status" id="">
                         {% for s in status %}
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>{{ s.description }}</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Recieved</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>On Hold</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>In Processs</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Closed</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Escalated</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Reopened</option>
                         {% endfor %}
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Requestor</td>
+                <td>Requestor:</td>
                 <td><input type="text" value="" name="requestor"></td>
             </tr>
             <tr>
-                <td>Category</td>
+                <td>Category:</td>
                 <td>
                     <select name="new_status" id="">
                         {% for c in categories %}
-                            <option value="{{ c.description }}" {% if t.category==c %}selected="selected"{% endif %}>{{ c.description }}</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Network</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Hardware</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Software</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Phone</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Printer</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Account Permissions</option>
+                        <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Server</option>
                         {% endfor %}
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Description</td>
+                <td>Description:</td>
                 <td>
                     <textarea name="description" id="" cols="50" rows="5"></textarea>
                 </td>

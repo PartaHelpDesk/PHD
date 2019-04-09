@@ -18,25 +18,18 @@
         width: 500px;
         margin: 0 auto;
     }
-
     table{
         width: 100%;
     }
-
     table tr{
         height: 30px;
     }
-
     input[type='text']{
         width: 90%;
     }
-
     div.submit{
         text-align: center;
     }
-
-
-
     </style>
 {% endblock %}
 {% block body %}
@@ -46,31 +39,46 @@
     <table border="1" cellspacing="0">
         <tbody>
             <tr>
-                <td>Id</td>
+                <td>User ID:</td>
                 <td>{{ u.id }}</td>
             </tr>
             <tr>
-                <td>First Name</td>
+                <td>First Name:</td>
                 <td><input type="text" value="" name="first_name"></td>
             </tr>
             <tr>
-                <td>Last Name</td>
+                <td>Last Name:</td>
                 <td><input type="text" value="" name="last_name"></td>
             </tr>
             <tr>
-                <td>Username</td>
+                <td>Username:</td>
                 <td><input type="text" value="" name="username"></td>
             </tr>
             <tr>
-                <td>Email Address</td>
+                <td>Email Address:</td>
                 <td><input type="text" value="" name="email_address"></td>
             </tr>
             <tr>
-                <td>Department</td>
-                <td><input type="text" value="" name="department"></td>
+                <td>Department:</td>
+                <td><select name="department" id="">
+                    {% for s in department %}
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Marketing</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Information Technology</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Scheduling</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Administration</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Planning</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Human Resources</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Maintenance</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Operations</option>
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Gateway</option>
+                    {% endfor %}
+                </select></td>
             </tr>
             <tr>
-                <td>Password</td>
+                <td>Password:</td>
                 <td><input type="text" value="" name="password"></td>
             </tr>
         </tbody>
