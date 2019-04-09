@@ -1,6 +1,7 @@
-import pyodbc #, DatabaseMethods, Datatable, DataRow #DEBUG
+#import pyodbc ,Datatable, DataRow #DEBUG
 from backend import Datatable #SERVER
 from backend import DataRow #SERVER
+import pyodbc
 from array import *
 
 class DatabaseMethods:
@@ -15,7 +16,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -56,13 +57,16 @@ class DatabaseMethods:
         column_names = [column[0] for column in cursor.description]
         column_count = len(column_names)
 
+        if column_count == 1:
+            column_count = 2
+
         dt = Datatable.DataTable()
 
         for row in cursor.fetchall():
             #create new dr to add
             dr = DataRow.DataRow()
 
-            for i in (0, column_count - 1):
+            for i in range(column_count - 1):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], row[i])
 
@@ -73,7 +77,14 @@ class DatabaseMethods:
 
     def GetITEmails(self):
         sql = "SELECT Email from Users WHERE [Level] in (2,3)"
-        return DatabaseMethods.GetDataTable(self, sql, None)
+        dt = DatabaseMethods.GetDataTable(self, sql, None)
+        index = 0
+        list_of_emails = []
+        while index != dt.get_Size():
+            dr = dt.GetRow(index)
+            list_of_emails.append(dr.GetColumnValue("Email"))
+            index += 1
+        return list_of_emails
 
     def GetUserAccountInfo(self, user_id):
         sql = "SELECT * FROM Users WHERE UserID = ?"

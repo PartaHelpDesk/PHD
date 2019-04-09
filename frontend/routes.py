@@ -1,7 +1,7 @@
 from frontend import frontend
 from frontend.forms import EmailForm, TicketForm
 from flask import render_template, flash, redirect
-from backend import email_service
+from backend import email_service, DatabaseMethods, Datatable, DataRow
 
 @frontend.route('/')
 @frontend.route('/index')
@@ -48,11 +48,13 @@ def create_ticket():
 	form =  TicketForm()
 	user = {'username' : 'PHD User'}
 	if form.validate_on_submit():
+		# GET ALL IT LEVEL USERS AND APPEND THEM TO EMAIL RECIPIENT LIST
 		recipients = []
-		recipients.append('minusben@gmail.com')
+		dbm = DatabaseMethods.DatabaseMethods()
+		recipients = dbm.GetITEmails()
 		print(form.ticketDescription.data)
-		tSubject = 'TicketTester'
+		#tSubject = 'TicketTester'
 		emailMessage = email_service.format_email(form.department.data,form.ticketDate.data,form.ticketDescription.data)
-		email_service.send_email(tSubject, "PartaHelpDesk@gmail.com", recipients, emailMessage, None)
+		email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
 		return redirect('/index')
 	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)

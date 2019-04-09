@@ -23,3 +23,4 @@ class DataRow:
     def Clear(self):
         self.columns = []
         self.values = []
+        
