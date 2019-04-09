@@ -90,12 +90,12 @@ class DatabaseMethods:
         sql = "SELECT * FROM Users WHERE UserID = ?"
         return DatabaseMethods.GetDataTable(self, sql, user_id)
 
-    def CreateTicket(self, title, category, user_id, status, department, location, description):
-        sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description]) "
+    def CreateTicket(self, title, category, user_id, status, department, description):
+        sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Description]) "
         sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?) "
-        DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, location, description),False)
+        DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, description),False)
 
-    def UpdateTicket(self, user_id, ticket_id, title, category, status, department, location, description):
+    def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):
         #Get current ticket info
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
         results = DatabaseMethods.GetDataTable(self, sql, (ticket_id))
