@@ -17,31 +17,20 @@ dbm = DatabaseMethods.DatabaseMethods()
 
 # dbm.CreateTicket('Title',1,2,65,2,0,'A REALLY LONG MESSAGE HERE BECUASE ITS  A TICKET')
 
-#dt = Datatable.DataTable()
+dt = Datatable.DataTable()
 
-#dt = dbm.GetITEmails()
-#dt.PrintValues()
-
-#index = 0
-list_of_emails = []
-#while index != dt.get_Size():
-    #dr = dt.GetRow(index)
-    #list_of_emails.append(dr.GetColumnValue("Email"))
-    #index += 1
-
-list_of_emails = dbm.GetITEmails()
-
-print(list_of_emails)
+dt = dbm.GetDataTable("SELECT * FROM categories", None)
 
 #print(results)
 
 # dt.SetDataTable(results)
 
-#value = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?" , ('tnaungay'))
-#print (value)
 
-#dr = dt.GetRow(0)
-#print(dr.GetColumnValue("Description"))
+value = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?" , ('tnaungay'))
+print (value)
+
+dr = dt.GetRow(0)
+print(dr.GetColumnValue("Description"))
 
 # dt.PrintValues()
 

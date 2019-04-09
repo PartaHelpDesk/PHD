@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <style type="text/css">
+    .logo{
+
+      width: 280px;
+      height: 320px;
+        padding: 10px;
+      margin: 100px auto 140px auto;
+    }
+    .login{
+      position: relative;
+      width: 660px;
+      height: 280px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 5px;
+      background: green;
+    }
+    .login_form{
+      width: 300px;
+      margin: 35px auto 0 auto;
+      text-align: center;
+    }
+    .login_title{
+      margin: 0;
+    }
+    input{
+      width: 300px;
+      height: 35px;
+      margin-top: 25px;
+    }
+    .login_btn{
+      width: 110px;
+      height: 45px;
+      margin-top: 25px;
+      background: yellow;
+    }
+    .forgot{
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+    .message{
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+  </style>
+</head>
+<body>
+
+    <div class="message">
+        {% for msg in get_flashed_messages() %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+  <div class="logo">
+      <img width="280px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+  </div>
+  <div class="login">
+    <form class="login_form" method="post">
+      <h3 class="login_title">Please Enter Your Credentials</h3>
+      <label>
+        <input class="input_username" type="text" placeholder=" Username" name="email">
+      </label>
+      <label>
+        <input class="input_password" type="password" placeholder=" Password" name="password">
+      </label>
+      <button class="login_btn">Login</button>
+    </form>
+    <a class="forget" href="#">Forgot Password?</a>
+  </div>
+</body>
+</html>

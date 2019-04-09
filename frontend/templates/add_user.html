@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create New Ticket
+    Users
 {% endblock %}
 
 {% block head %}
@@ -18,39 +18,56 @@
         width: 500px;
         margin: 0 auto;
     }
-      
+
     table{
         width: 100%;
     }
+
     table tr{
         height: 30px;
     }
+
     input[type='text']{
         width: 90%;
     }
+
     div.submit{
         text-align: center;
     }
 
+
+
     </style>
 {% endblock %}
 {% block body %}
-    <h3>Create New Ticket</h3>
+    <h3>Add User</h3>
     <form action="" method="post">
     <div class="table-container">
     <table border="1" cellspacing="0">
         <tbody>
             <tr>
-                <td>Requestor</td>
-                <td><input type="text" value="" name="requestor"></td>
+                <td>First Name</td>
+                <td><input type="text" value="" name="first_name"></td>
             </tr>
             <tr>
-                <td>Category</td>
-                <td><input type="text" value="" name="category"></td>
+                <td>Last Name</td>
+                <td><input type="text" value="" name="last_name"></td>
             </tr>
             <tr>
-                <td>Description</td>
-                <td><input type="text" value="" name="description"></td>
+                <td>Username</td>
+                <td><input type="text" value="" name="username"></td>
+            </tr>
+            <tr>
+                <td>Email Address</td>
+                <td><input type="text" value="" name="email_address"></td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td><input type="text" value="" name="department"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="text" value="" name="password"></td>
             </tr>
         </tbody>
     </table>

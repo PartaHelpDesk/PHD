@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Update Ticket{% endblock %}
+
+{% block head %}
+    <style>
+    div.update_detail{
+        margin: 20px auto 0 auto;
+        width: 400px;
+    }
+    table{
+        width: 100%;
+    }
+    table tbody tr td:nth-child(1){
+        background-color: rgb(1, 79, 40);
+        color: white;
+        text-align: right;
+        width: 100px;
+        height: 32px;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="update_detail">
+        <h3>Update Ticket {{ t.id }}</h3>
+        <form action="">
+            <table border="1" cellspacing="0">
+                <tr>
+                    <td>New Status: </td>
+                    <td>
+                        <select name="new_status" id="">
+                            {% for s in status %}
+                                <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>{{ s.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comment: </td>
+                    <td>
+                        <textarea name="new_comment" id="" cols="50" rows="8"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+{% endblock %}

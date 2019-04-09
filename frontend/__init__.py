@@ -14,4 +14,5 @@ frontend.config.update(dict(
 
 mail = Mail(frontend)
 
-from frontend import routes
+from frontend import routes, routes_main, routes_user
+from frontend import initialization

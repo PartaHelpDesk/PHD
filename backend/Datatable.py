@@ -24,3 +24,4 @@ class DataTable:
 
     def get_Size(self):
         return len(self.data_rows)
+      
