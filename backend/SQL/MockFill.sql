@@ -1,6 +1,6 @@
 --Users Table
 
-INSERT INTO Users(Username, [Level], FirstName, LastName, Email, Password, Active)
+INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, Password, Active)
 VALUES
 ('amrhein.c16', 1, 'Claudia', 'Amrhein','amrhein.c16 @partaonline.org', 'password', 1),
 ('mfletch', 1, 'Marcia', 'Fletcher','mfletch@partaonline.org', 'password', 1),
@@ -74,19 +74,56 @@ VALUES
 ('administrator', 1, 'Administrator', '','administrator@partaonline.org', 'password', 1)
 
 
-INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description])
+INSERT INTO [dbo].[Tickets] (Title, Category, CreatedUserID, [Status], Department, [Description])
 VALUES
-('Test Title 0',0,65,0,2,1,'Test Description 0'),
-('Test Title 1',1,65,0,2,1,'Test Description 1'),
-('Test Title 2',2,65,0,2,1,'Test Description 2'),
-('Test Title 3',3,65,0,2,1,'Test Description 3'),
-('Test Title 4',4,65,0,2,1,'Test Description 4')
+('My Laptop is broken','Hardware',65,'Closed','Accouting','I spent all morning trying to log in to my account!'),
+('I HAVE NO INTERNET','Network',65,'Closed','Accounting','WHAT SHOUDLD I DO'),
+('I forgot my password','Login',65,'In Process','Accounting','Test Description 2'),
+('Theres a monster outside my window','Hardwae',65,'Escalated','Marketing','Should I let them in?'),
+('My phone is making weird noises','Phone Server',65,'In Process','Administration','It is really annoying'),
+('The phones seem down','Phone Server',65,'In Process','Marketing','I cannot call anyone'),
+('My calls are getting dropped','Phone Server',65,'In Process','Scheduling','Is this getting fixed?'),
+('I ran out of ink','Printer',65,'In Process','Dispatch','Can I get some more')
+
+
+
 
 --Categories
-INSERT INTO Categories 
+INSERT INTO [dbo].[Categories] 
 VALUES
 ('Harware'),
 ('Software'),
 ('Network'),
 ('Phone Server'),
-('Login')
+('Login'),
+('Printer'),
+('Account Permission'),
+('Phone')
+
+--Status
+INSERT INTO [dbo].[Status]
+VALUES
+('In Process'),
+('Closed'),
+('On Hold'),
+('Received'),
+('Escalated'),
+('Reopened')
+
+INSERT INTO [dbo].[Departments]
+VALUES
+('Training'),
+('Accouting'),
+('Dispatch'),
+('Marketing'),
+('Information Technology'),
+('Scheduling'),
+('Administration'),
+('Planning'),
+('Human Resource'),
+('Maintenance'),
+('Operations'),
+('Gateway')
+
+
+--
