@@ -1,0 +1,17 @@
+
+    {% block content %}
+    <h1>Email Test</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.rAddr.label }}
+            {{ form.rAddr(size=32) }}
+        </p>
+        <p>
+            {{ form.emailBody.label }}<br>
+            {{ form.emailBody(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    {% endblock %}
