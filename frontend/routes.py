@@ -54,7 +54,13 @@ def create_ticket():
 		recipients = dbm.GetITEmails()
 		print(form.ticketDescription.data)
 		#tSubject = 'TicketTester'
-		emailMessage = email_service.format_email(form.department.data,form.ticketDate.data,form.ticketDescription.data)
+		ticketTitle = form.ticketTitle.data
+		tickDepartment = form.department.data
+		ticketCategory = form.ticketCategory.data
+		#ticketStatus = form.ticketStatus.data
+		tickDescription = form.ticketDescription.data
+		emailMessage = email_service.format_email(ticketTitle,tickDepartment,ticketCategory,'New',tickDescription)
 		email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
+		dbm.CreateTicket(ticketTitle,ticketCategory,133,'New',tickDepartment,tickDescription)
 		return redirect('/index')
 	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)

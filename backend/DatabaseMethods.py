@@ -17,7 +17,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -95,7 +95,7 @@ class DatabaseMethods:
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Description]) "
-        sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?) "
+        sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?) "
         DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, description),False)
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):

@@ -21,20 +21,24 @@
             {{ form.hidden_tag() }}
             <legend>Ticket Information</legend>
             <p>
-            {{ form.department.label }}
-            {{ form.department(size=32) }}
+            {{ form.ticketTitle.label }}
+            {{ form.ticketTitle(size=32) }}
         </p><br>
-        <p>
-            {{ form.ticketDate.label }}
-            {{ form.ticketDate(size=32) }}
-        </p><br>
-        <p>
-            {{ form.ticketDescription.label }}
-            {{ form.ticketDescription(size=128) }}
-        </p>
-        <p>
-            {{ form.submit() }}
-        </p>
+          <p>
+              {{ form.department.label }}
+              {{ form.department(size=32) }}
+          </p><br>
+          <p>
+              {{ form.ticketCategory.label }}
+              {{ form.ticketCategory(size=128) }}
+          </p><br>
+            <p>
+              {{ form.ticketDescription.label }}
+              {{ form.ticketDescription(size=128) }}
+          </p>
+          <p><br>
+              {{ form.submit() }}
+          </p>
         </fieldset>
           </form>
         </div>
