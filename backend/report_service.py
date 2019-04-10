@@ -31,3 +31,7 @@ colors = ['r', 'g','b','y','k','m']
 plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
 #plt.show()
 plt.savefig('example_report.png')
+
+emails = []
+emails = dbm.GetITEmails()
+print(emails)

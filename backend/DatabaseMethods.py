@@ -59,8 +59,8 @@ class DatabaseMethods:
         print(column_count)
         #print(column_names[0])
         #print(column_names[1])
-        if column_count == 1:
-            column_count = 2
+        #if column_count == 1:
+            #column_count = 2
 
         dt = Datatable.DataTable()
 
