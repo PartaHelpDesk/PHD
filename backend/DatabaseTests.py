@@ -17,20 +17,17 @@ dbm = DatabaseMethods.DatabaseMethods()
 
 # dbm.CreateTicket('Title',1,2,65,2,0,'A REALLY LONG MESSAGE HERE BECUASE ITS  A TICKET')
 
-dt = Datatable.DataTable()
 
-dt = dbm.GetDataTable("SELECT * FROM categories", None)
+dt = dbm.GetDataTable("SELECT * FROM Tickets", None)
+
+dt.PrintValues()
 
 #print(results)
 
 # dt.SetDataTable(results)
 
 
-value = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?" , ('tnaungay'))
-print (value)
 
-dr = dt.GetRow(0)
-print(dr.GetColumnValue("Description"))
 
 # dt.PrintValues()
 

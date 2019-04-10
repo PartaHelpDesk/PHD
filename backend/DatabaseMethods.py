@@ -1,7 +1,7 @@
 
-#import pyodbc ,Datatable, DataRow #DEBUG
-from backend import Datatable #SERVER
-from backend import DataRow #SERVER
+import pyodbc ,Datatable, DataRow #DEBUG
+#from backend import Datatable #SERVER
+#from backend import DataRow #SERVER
 import pyodbc
 from array import *
 
@@ -56,6 +56,9 @@ class DatabaseMethods:
 
         column_names = [column[0] for column in cursor.description]
         column_count = len(column_names)
+        print(column_count)
+        #print(column_names[0])
+        #print(column_names[1])
         if column_count == 1:
             column_count = 2
 
@@ -65,9 +68,11 @@ class DatabaseMethods:
             #create new dr to add
             dr = DataRow.DataRow()
             
-            for i in range(column_count - 1):
+            for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
+                #print(column_names[i])
+                #print(str(row[i]))
 
             dt.AddRow(dr)
 
