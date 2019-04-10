@@ -1,14 +1,50 @@
 {% extends "base.html" %}
 {% block title %}View All Tickets{% endblock %}
 {% block head %}
-    {{ super() }}
     <style type="text/css">
         .important { color: #336699; }
+        div.view_all{
+            width: 800px;
+            margin: 0 auto;
+        }
+        table{
+            width: 100%;
+        }
     </style>
 {% endblock %}
-{% block content %}
-    <h1>View All Tickets</h1>
-    <p class="important">
-      Welcome to our view all tickets page.
-    </p>
+{% block body %}
+    <div class="view_all">
+        <h1>View All Tickets</h1>
+        <p class="important">
+          Welcome to our view all tickets page.
+        </p>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <thead>
+            <tr>
+                <th>Ticket</th>
+                <th>Description</th>
+                <th>Requestor</th>
+                <th>Department</th>
+                <th>Category</th>
+                <th>Last Modified</th>
+                <th>Status</th>
+                <th>Commands</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in tickets %}
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.requestor }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.last_modified }}</td>
+                    <td>{{ t.status }}</td>
+                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
 {% endblock %}

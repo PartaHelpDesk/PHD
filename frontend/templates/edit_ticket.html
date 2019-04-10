@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Create New Ticket
+    Edit Existing Ticket
 {% endblock %}
 
 {% block head %}
@@ -40,19 +40,35 @@
     </style>
 {% endblock %}
 {% block body %}
-    <h3>Create New Ticket</h3>
+    <h3>Edit Existing Ticket {{ t.id }}</h3>
     <form action="" method="post">
     <div class="table-container">
     <table border="1" cellspacing="0">
         <tbody>
+            <tr>
+                <td>Current Status:</td>
+                <td>
+                    <select name="new_status" id="">
+                        {% for s in status %}
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Recieved</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>On Hold</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>In Processs</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Closed</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Escalated</option>
+                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Reopened</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td>Requestor:</td>
                 <td><input type="text" value="" name="requestor"></td>
             </tr>
             <tr>
                 <td>Category:</td>
-                <td><select name="category" id="">
-                    {% for s in status %}
+                <td>
+                    <select name="new_status" id="">
+                        {% for s in categories %}
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Network</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Hardware</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Software</option>
@@ -60,17 +76,20 @@
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Printer</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Account Permissions</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Server</option>
-                    {% endfor %}
-                </select></td>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><textarea name="description" id="" cols="50" rows="5"></textarea></td>
+                <td>
+                    <textarea name="description" id="" cols="50" rows="5"></textarea>
+                </td>
             </tr>
         </tbody>
     </table>
     <div class="submit">
-        <button type="submit" style="width: 100px; margin-top: 8px;">Create</button>
+        <button type="submit" style="width: 100px; margin-top: 8px;">Save</button>
     </div>
     </div>
     </form>
