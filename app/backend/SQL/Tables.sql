@@ -44,13 +44,12 @@ PRIMARY KEY CLUSTERED
 CREATE TABLE [dbo].[TicketHistory](
 	[TicketHistoryID] [int] IDENTITY(1,1) NOT NULL,
 	[TicketID] [int] NOT NULL,
-	[Category] [int] NOT NULL,
-	[Title] [varchar](128) NOT NULL,
-	[Status] [int] NOT NULL,
-	[Department] [int] NOT NULL,
-	[Location] [int] NOT NULL,
-	[Description] [varchar](280) NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[Category] [int],
+	[Title] [varchar](128),
+	[Status] [int],
+	[Department] [int],
+	[Description] [varchar](280),
+	[Date] [datetime] DEFAULT GETDATE(),
 
 
 PRIMARY KEY CLUSTERED 
