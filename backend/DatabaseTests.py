@@ -1,4 +1,4 @@
-import DatabaseMethods, Datatable, Datatable
+import DatabaseMethods, Datatable, DataRow
 
 dbm = DatabaseMethods.DatabaseMethods()
 
@@ -24,6 +24,10 @@ dt = dbm.GetDataTable("SELECT * FROM categories", None)
 #print(results)
 
 # dt.SetDataTable(results)
+
+
+value = dbm.GetValue("SELECT Password FROM Users WHERE Username = ?" , ('tnaungay'))
+print (value)
 
 dr = dt.GetRow(0)
 print(dr.GetColumnValue("Description"))

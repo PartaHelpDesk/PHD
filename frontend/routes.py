@@ -1,34 +1,13 @@
 from frontend import frontend
+from frontend.forms import EmailForm, TicketForm
+from flask import render_template, flash, redirect
+from backend import email_service, DatabaseMethods, Datatable, DataRow
 
 @frontend.route('/')
 @frontend.route('/index')
 def index():
-	return '''
-<html>
-  <style>
-    .content {
-      max-width:500px;
-        margin: auto;
-    }
-  </style>
-<head>
-<title>PartaHelpDesk 1.0.0</title>
-</head>
-<body>
-<div class="content">
-<h1 >Welcome to the PHD Ticketing System</h1>
- <p>
-  A ticketing system made for PARTA
-  </p>
-  <p>
-    <a href="http://127.0.0.1:5000/login">Click Here to Login</a> 
-    <a href="http://127.0.0.1:5000/email_test">Email Test</a>
-  </p>
-  </div>
-</body>
-</html>
-
-'''
+	user = {'username': 'PHD User'}
+	return render_template('index.html', title='PartaHelpDesk 1.0.0', user=user)
 
 @frontend.route('/login')
 def login():
@@ -51,3 +30,31 @@ def login():
 </html>
 '''
 
+@frontend.route('/email_test', methods=['GET', 'POST'])
+def email_test():
+	form = EmailForm()
+	user = {'username': 'PHD User'}
+	if form.validate_on_submit():
+		recipients = []
+		recipients.append(form.rAddr.data)
+		print(form.emailBody.data)
+		email_service.send_email(None, "PartaHelpDesk@gmail.com", recipients, form.emailBody.data, None)
+		return redirect('/index')
+	return render_template('email.html', title='Email Testing', form=form, user=user)
+
+
+@frontend.route('/create_ticket', methods=['GET', 'POST'])
+def create_ticket():
+	form =  TicketForm()
+	user = {'username' : 'PHD User'}
+	if form.validate_on_submit():
+		# GET ALL IT LEVEL USERS AND APPEND THEM TO EMAIL RECIPIENT LIST
+		recipients = []
+		dbm = DatabaseMethods.DatabaseMethods()
+		recipients = dbm.GetITEmails()
+		print(form.ticketDescription.data)
+		#tSubject = 'TicketTester'
+		emailMessage = email_service.format_email(form.department.data,form.ticketDate.data,form.ticketDescription.data)
+		email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
+		return redirect('/index')
+	return render_template('create_ticket.html', title='Create Ticket Test', form=form, user=user)

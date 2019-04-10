@@ -1,0 +1,53 @@
+     {% block content %}
+        <style>
+          
+        #tickForm {
+          display: none;
+          align: center;
+        }
+          
+         #f1 {
+           width: 100%;
+           align: center;
+        }
+          
+        </style>
+        <body>
+        <h1>Create a Ticket Test:</h1>
+        <!-- <button onclick="startTicket()">Start a Ticket</button><br><br> 
+        <div id="tickForm">-->
+        <form action="" method="post" novalidate>
+            <fieldset>
+            {{ form.hidden_tag() }}
+            <legend>Ticket Information</legend>
+            <p>
+            {{ form.department.label }}
+            {{ form.department(size=32) }}
+        </p><br>
+        <p>
+            {{ form.ticketDate.label }}
+            {{ form.ticketDate(size=32) }}
+        </p><br>
+        <p>
+            {{ form.ticketDescription.label }}
+            {{ form.ticketDescription(size=128) }}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+        </fieldset>
+          </form>
+        </div>
+        </body>
+        <!--
+        <script>
+        function startTicket() {
+          var x = document.getElementById("tickForm");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script> -->
+    {% endblock %}

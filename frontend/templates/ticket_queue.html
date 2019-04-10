@@ -18,6 +18,23 @@
 
     </style>
 {% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}
+    Ticketing Queue
+{% endblock %}
+
+{% block head %}
+    <style>
+    .ticket_queue table{
+        width: 800px;
+        margin: 0 auto;
+    }
+    .ticket_queue h3{
+        text-align: center;
+    }
+    </style>
+{% endblock %}
 {% block body %}
     <div class="ticket_queue">
         <h3>Current Ticket Queue</h3>
