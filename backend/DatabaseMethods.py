@@ -1,7 +1,9 @@
 
 import pyodbc ,Datatable, DataRow #DEBUG
-# from backend import Datatable #SERVER
-# from backend import DataRow #SERVER
+
+#from backend import Datatable #SERVER
+#from backend import DataRow #SERVER
+
 import pyodbc
 from array import *
 
@@ -17,7 +19,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -56,8 +58,11 @@ class DatabaseMethods:
 
         column_names = [column[0] for column in cursor.description]
         column_count = len(column_names)
-        if column_count == 1:
-            column_count = 2
+        print(column_count)
+        #print(column_names[0])
+        #print(column_names[1])
+        #if column_count == 1:
+            #column_count = 2
 
         dt = Datatable.DataTable()
 
@@ -65,9 +70,11 @@ class DatabaseMethods:
             #create new dr to add
             dr = DataRow.DataRow()
             
-            for i in range(column_count - 1):
+            for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
+                #print(column_names[i])
+                #print(str(row[i]))
 
             dt.AddRow(dr)
 
@@ -108,7 +115,7 @@ class DatabaseMethods:
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
         sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Description]) "
-        sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?) "
+        sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?) "
         DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, description),False)
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):

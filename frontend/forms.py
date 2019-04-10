@@ -9,6 +9,8 @@ class EmailForm(FlaskForm):
 
 class TicketForm(FlaskForm):
 	department = StringField('Department:', validators=[DataRequired()])
-	ticketDate = StringField('Todays date: ', validators=[DataRequired()])
+	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
+	ticketCategory = StringField('Category: ', validators=[DataRequired()])
+	#ticketStatus = StringField('Status: ', validators=[DataRequired()])
 	submit = SubmitField('Send Ticket')

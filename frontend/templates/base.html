@@ -118,8 +118,9 @@
         <div class="logo">
             <img id="logo" src="{{ url_for('static', filename='images/PARTA LOGO.jpg') }}" alt="LOGO" width="100px" height="100px">
               <div class="dropdown-content">
-                <a href="{{ url_for('dashboard_2') }}">Ticket Queue</a>
-                <a href="#">New Ticket</a>
+                
+                <a href="{{ url_for('dashboard_2') }}">Dashboard</a>
+                <a href="{{ url_for('create_ticket')}}">New Ticket</a>
                 <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>

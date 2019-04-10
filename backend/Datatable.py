@@ -1,5 +1,5 @@
-from backend import DataRow
-#import DataRow
+#from backend import DataRow
+import DataRow
 
 class DataTable:
     data_rows = [] #Will be of type DatabaseMethods.DataRow
