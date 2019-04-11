@@ -44,13 +44,13 @@ PRIMARY KEY CLUSTERED
 CREATE TABLE [dbo].[TicketHistory](
 	[TicketHistoryID] [int] IDENTITY(1,1) NOT NULL,
 	[TicketID] [int] NOT NULL,
-	[Category] [int] NOT NULL,
-	[Title] [varchar](128) NOT NULL,
-	[Status] [int] NOT NULL,
-	[Department] [int] NOT NULL,
-	[Location] [int] NOT NULL,
-	[Description] [varchar](280) NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[Category] [varchar](128),
+	[Title] [varchar](128),
+	[Status] [varchar](128),
+	[Department] [varchar](128),
+	[Description] [varchar](280),
+	[UserID] [int] NOT NULL,
+	[Date] [datetime] DEFAULT GETDATE(),
 
 
 PRIMARY KEY CLUSTERED 
@@ -81,42 +81,32 @@ CREATE TABLE [dbo].[TicketAttachments](
 
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Categories](
-	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[CategoryID] ASC
+	[Description] ASC
 )
 )
 
 CREATE TABLE [dbo].[Status](
-	[StatusID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[StatusID] ASC
+	[Description] ASC
 )
 )
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Departments](
-	[DepartmentID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[DepartmentID] ASC
+	[Description] ASC
 )
 )
 
------------------------------------------------------------------------
-CREATE TABLE [dbo].[Locations](
-	[LocationID] [int] IDENTITY(1,1) NOT NULL,
-	[Description] [varchar] (32) NOT NULL,
-
-PRIMARY KEY CLUSTERED 
-(
-	[LocationID] ASC
-)
-)
