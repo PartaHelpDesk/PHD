@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,6 +39,7 @@
             display: block;
             border-top: 1px solid rgba(240, 255, 252, 0.99);
         }
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -68,6 +68,7 @@
         .center h1{
             margin-top: 50px;
         }
+
     button{
         background-color: rgb(1, 79, 40);
         color: rgb(227, 204, 4);
@@ -77,37 +78,45 @@
         margin: 2px;
         outline: none;
     }
+
     button:hover{
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         cursor: pointer;
     }
+
     .table thead tr{
         background-color: rgb(1, 79, 40);
         border: 0;
         border-radius: 8px;
     }
+
     .table{
         border-radius: 8px;
         overflow: hidden;
         border: 1px solid black;
     }
+
     .table td,th{
         border-right: 1px solid black;
         border-bottom: 1px solid black;
     }
+
     .table tbody tr:nth-child(odd){
         background-color: rgb(189, 189, 189);
     }
+
     .table thead{
         color: white;
         font-weight: bold;
     }
+
     div.message{
         background-color: rgb(159, 240, 72);
         border-radius: 5px;
         margin-top: 5px;
         padding: 10px;
     }
+
     </style>
     <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
     {% block head %}{{ super() }}{% endblock %}
@@ -118,9 +127,9 @@
         <div class="logo">
             <img id="logo" src="{{ url_for('static', filename='images/PARTA LOGO.jpg') }}" alt="LOGO" width="100px" height="100px">
               <div class="dropdown-content">
-                
-                <a href="{{ url_for('dashboard_2') }}">Dashboard</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
                 <a href="{{ url_for('create_ticket')}}">New Ticket</a>
+                <a href="#">New Ticket</a>
                 <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>

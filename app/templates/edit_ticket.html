@@ -18,18 +18,24 @@
         width: 500px;
         margin: 0 auto;
     }
+
     table{
         width: 100%;
     }
+
     table tr{
         height: 30px;
     }
+
     input[type='text']{
         width: 90%;
     }
+
     div.submit{
         text-align: center;
     }
+
+
     </style>
 {% endblock %}
 {% block body %}
@@ -61,7 +67,7 @@
                 <td>Category:</td>
                 <td>
                     <select name="new_status" id="">
-                        {% for c in categories %}
+                        {% for s in categories %}
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Network</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Hardware</option>
                         <option value="{{ s.category }}" {% if t.status==s.category %}selected="selected"{% endif %}>Software</option>
