@@ -1,4 +1,4 @@
-from . import app
+from . import frontend
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required
 from .utils import *

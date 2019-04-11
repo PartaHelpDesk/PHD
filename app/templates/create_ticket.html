@@ -1,0 +1,113 @@
+<<<<<<< HEAD:app/templates/create_ticket.html
+     {% block content %}
+        <style>
+          
+        #tickForm {
+          display: none;
+          align: center;
+        }
+          
+         #f1 {
+           width: 100%;
+           align: center;
+        }
+          
+        </style>
+        <body>
+        <h1>Create a Ticket Test:</h1>
+        <!-- <button onclick="startTicket()">Start a Ticket</button><br><br> 
+        <div id="tickForm">-->
+        <form action="" method="post" novalidate>
+            <fieldset>
+            {{ form.hidden_tag() }}
+            <legend>Ticket Information</legend>
+            <p>
+            {{ form.ticketTitle.label }}
+            {{ form.ticketTitle(size=32) }}
+        </p><br>
+          <p>
+              {{ form.department.label }}
+              {{ form.department(size=32) }}
+          </p><br>
+          <p>
+              {{ form.ticketCategory.label }}
+              {{ form.ticketCategory(size=128) }}
+          </p><br>
+            <p>
+              {{ form.ticketDescription.label }}
+              {{ form.ticketDescription(size=128) }}
+          </p>
+          <p><br>
+              {{ form.submit() }}
+          </p>
+        </fieldset>
+          </form>
+        </div>
+        </body>
+        <!--
+        <script>
+        function startTicket() {
+          var x = document.getElementById("tickForm");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script> -->
+    {% endblock %}
+=======
+{% extends 'base.html' %}
+
+{% block title %}
+    Create New Ticket
+{% endblock %}
+
+{% block head %}
+    <style>
+    h3{
+        text-align: center;
+    }
+    table tbody tr td:nth-child(1){
+        background-color: rgb(1, 79, 40);
+        color: white;
+        text-align: right;
+    }
+    .table-container{
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    table{
+        width: 100%;
+    }
+
+    table tr{
+        height: 30px;
+    }
+
+    input[type='text']{
+        width: 90%;
+    }
+
+    div.submit{
+        text-align: center;
+    }
+
+
+
+    </style>
+{% endblock %}
+{% block body %}
+<h3>Create Ticket</h3>
+<form method="POST">
+        <label for="title">Title</label>
+        <input class="ticket_info" type="text" placeholder="Title" id="title" name="title"> <br> 
+        <label for="department"></label>
+        <input class="ticket_info"> 
+        <label for="description">Description</label> 
+        <input class="ticket_info" type="text" placeholder="Description" name="description"> <br>
+</form>
+
+
+>>>>>>> JPHD:frontend/templates/create_ticket.html

@@ -74,6 +74,8 @@ VALUES
 ('administrator', 1, 'Administrator', '','administrator@partaonline.org', 'password', 1)
 
 
+<<<<<<< HEAD:app/backend/SQL/DatabaseFill.sql
+=======
 INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description])
 VALUES
 ('Test Title 0',0,65,0,2,1,'Test Description 0'),
@@ -81,6 +83,7 @@ VALUES
 ('Test Title 2',2,65,0,2,1,'Test Description 2'),
 ('Test Title 3',3,65,0,2,1,'Test Description 3'),
 ('Test Title 4',4,65,0,2,1,'Test Description 4')
+>>>>>>> JPHD:backend/SQL/MockFill.sql
 
 --Categories
 INSERT INTO Categories 
