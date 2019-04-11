@@ -19,7 +19,9 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 17 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
+        #self.driver= '{ODBC Driver 17 for SQL Server}'
+
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -58,11 +60,6 @@ class DatabaseMethods:
 
         column_names = [column[0] for column in cursor.description]
         column_count = len(column_names)
-        print(column_count)
-        #print(column_names[0])
-        #print(column_names[1])
-        #if column_count == 1:
-            #column_count = 2
 
         dt = Datatable.DataTable()
 
@@ -73,8 +70,6 @@ class DatabaseMethods:
             for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
-                #print(column_names[i])
-                #print(str(row[i]))
 
             dt.AddRow(dr)
 
@@ -119,12 +114,60 @@ class DatabaseMethods:
         DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, description),False)
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):
+        update_title = None
+        update_category = None
+        update_status = None
+        update_department = None
+        update_description = None
+
         #Get current ticket info
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
 
         dt = DatabaseMethods.GetDataTable(self, sql, (ticket_id))
         dr = dt.GetRow(0)
 
-        sql = "INSERT INTO"
+        old_title = dr.GetColumnValue("Title")
+        old_category = dr.GetColumnValue("Category")
+        old_status = dr.GetColumnValue("Status")
+        old_department = dr.GetColumnValue("Department")
+        old_description = dr.GetColumnValue("Description")
 
+        #Compare old vs new, if changes save
+        change_made = False
+
+        if old_title != title:
+            update_title = title
+            change_made = True
+
+        if old_category != category:
+            update_category = category
+            change_made = True
+        
+        if old_status != status:
+            update_status = status
+            change_made = True    
+
+        if old_department != department:
+            update_department = department
+            change_made = True
+
+        if old_description != description:
+            update_description = description
+            change_made = True
+
+
+        if change_made:
+            #update ticket
+            sql = "UPDATE Tickets "
+            sql = sql + " SET Title = ?, Category = ?, [Status] = ?, Department = ?, [Description] = ? "
+            sql = sql + " WHERE TicketID = ?"
+            
+            DatabaseMethods.ExecuteSql(self, sql, (title, category, status, department, description, ticket_id), False)
+
+
+            #update ticket history
+            sql = "INSERT INTO TicketHistory (TicketID, Title, Category, [Status], Department, [Description], UserID)"
+            sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?)"
+            
+            DatabaseMethods.ExecuteSql(self, sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id), False)
     
