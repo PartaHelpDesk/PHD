@@ -1,6 +1,6 @@
 --Users Table
 
-INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, Password, Active)
+INSERT INTO Users(Username, [Level], FirstName, LastName, Email, Password, Active)
 VALUES
 ('amrhein.c16', 1, 'Claudia', 'Amrhein','amrhein.c16 @partaonline.org', 'password', 1),
 ('mfletch', 1, 'Marcia', 'Fletcher','mfletch@partaonline.org', 'password', 1),
@@ -74,43 +74,22 @@ VALUES
 ('administrator', 1, 'Administrator', '','administrator@partaonline.org', 'password', 1)
 
 
+<<<<<<< HEAD:app/backend/SQL/DatabaseFill.sql
+=======
+INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description])
+VALUES
+('Test Title 0',0,65,0,2,1,'Test Description 0'),
+('Test Title 1',1,65,0,2,1,'Test Description 1'),
+('Test Title 2',2,65,0,2,1,'Test Description 2'),
+('Test Title 3',3,65,0,2,1,'Test Description 3'),
+('Test Title 4',4,65,0,2,1,'Test Description 4')
+>>>>>>> JPHD:backend/SQL/MockFill.sql
 
 --Categories
-INSERT INTO [dbo].[Categories] 
+INSERT INTO Categories 
 VALUES
 ('Harware'),
 ('Software'),
 ('Network'),
 ('Phone Server'),
-('Login'),
-('Printer'),
-('Account Permission'),
-('Phone')
-
---Status
-INSERT INTO [dbo].[Status]
-VALUES
-('In Process'),
-('Closed'),
-('On Hold'),
-('Received'),
-('Escalated'),
-('Reopened')
-
-INSERT INTO [dbo].[Departments]
-VALUES
-('Training'),
-('Accouting'),
-('Dispatch'),
-('Marketing'),
-('Information Technology'),
-('Scheduling'),
-('Administration'),
-('Planning'),
-('Human Resource'),
-('Maintenance'),
-('Operations'),
-('Gateway')
-
-
---
+('Login')

@@ -3,6 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
 from config import config
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.automap import automap_base
+
+
 
 frontend.config.from_object(config.get('dev'))
 
@@ -14,5 +19,8 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'login_2'
 
 # load config
+#frontend.config.from_object(config.get('dev'))
 
-from frontend import models
+def init_db():
+    import models
+    Base.create_all(bind=engine)

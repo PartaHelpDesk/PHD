@@ -18,18 +18,25 @@
         width: 500px;
         margin: 0 auto;
     }
+
     table{
         width: 100%;
     }
+
     table tr{
         height: 30px;
     }
+
     input[type='text']{
         width: 90%;
     }
+
     div.submit{
         text-align: center;
     }
+
+
+
     </style>
 {% endblock %}
 {% block body %}
@@ -62,6 +69,7 @@
                 <td>Department:</td>
                 <td><select name="department" id="">
                     {% for s in department %}
+                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
                     <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
                     <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
                     <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>

@@ -1,4 +1,4 @@
-import DatabaseMethods, Datatable, DataRow
+import DatabaseMethods, Datatable, Datatable
 
 dbm = DatabaseMethods.DatabaseMethods()
 
@@ -26,8 +26,8 @@ dt.PrintValues()
 
 # dt.SetDataTable(results)
 
-
-
+dr = dt.GetRow(0)
+print(dr.GetColumnValue("Description"))
 
 # dt.PrintValues()
 

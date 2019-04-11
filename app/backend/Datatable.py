@@ -1,4 +1,3 @@
-#from backend import DataRow
 import DataRow
 
 class DataTable:
@@ -21,7 +20,3 @@ class DataTable:
         if len(self.data_rows) == 0:
             return True
         return False
-
-    def get_Size(self):
-        return len(self.data_rows)
-      

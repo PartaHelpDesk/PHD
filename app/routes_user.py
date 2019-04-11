@@ -3,7 +3,6 @@ from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import frontend
 from frontend.utils import *
-from backend import DatabaseMethods, Datatable, DataRow
 
 
 @frontend.route('/hliu32')
@@ -104,7 +103,7 @@ def deactive_2(id):
     return "ok"
 
 
-@frontend.route("/hliu32/active/<int:id>", methods=["POST"])
+@frontend.route("/active/<int:id>", methods=["POST"])
 @login_required
 def active_2(id):
 

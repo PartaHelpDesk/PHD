@@ -5,7 +5,7 @@ from .utils import *
 from frontend.models import Status, Category
 
 
-@frontend.route('/hliu32/dashboard')
+@frontend.route('/dashboard')
 @login_required
 def dashboard_2():
     my_tickets = get_my_tickets()
@@ -13,13 +13,13 @@ def dashboard_2():
     return render_template("ticket_queue.html", my_tickets=my_tickets, tickets_queue=tickets_queue)
 
 
-@frontend.route('/hliu32')
+@frontend.route('/')
 @login_required
 def index_2():
     return redirect(url_for('login_2'))
 
 
-@frontend.route("/hliu32/view_ticket/<int:ticket_id>")
+@frontend.route("/view_ticket/<int:ticket_id>")
 @login_required
 def view_ticket(ticket_id):
     ticket = Ticket.query.get(ticket_id)
@@ -29,7 +29,7 @@ def view_ticket(ticket_id):
     return render_template("view_ticket.html", t=ticket)
 
 
-@frontend.route("/hliu32/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
+@frontend.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
 @login_required
 def update_ticket(ticket_id):
     ticket = Ticket.query.get(ticket_id)
@@ -41,7 +41,7 @@ def update_ticket(ticket_id):
     return render_template("update_ticket.html", t=ticket, status=status)
 
 
-@frontend.route("/hliu32/edit_ticket/<int:ticket_id>", methods=["POST", "GET"])
+@frontend.route("/edit_ticket/<int:ticket_id>", methods=["POST", "GET"])
 @login_required
 def edit_ticket(ticket_id):
     ticket = Ticket.query.get(ticket_id)
@@ -52,8 +52,13 @@ def edit_ticket(ticket_id):
     return render_template("edit_ticket.html", t=ticket, status=status, categories=categories)
 
 
-@frontend.route("/hliu32/view_all")
+@frontend.route("/view_all")
 @login_required
 def view_all():
     tickets = Ticket.query.all()
     return render_template("view_all.html", tickets=tickets)
+
+@frontend.route("/create_ticket", methods=['GET', 'POST'])
+@login_required
+def create_ticket():
+    return render_template("create_ticket.html")

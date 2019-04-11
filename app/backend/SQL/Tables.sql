@@ -25,12 +25,13 @@ PRIMARY KEY CLUSTERED
 CREATE TABLE [dbo].[Tickets](
 	[TicketID] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [varchar](128) NOT NULL,
-	[Category] [varchar](128) NOT NULL,
+	[Category] [int] NOT NULL,
 	[CreatedUserID] [int] NOT NULL,
-	[Status] [varchar](128) NOT NULL,
+	[Status] [int] NOT NULL,
 	[CreateDate] [datetime] DEFAULT GETDATE(),
 	[ClosedDate] [datetime] ,
-	[Department] [varchar] (128)NOT NULL,
+	[Department] [int] NOT NULL,
+	[Location] [int] NOT NULL,
 	[Description] [varchar](280) NOT NULL 
 
 
