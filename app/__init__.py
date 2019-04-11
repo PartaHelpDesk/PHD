@@ -2,9 +2,9 @@ from flask import Flask
 from flask_mail import Mail
 import os
 
-frontend = Flask(__name__)
-frontend.config['SECRET_KEY'] = 'you-will-never-guess'
-frontend.config.update(dict(
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'you-will-never-guess'
+app.config.update(dict(
 	MAIL_SERVER='smtp.googlemail.com',
 	MAIL_PORT=587,
 	MAIL_USE_TLS=1,
@@ -12,7 +12,7 @@ frontend.config.update(dict(
 	MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 	))
 
-mail = Mail(frontend)
+mail = Mail(app)
 
-from frontend import routes, routes_main, routes_user
-from frontend import initialization
+from app import routes, routes_main, routes_user
+from app import initialization

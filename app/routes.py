@@ -1,15 +1,15 @@
-from frontend import frontend
-from frontend.forms import EmailForm, TicketForm
+from app import app
+from app.forms import EmailForm, TicketForm
 from flask import render_template, flash, redirect
-from backend import email_service, DatabaseMethods, Datatable, DataRow
+from app import email_service, DatabaseMethods, Datatable, DataRow
 
-@frontend.route('/')
-@frontend.route('/index')
+@app.route('/')
+@app.route('/index')
 def index():
 	user = {'username': 'PHD User'}
 	return render_template('index.html', title='PartaHelpDesk 1.0.0', user=user)
 
-@frontend.route('/login')
+@app.route('/login')
 def login():
 	return '''
 <html>
@@ -30,7 +30,7 @@ def login():
 </html>
 '''
 
-@frontend.route('/ticket_submitted')
+@app.route('/ticket_submitted')
 def ticket_submitted():
 	return '''
 <html>
@@ -45,7 +45,7 @@ def ticket_submitted():
 </html>
 '''
 
-@frontend.route('/email_test', methods=['GET', 'POST'])
+@app.route('/email_test', methods=['GET', 'POST'])
 def email_test():
 	form = EmailForm()
 	user = {'username': 'PHD User'}
@@ -58,7 +58,7 @@ def email_test():
 	return render_template('email.html', title='Email Testing', form=form, user=user)
 
 
-@frontend.route('/create_ticket', methods=['GET', 'POST'])
+@app.route('/create_ticket', methods=['GET', 'POST'])
 def create_ticket():
 	form =  TicketForm()
 	user = {'username' : 'PHD User'}

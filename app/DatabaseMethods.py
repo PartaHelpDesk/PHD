@@ -1,8 +1,5 @@
 
-import pyodbc ,Datatable, DataRow #DEBUG
-
-#from backend import Datatable #SERVER
-#from backend import DataRow #SERVER
+from app import Datatable, DataRow #DEBUG
 
 import pyodbc
 from array import *

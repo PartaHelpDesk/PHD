@@ -1,5 +1,5 @@
 from flask_mail import Message
-from frontend import mail
+from app import mail
 
 #class email_service:
 	#def __init__(self):
