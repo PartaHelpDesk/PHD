@@ -55,11 +55,6 @@ class DatabaseMethods:
 
         column_names = [column[0] for column in cursor.description]
         column_count = len(column_names)
-        print(column_count)
-        #print(column_names[0])
-        #print(column_names[1])
-        #if column_count == 1:
-            #column_count = 2
 
         dt = Datatable.DataTable()
 
@@ -70,8 +65,6 @@ class DatabaseMethods:
             for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
-                #print(column_names[i])
-                #print(str(row[i]))
 
             dt.AddRow(dr)
 
