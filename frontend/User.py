@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
-from flask.ext.login import login_user, logout_user
+from frontend.initialization import login_manager
+#from flask.ext.login import login_user, logout_user
 
 
 

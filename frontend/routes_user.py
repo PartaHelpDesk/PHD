@@ -1,8 +1,9 @@
-from frontend.models import User, db
+from frontend import User
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import frontend
 from frontend.utils import *
+from frontend.backend import DatabaseMethods
 
 
 @frontend.route('/hliu32')
@@ -13,17 +14,18 @@ def main_2():
 @frontend.route('/hliu32/login', methods=['POST', 'GET'])
 def login_2():
     if request.method == 'POST':
-        email = request.form.get('email')
+        username = request.form.get('username')
         password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if not user:
+        dbm = DatabaseMethods()
+        db_password = dbm.GetValue('SELECT * FROM Users WHERE Username = ?', username)
+        if db_password != password:
             flash('Login failed, user not found.')
             return redirect(url_for('login_2'))
-        if not user.verify_password(password):
-            flash('Login failed, your password seems wrong.')
-            return redirect(url_for('login_2'))
-        login_user(user)
-        return redirect(url_for('dashboard_2'))
+        else:
+            db_id = dbm.GetUserID(username)
+            user = User(db_id, username)
+            login_user(user)
+            return redirect(url_for('dashboard_2'))
     return render_template('login.html')
 
 

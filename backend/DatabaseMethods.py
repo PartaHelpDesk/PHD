@@ -1,4 +1,7 @@
-import pyodbc, Datatable, DataRow
+import pyodbc ,Datatable, DataRow #DEBUG
+# from backend import Datatable #SERVER
+# from backend import DataRow #SERVER
+import pyodbc
 from array import *
 
 class DatabaseMethods:
@@ -73,17 +76,48 @@ class DatabaseMethods:
         sql = "SELECT Email from Users WHERE [Level] in (2,3)"
         return DatabaseMethods.GetDataTable(self, sql, None)
 
+    def GetUserID(self, user_name):
+        sql = "SELECT UserID FROM USERS WHERE Username = ?"
+        id = DatabaseMethods.GetValue(self, sql, user_name)
+        return int(id)
+
     def GetUserAccountInfo(self, user_id):
+        #Gets all user info
         sql = "SELECT * FROM Users WHERE UserID = ?"
         return DatabaseMethods.GetDataTable(self, sql, user_id)
 
+<<<<<<< HEAD
     def CreateTicket(self, title, category, user_id, status, department, location, description):
         sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Location], [Description]) "
+=======
+    def GetTicketInfo(self, ticket_id):
+        #Gets ticket infor for one ticket
+        sql = "SELECT * FROM Tickets WHERE TicketID = ?"
+        return DatabaseMethods.GetDataTable(self, sql, ticket_id)
+
+    def GetAllActiveTickets(self):
+        #Gets all active tickets
+        sql = "SELECT * FROM Tickets WHERE [Status] <> 'Closed'"
+        return DatabaseMethods.GetDataTable(self, sql, None)
+
+    def CreateTicket(self, title, category, user_id, status, department, description):
+        #Creates a ticket
+        sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Description]) "
+>>>>>>> master
         sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?) "
         DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, location, description),False)
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, location, description):
         #Get current ticket info
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
+<<<<<<< HEAD
         results = DatabaseMethods.GetDataTable(self, sql, (ticket_id))
+=======
 
+        dt = DatabaseMethods.GetDataTable(self, sql, (ticket_id))
+        dr = dt.GetRow(0)
+
+        sql = "INSERT INTO"
+>>>>>>> master
+
+    
