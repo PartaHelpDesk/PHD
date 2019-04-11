@@ -5,8 +5,6 @@ from .utils import *
 from app.models import Status, Category
 
 
-
-
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -15,6 +13,8 @@ def dashboard():
     return render_template("ticket_queue.html", my_tickets=my_tickets, tickets_queue=tickets_queue)
 
 
+
+@app.route("/hliu32/view_ticket/<int:ticket_id>")
 
 @app.route("/view_ticket/<int:ticket_id>")
 @login_required
@@ -32,8 +32,11 @@ def update_ticket(ticket_id):
     ticket = Ticket.query.get(ticket_id)
     if not ticket:
         abort(404)
-
     status = Status.query.all()
+    return render_template("update_ticket.html", t=ticket, status=status)
+
+
+@app.route("/hliu32/edit_ticket/<int:ticket_id>", methods=["POST", "GET"])
     return render_template("update_ticket.html", t=ticket, status=status)
 
 
@@ -53,7 +56,6 @@ def edit_ticket(ticket_id):
 def view_all():
     tickets = Ticket.query.all()
     return render_template("view_all.html", tickets=tickets)
-
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required

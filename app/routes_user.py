@@ -1,8 +1,11 @@
+
 from app import User
+
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
 from app.utils import *
+
 from backend import DatabaseMethods as DM
 
 
@@ -48,7 +51,6 @@ def user():
 @app.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user():
-
     if request.method == 'POST':
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
@@ -58,7 +60,6 @@ def add_user():
         if not first_name or not last_name or not password or not email:
             flash('Incomplete user information. Please check!')
             return redirect(url_for(add_user))
-
         user = User(first_name=first_name, last_name=last_name, password=password, email=email)
         db.session.add(user)
         db.session.commit()
@@ -81,12 +82,13 @@ def edit_user(id):
         if not first_name or not last_name or not email:
             flash('Incomplete user information. Please check!')
             return redirect(url_for('add_user'))
-
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
         db.session.commit()
         flash("Successfully save user information!")
+        return redirect(url_for("user_2"))
+    return render_template("edit_user.html", u=user)
         return redirect(url_for("user"))
     return render_template("edit_user.html", u=user)
 
@@ -94,11 +96,9 @@ def edit_user(id):
 @app.route("/deactive/<int:id>", methods=["POST"])
 @login_required
 def deactive(id):
-
     user = User.query.get(id)
     if not user:
         abort(404)
-
     user.active = 0
     db.session.commit()
     flash("Successfully deactive user {} {}!".format(user.first_name, user.last_name))
@@ -108,11 +108,9 @@ def deactive(id):
 @app.route("/active/<int:id>", methods=["POST"])
 @login_required
 def active(id):
-
     user = User.query.get(id)
     if not user:
         abort(404)
-
     user.active = 1
     db.session.commit()
     flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
@@ -137,5 +135,4 @@ def edit_my_account():
         department = request.form.get("department")
         flash("Successfully save your information!")
         return redirect("account")
-
     return render_template("edit_my_account.html")
