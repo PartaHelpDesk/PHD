@@ -81,42 +81,32 @@ CREATE TABLE [dbo].[TicketAttachments](
 
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Categories](
-	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[CategoryID] ASC
+	[Description] ASC
 )
 )
 
 CREATE TABLE [dbo].[Status](
-	[StatusID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[StatusID] ASC
+	[Description] ASC
 )
 )
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Departments](
-	[DepartmentID] [int] IDENTITY(1,1) NOT NULL,
+
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[DepartmentID] ASC
+	[Description] ASC
 )
 )
 
------------------------------------------------------------------------
-CREATE TABLE [dbo].[Locations](
-	[LocationID] [int] IDENTITY(1,1) NOT NULL,
-	[Description] [varchar] (32) NOT NULL,
-
-PRIMARY KEY CLUSTERED 
-(
-	[LocationID] ASC
-)
-)

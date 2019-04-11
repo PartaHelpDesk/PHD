@@ -97,6 +97,13 @@ class DatabaseMethods:
         sql = "SELECT * FROM Users WHERE UserID = ?"
         return DatabaseMethods.GetDataTable(self, sql, user_id)
 
+    def SetUserActivation(self, user_id, activate):
+        #set active = true to activate, false to deactivate
+        sql = "UPDATE Users"
+        sql = sql + " SET Active = ?"
+        sql = sql + " WHERE UserID = ?"
+        DatabaseMethods.ExecuteSql(self, sql, (activate, user_id), False)
+
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
@@ -114,6 +121,7 @@ class DatabaseMethods:
         DatabaseMethods.ExecuteSql(self, sql, (title, category, user_id, status, department, description),False)
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):
+        #Updates the ticket in ticket table and updates ticket history
         update_title = None
         update_category = None
         update_status = None
@@ -170,4 +178,20 @@ class DatabaseMethods:
             sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?)"
             
             DatabaseMethods.ExecuteSql(self, sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id), False)
+
+    def GetCategories(self):
+        sql = "SELECT * FROM Categories"
+        return DatabaseMethods.GetDataTable(self, sql, None)
+
+    def GetDepartments(self):
+        sql = "SELECT * FROM Departments"
+        return DatabaseMethods.GetDataTable(self, sql, None)
+
+    def GetStatuses(self):
+        sql = "SELECT * FROM Status"
+        return DatabaseMethods.GetDataTable(self, sql, None)
+
+
+
+        
     
