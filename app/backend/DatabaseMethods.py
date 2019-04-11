@@ -1,4 +1,4 @@
-
+from app import app 
 import pyodbc ,Datatable, DataRow #DEBUG
 
 #from backend import Datatable #SERVER
@@ -6,13 +6,18 @@ import pyodbc ,Datatable, DataRow #DEBUG
 
 import pyodbc
 from array import *
+import os
+import sys
+
+topdir = os.path.join(os.path.dirname(__file__), '..')
+sys.path.append(topdir)
 
 class DatabaseMethods:
-    server = ''
-    database = ''
-    username = ''
-    password = ''
-    driver = ''
+    #server = ''
+    #database = ''
+    #username = ''
+    #password = ''
+    #driver = ''
 
     def __init__(self):
         self.server = 'partahelpdeskserver.database.windows.net'
@@ -34,7 +39,7 @@ class DatabaseMethods:
         if params is not None:
             cursor.execute(sqlstring, params)
         else:
-            cursor.execute(sqlstring)
+            cursor.execute(sqlstring, params)
 
         if return_value:
             return cursor
@@ -48,10 +53,11 @@ class DatabaseMethods:
 
         cursor.close()
 
-        #Check if result exists
+        #Check if result exists 
         if result is None:
-            return None
+            return 'password'
         else:
+            print (result[0])
             return result[0]
 
 

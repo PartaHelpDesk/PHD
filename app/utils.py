@@ -1,5 +1,5 @@
 from flask_login import current_user
-from frontend.models import Ticket, User
+from app.models import Ticket, User
 from sqlalchemy import and_
 
 
