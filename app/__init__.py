@@ -15,5 +15,5 @@ app.config.update(dict(
 
 mail = Mail(app)
 
-from app import routes, routes_main, routes_user
+from app import routes_main, routes_user
 from app import initialization
