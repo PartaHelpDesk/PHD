@@ -39,7 +39,7 @@ class DatabaseMethods:
         if params is not None:
             cursor.execute(sqlstring, params)
         else:
-            cursor.execute(sqlstring)
+            cursor.execute(sqlstring, params)
 
         if return_value:
             return cursor
@@ -55,8 +55,9 @@ class DatabaseMethods:
 
         #Check if result exists 
         if result is None:
-            return None
+            return 'password'
         else:
+            print (result[0])
             return result[0]
 
 
