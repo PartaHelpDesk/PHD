@@ -29,5 +29,7 @@ class User(UserMixin):
     
     def __repr__(self):
         return "%s" % (sself.username)
+
+class Tickets
     
 
