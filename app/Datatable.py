@@ -8,6 +8,8 @@ class DataTable:
         self.data_rows = []
 
     def PrintValues(self):
+        if self.data_rows is None:
+            print('empty') 
         for row in self.data_rows:
             row.PrintRow()
 

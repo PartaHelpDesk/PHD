@@ -37,15 +37,18 @@
             </thead>
             <tbody>
                 {% for t in tickets_queue %}
-                <td>{{ t.id }}</td>
-                <td>{{ t.description }}</td>
-                <td>{{ t.requestor }}</td>
-                <td>{{t.department }}</td>
-                <td>{{ t.category }}</td>
-                <td>{{ t.last_modified }}</td>
+                <tr>
+                <td>{{ t.ticket_id }}</td>
                 <td>{{ t.status }}</td>
-                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button></td>
-                {% endfor %}
+                <td>{{ t.create_dt }}</td>
+                <td>{{ t.category }}</td>
+                <td>{{ t.title }}</td>
+                <td>{{ t.deparment }}</td>
+                <td>{{ t.user_id }}</td>
+                <td>{{ t.description }}</td>
+                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.ticket_id) }}'">View</button></td>
+                </tr>
+                    {% endfor %}
             </tbody>
 
         </table>
@@ -65,16 +68,18 @@
             </thead>
             <tbody>
                 {% for t in my_tickets %}
-                <td>{{ t.id }}</td>
-                <td>{{ t.description }}</td>
-                <td>{{ t.requestor }}</td>
-                <td>{{ t.department }}</td>
-                <td>{{ t.category }}</td>
-                <td>{{ t.last_modified }}</td>
-                <td>{{ t.status }}</td>
+                <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.requestor }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.last_modified }}</td>
+                    <td>{{ t.status }}</td>
                     <td>
                         <button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button>
                     </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>

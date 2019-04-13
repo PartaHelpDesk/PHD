@@ -26,7 +26,10 @@ class DatabaseMethods:
 
         #If user has params use them
     
-        cursor.execute(sqlstring, params)
+        if params != None:
+            cursor.execute(sqlstring, params)
+        else:
+            cursor.execute(sqlstring)
         
         if return_value:
             return cursor
@@ -92,7 +95,7 @@ class DatabaseMethods:
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
-        return self.GetDataTable( sql, ticket_id)
+        return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
