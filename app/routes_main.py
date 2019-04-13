@@ -10,7 +10,7 @@ from flask_login import login_required
 def dashboard():
     #my_tickets = get_my_tickets()
     #tickets_queue = get_tickets_queue()
-    return render_template("ticket_queue.html", my_tickets=my_tickets, tickets_queue=tickets_queue)
+    return render_template("ticket_queue.html")
 
 
 

@@ -14,9 +14,9 @@ mail = Mail(app)
 login_manager = LoginManager(app)
 login_manager.login_message = 'Please log in.'
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'login_2'
+login_manager.login_view = 'login'
 
 # load config
-from app import models
+import models
 
 #frontend.config.from_object(config.get('dev'))
