@@ -87,10 +87,10 @@ class DatabaseMethods:
         id = self.GetValue(sql, user_name)
         return id
 
-    def GetUserAccountInfo(self, user_id):
+    def GetUserAccountInfo(self, username):
         #Gets all user info
-        sql = "SELECT * FROM Users WHERE UserID = ?"
-        return self.GetDataTable(sql, user_id)
+        sql = "SELECT * FROM Users WHERE Username = ?"
+        return self.GetDataTable(sql, username)
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket

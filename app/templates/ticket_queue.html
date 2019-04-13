@@ -26,26 +26,29 @@
             <thead>
                 <tr>
                     <th>Ticket</th>
-                <th>Description</th>
-                <th>Requestor</th>
-                <th>Department</th>
-                <th>Category</th>
-                <th>Last Modified</th>
-                <th>Status</th>
-                <th>Commands</th>
+                    <th>Status</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Department</th>
+                    <th>Date Created</th>
+                    <th>Last Modified</th>
+                    <th>Commands</th>
                 </tr>
             </thead>
             <tbody>
                 {% for t in tickets_queue %}
                 <tr>
-                <td>{{ t.ticket_id }}</td>
-                <td>{{ t.status }}</td>
-                <td>{{ t.create_dt }}</td>
-                <td>{{ t.category }}</td>
-                <td>{{ t.title }}</td>
-                <td>{{ t.deparment }}</td>
-                <td>{{ t.user_id }}</td>
-                <td>{{ t.description }}</td>
+                    <td>{{ t.ticket_id }}</td>
+                    <td>{{ t.status }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.user_id }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.create_dt }}</td>
+                    <td>TODO</td>
                     <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.ticket_id) }}'">View</button></td>
                 </tr>
                     {% endfor %}
@@ -56,28 +59,32 @@
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
-                <th>Ticket</th>
-                <th>Description</th>
-                <th>Requestor</th>
-                <th>Department</th>
-                <th>Category</th>
-                <th>Last Modified</th>
-                <th>Status</th>
-                <th>Commands</th>
+                    <th>Ticket</th>
+                    <th>Status</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Department</th>
+                    <th>Date Created</th>
+                    <th>Last Modified</th>
+                    <th>Commands</th>
                 </tr>
             </thead>
             <tbody>
                 {% for t in my_tickets %}
                 <tr>
-                    <td>{{ t.id }}</td>
-                    <td>{{ t.description }}</td>
-                    <td>{{ t.requestor }}</td>
-                    <td>{{ t.department }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.last_modified }}</td>
+                    <td>{{ t.ticket_id }}</td>
                     <td>{{ t.status }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.user_id }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.create_dt }}</td>
+                    <td>TODO</td>
                     <td>
-                        <button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button>
+                        <button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.ticket_id) }}'">View</button>
                     </td>
                 </tr>
                 {% endfor %}
