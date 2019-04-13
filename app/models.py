@@ -12,7 +12,23 @@ def load_user(user_id):
 class User(UserMixin):
     
     def __init__(self, username):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetUserAccountInfo(username)
+        dr = dt.GetRow(0)
+
+        level = dr.GetColumnValue('Level')
+        user_id = dr.GetColumnValue('UserID')
+        first_name = dr.GetColumnValue('FirstName')
+        last_name = dr.GetColumnValue('LastName')
+        email = dr.GetColumnValue('Email')
+
+        self.level = level
+        self.user_id = user_id
         self.username = username
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.is_active = True
         self.authenticated = False
     
     def is_authenticated(self):
@@ -29,6 +45,8 @@ class User(UserMixin):
     
     def __repr__(self):
         return "%s" % (sself.username)
+
+
 
 class Tickets:
 

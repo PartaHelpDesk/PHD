@@ -1,8 +1,8 @@
 from . import app
 from flask import render_template, redirect, url_for, abort
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
-from app.models import Tickets
+from app.models import Tickets, User
 
 
 @app.route('/dashboard')
@@ -10,9 +10,15 @@ from app.models import Tickets
 def dashboard():
     #my_tickets = Tickets.getAllUserTicket(current_user.username)
     t = Tickets()
-    tickets_queue = getTicketQueue()
-    print(tickets_queue)
-    return render_template("ticket_queue.html", tickets_queue=tickets_queue)
+    tickets_queue = t.getTicketQueue()
+    dbm = dm.DatabaseMethods()
+    dt = dbm.GetAllUserTickets(current_user.user_id)
+    dt.PrintValues()
+    user_tickets_queue = t.getAllUserTicket(current_user.user_id)
+    
+    
+    #print(current_user.email)
+    return render_template("ticket_queue.html", tickets_queue=tickets_queue, my_tickets=user_tickets_queue)
 
 
 @app.route("/view_ticket/<int:ticket_id>")
