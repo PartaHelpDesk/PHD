@@ -22,8 +22,8 @@ def login():
             return redirect(url_for('login'))
         else:
             db_id = dbm.GetUserID(username)
-            user = User(db_id, username)
-            login_user(user)
+            #user = User(db_id, username)
+            login_user(db_id ,username)
             return redirect(url_for('dashboard'))
     return render_template('login.html')
 
