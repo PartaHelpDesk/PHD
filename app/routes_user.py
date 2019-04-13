@@ -1,4 +1,4 @@
-from app import User
+from app.models import User
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
@@ -16,14 +16,18 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         dbm = DM.DatabaseMethods()
-        db_password = dbm.GetValue('SELECT Password FROM Users WHERE Username = ?', username)
+        db_password = dbm.GetValue('SELECT [Password] FROM Users WHERE [Username] = ?', username)
+        print(db_password)
+        print (username)
+        print (password)
         if db_password != password:
             flash('Login failed, user not found.')
             return redirect(url_for('login'))
         else:
-            db_id = dbm.GetUserID(username)
-            #user = User(db_id, username)
-            login_user(db_id ,username)
+            #db_id = dbm.GetUserID(username)
+            user = User(username)
+            user.authenticated =True 
+            login_user(user)
             return redirect(url_for('dashboard'))
     return render_template('login.html')
 

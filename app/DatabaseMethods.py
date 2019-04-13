@@ -16,7 +16,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 17 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -26,11 +26,9 @@ class DatabaseMethods:
         cursor = cnxn.cursor()
 
         #If user has params use them
-        if params is not None:
-            cursor.execute(sqlstring, params)
-        else:
-            cursor.execute(sqlstring)
-
+    
+        cursor.execute(sqlstring, params)
+        
         if return_value:
             return cursor
         else:
@@ -85,7 +83,7 @@ class DatabaseMethods:
     def GetUserID(self, user_name):
         sql = "SELECT UserID FROM USERS WHERE Username = ?"
         id = DatabaseMethods.GetValue(self, sql, user_name)
-        return int(id)
+        return id
 
     def GetUserAccountInfo(self, user_id):
         #Gets all user info
