@@ -10,7 +10,7 @@ from app.models import Tickets
 def dashboard():
     #my_tickets = Tickets.getAllUserTicket(current_user.username)
     t = Tickets()
-    tickets_queue = t.getTicketQueue()
+    tickets_queue = getTicketQueue()
     print(tickets_queue)
     return render_template("ticket_queue.html", tickets_queue=tickets_queue)
 
