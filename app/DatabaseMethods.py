@@ -98,9 +98,14 @@ class DatabaseMethods:
         return DatabaseMethods.GetDataTable(self, sql, ticket_id)
 
     def GetAllActiveTickets(self):
-        #Gets all active tickets
+        #Gets all active tickets (admin/IT)
         sql = "SELECT * FROM Tickets WHERE [Status] <> 'Closed'"
         return DatabaseMethods.GetDataTable(self, sql, None)
+
+    def GetAllUserTickets(self, user_id):
+        #Dashboard Tickets related to user
+        sql = "SELECT * FROM Tickets WHERE CreatedUserID = ? "
+        return DatabaseMethods.GetDataTable(self, sql, user_id)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
