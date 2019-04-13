@@ -2,7 +2,6 @@ from app import User
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
-from app.utils import *
 from app import DatabaseMethods as DM
 
 
