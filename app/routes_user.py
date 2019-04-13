@@ -2,8 +2,12 @@ from app import User
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
+<<<<<<< HEAD
+from app import DatabaseMethods as DM
+=======
 from app.utils import *
 #from backend import DatabaseMethods as DM
+>>>>>>> master
 
 
 @app.route('/')
@@ -23,8 +27,8 @@ def login():
             return redirect(url_for('login'))
         else:
             db_id = dbm.GetUserID(username)
-            user = User(db_id, username)
-            login_user(user)
+            #user = User(db_id, username)
+            login_user(db_id ,username)
             return redirect(url_for('dashboard'))
     return render_template('login.html')
 

@@ -17,3 +17,7 @@ mail = Mail(app)
 
 from app import routes_main, routes_user
 from app import initialization
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
