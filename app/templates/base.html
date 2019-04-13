@@ -133,22 +133,22 @@
                 <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>
-                <a href="{{ url_for('user_2') }}">Users</a>
+                <a href="{{ url_for('user') }}">Users</a>
                 <a href="#">Enumerations</a>
               </div>
         </div>
 
         <div class="center">
-            <h1>Welcome {{ current_user.first_name }} {{ current_user.last_name }}</h1>
+            <h1>Welcome {{ current_user.username }} </h1>
         </div>
 
         <div class="left-nav">
-            <label style="color: white;">{{ current_user.first_name }}</label>
+            <label style="color: white;">{{ current_user.username }}</label>
             <div class="head-pic">
                 <img id="head-pic" src="{{ url_for('static', filename='images/icon logo.png') }}" alt="loading..">
             <div class="dropdown-content">
                 <a href="{{ url_for('account') }}">Account</a>
-                <a href="{{ url_for('logout_2') }}">Log Out</a>
+                <a href="{{ url_for('logout') }}">Log Out</a>
             </div>
             </div>
         </div>

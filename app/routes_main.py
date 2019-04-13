@@ -1,17 +1,18 @@
 from . import app
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required
-
-
+from app import DatabaseMethods as dm
+from app.models import Tickets
 
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    #my_tickets = get_my_tickets()
-    #tickets_queue = get_tickets_queue()
-    return render_template("ticket_queue.html")
-
+    #my_tickets = Tickets.getAllUserTicket(current_user.username)
+    t = Tickets()
+    tickets_queue = t.getTicketQueue()
+    print(tickets_queue)
+    return render_template("ticket_queue.html", tickets_queue=tickets_queue)
 
 
 @app.route("/view_ticket/<int:ticket_id>")

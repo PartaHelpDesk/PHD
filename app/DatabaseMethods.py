@@ -27,7 +27,10 @@ class DatabaseMethods:
 
         #If user has params use them
     
-        cursor.execute(sqlstring, params)
+        if params != None:
+            cursor.execute(sqlstring, params)
+        else:
+            cursor.execute(sqlstring)
         
         if return_value:
             return cursor
@@ -88,22 +91,22 @@ class DatabaseMethods:
     def GetUserAccountInfo(self, user_id):
         #Gets all user info
         sql = "SELECT * FROM Users WHERE UserID = ?"
-        return self.GetDataTable(self, sql, user_id)
+        return self.GetDataTable(sql, user_id)
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
-        return self.GetDataTable(self, sql, ticket_id)
+        return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
         sql = "SELECT * FROM Tickets WHERE [Status] <> 'Closed'"
-        return self.GetDataTable(self, sql, None)
+        return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
         sql = "SELECT * FROM Tickets WHERE CreatedUserID = ? "
-        return self.GetDataTable(self, sql, user_id)
+        return self.GetDataTable(sql, user_id)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
