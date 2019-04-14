@@ -4,6 +4,7 @@ from flask_mail import Mail
 import os
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.config.update(dict(
 	MAIL_SERVER='smtp.googlemail.com',

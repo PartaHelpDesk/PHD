@@ -25,6 +25,7 @@
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
+
                     <th>Ticket</th>
                     <th>Status</th>
                     <th>Category</th>
@@ -40,6 +41,7 @@
             <tbody>
                 {% for t in tickets_queue %}
                 <tr>
+
                     <td>{{ t.ticket_id }}</td>
                     <td>{{ t.status }}</td>
                     <td>{{ t.category }}</td>
@@ -49,7 +51,8 @@
                     <td>{{ t.department }}</td>
                     <td>{{ t.create_dt }}</td>
                     <td>TODO</td>
-                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.ticket_id) }}'">View</button></td>
+                    <td><button onclick="location.href='{{ url_for(\'view_ticket\', ticekt_id=ticket_id)'">View</button></td>
+
                 </tr>
                     {% endfor %}
             </tbody>
@@ -84,7 +87,9 @@
                     <td>{{ t.create_dt }}</td>
                     <td>TODO</td>
                     <td>
-                        <button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.ticket_id) }}'">View</button>
+
+                        <button onclick="location.href='{{ url_for(\'view_ticket\', ticket_id=t.id) }}'">View</button>
+
                     </td>
                 </tr>
                 {% endfor %}
