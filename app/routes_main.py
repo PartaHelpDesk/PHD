@@ -8,7 +8,6 @@ from app.models import Tickets, User
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    #my_tickets = Tickets.getAllUserTicket(current_user.username)
     t = Tickets()
     tickets_queue = t.getTicketQueue()
     dbm = dm.DatabaseMethods()

@@ -1,6 +1,7 @@
 from app import Datatable, DataRow #Server
 #import Datatable, DataRow #DatabaseTests
 import pyodbc
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class DatabaseMethods:
     server = ''
@@ -89,9 +90,24 @@ class DatabaseMethods:
         sql = "SELECT * FROM Users WHERE Username = ?"
         return self.GetDataTable(sql, username)
 
-    def GetUserPassword(self, username):
+    def CheckUserPassword(self, username, password):
+        #Get hashed user pw
         sql = "SELECT Password FROM Users WHERE Username = ?"
-        return self.GetValue(sql, username)
+        db_password = self.GetValue(sql, username)
+
+        print (username)
+        print (db_password)
+
+        #Hash what users entered
+
+        #compare
+        if check_password_hash(db_password, password):
+            return True
+        else:
+            return False
+
+    def HashPassword(self, password):
+        return generate_password_hash(password)
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
