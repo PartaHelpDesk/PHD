@@ -1,5 +1,5 @@
-import DatabaseMethods, Datatable, DataRow
 
+import DatabaseMethods
 dbm = DatabaseMethods.DatabaseMethods()
 
 # name = dbm.GetValue("SELECT username from users where FirstName = 'taylor'", None)
@@ -17,10 +17,12 @@ dbm = DatabaseMethods.DatabaseMethods()
 
 # dbm.CreateTicket('Title',1,2,65,2,0,'A REALLY LONG MESSAGE HERE BECUASE ITS  A TICKET')
 
+emails = []
 
-dt = dbm.GetDataTable("SELECT * FROM Tickets", None)
+emails = dbm.GetITEmails()
 
-dt.PrintValues()
+for email in emails:
+    print(email)
 
 #print(results)
 
