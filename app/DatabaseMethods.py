@@ -10,7 +10,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -186,12 +186,37 @@ class DatabaseMethods:
                 
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
-    def CreateUserAccount(self, username, level, first_name, last_name, email, password, active=1, authenticated=False):
+    def CreateUserAccount(self, username, level, first_name, last_name, email):
+        sql = 'SELECT * FROM Users WHERE Username like ? OR Email like ?'
+        dt = self.GetDataTable(sql, (username, email))
+       
+        if dt.data_rows != 0:
+            dr = dt.GetRow(0)
+            if dr.GetColumnValue('Username').lower() == username.lower():
+                return 'Username already exists!'
+            elif dr.GetColumnValue('Email').lower() == email.lower():
+                return 'Email is already in use!'
+            return 'An error has occured'
+
+        #if username or email is not already in use, add to DB
+
+        #Generate number for middle
+        sql = "SELECT MAX(UserID) + 1 FROM Users"
+        number = self.GetValue(sql, None)
+
+        active = 1
+        authenticated = False
+
+        password = generate_password_hash(last_name + str(number) + first_name)
+        #TODO Email user hashed password
+
         sql =  'INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, \
             [Password], Active, [Authenticated])'
-        sql += 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        sql += 'VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
+
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
+        return 'Success!'
 
 
     def GetCategories(self):
