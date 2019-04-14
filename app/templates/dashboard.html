@@ -19,61 +19,76 @@
 {% endblock %}
 {% block body %}
     <div class="dashboard_view_tickets">
-        <h3>Ticket Queue</h3>
+        <h3>IT Ticket Queue</h3>
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
-                    <td>Ticket</td>
-                    <td>Status</td>
-                    <td>Created</td>
-                    <td>Category</td>
-                    <td>Title</td>
-                    <td>Priority</td>
-                    <td>Author</td>
-                    <td>Description</td>
+                    <th>Ticket</th>
+                    <th>Status</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Department</th>
+                    <th>Date Created</th>
+                    <th>Last Modified</th>
+                    <th>Commands</th>
                 </tr>
             </thead>
             <tbody>
                 {% for t in tickets_queue %}
-                    <tr>
-                        <td>{{ t.ticket_id }}</td>
-                        <td>{{ t.status }}</td>
-                        <td>{{ t.create_dt }}</td>
-                        <td>{{ t.category }}</td>
-                        <td>{{ t.title }}</td>
-                        <td>{{ t.deparment }}</td>
-                        <td>{{ t.user_id }}</td>
-                        <td>{{ t.description }}</td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ t.ticket_id }}</td>
+                    <td>{{ t.status }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.description }}</td>
+                    <td>{{ t.user_id }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.create_dt }}</td>
+                    <td>TODO</td>
+                    <td>
+                            <button>View</button> <!--TODO Open Ticket-->
+                    </td>
+                </tr>
+                    {% endfor %}
             </tbody>
+
         </table>
-
-
-        <h3>My Ticket</h3>
+        <h3>My Tickets</h3>
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
-                    <td>Ticket</td>
-                    <td>Status</td>
-                    <td>Created</td>
-                    <td>Category</td>
-                    <td>Title</td>
-                    <td>Priority</td>
-                    <td>Description</td>
+                    <th>Ticket</th>
+                    <th>Status</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Department</th>
+                    <th>Date Created</th>
+                    <th>Last Modified</th>
+                    <th>Commands</th>
                 </tr>
             </thead>
-            <!-- <tbody>
+            <tbody>
                 {% for t in my_tickets %}
-                    <td>{{ t.id }}</td>
+                <tr>
+                    <td>{{ t.ticket_id }}</td>
                     <td>{{ t.status }}</td>
-                    <td>{{ t.created_date }}</td>
-                    <td>{{ t.category.description }}</td>
+                    <td>{{ t.category }}</td>
                     <td>{{ t.title }}</td>
-                    <td>{{ t.priority }}</td>
                     <td>{{ t.description }}</td>
+                    <td>{{ t.user_id }}</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.create_dt }}</td>
+                    <td>TODO</td>
+                    <td>
+                        <button>View</button> <!--TODO Open Ticket-->
+                    </td>
+                </tr>
                 {% endfor %}
-            </tbody> -->
+            </tbody>
         </table>
     </div>
 {% endblock %}

@@ -15,10 +15,7 @@ def dashboard():
     dt = dbm.GetAllUserTickets(current_user.user_id)
     dt.PrintValues()
     user_tickets_queue = t.getAllUserTicket(current_user.user_id)
-    
-    
-    #print(current_user.email)
-    return render_template("ticket_queue.html", tickets_queue=tickets_queue, my_tickets=user_tickets_queue)
+    return render_template("dashboard.html", tickets_queue=tickets_queue, my_tickets=user_tickets_queue)
 
 
 @app.route("/view_ticket/<int:ticket_id>")

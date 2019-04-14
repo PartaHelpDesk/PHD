@@ -1,5 +1,5 @@
-#from app import Datatable, DataRow #Server
-import Datatable, DataRow #DatabaseTests
+from app import Datatable, DataRow #Server
+#import Datatable, DataRow #DatabaseTests
 import pyodbc
 
 class DatabaseMethods:
@@ -88,6 +88,10 @@ class DatabaseMethods:
         #Gets all user info
         sql = "SELECT * FROM Users WHERE Username = ?"
         return self.GetDataTable(sql, username)
+
+    def GetUserPassword(self, username):
+        sql = "SELECT Password FROM Users WHERE Username = ?"
+        return self.GetValue(sql, username)
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
