@@ -47,7 +47,6 @@ class User(UserMixin):
         return "%s" % (sself.username)
 
 
-
 class Tickets:
 
     def __init__(self):
