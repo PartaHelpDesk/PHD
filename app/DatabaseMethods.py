@@ -1,7 +1,6 @@
-
-from app import Datatable, DataRow #DEBUG
+#from app import Datatable, DataRow #Server
+import Datatable, DataRow #DatabaseTests
 import pyodbc
-from array import *
 
 class DatabaseMethods:
     server = ''
@@ -15,7 +14,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -72,14 +71,12 @@ class DatabaseMethods:
         return dt
 
     def GetITEmails(self):
+        #Gets all emails from IT and admin accounts
         sql = "SELECT Email from Users WHERE [Level] in (2,3)"
         dt = self.GetDataTable( sql, None)
-        index = 0
         list_of_emails = []
-        while index != dt.get_Size():
-            dr = dt.GetRow(index)
+        for dr in dt.data_rows:
             list_of_emails.append(dr.GetColumnValue("Email"))
-            index += 1
         return list_of_emails
 
     def GetUserID(self, user_name):
@@ -87,10 +84,10 @@ class DatabaseMethods:
         id = self.GetValue(sql, user_name)
         return id
 
-    def GetUserAccountInfo(self, user_id):
+    def GetUserAccountInfo(self, username):
         #Gets all user info
-        sql = "SELECT * FROM Users WHERE UserID = ?"
-        return self.GetDataTable(sql, user_id)
+        sql = "SELECT * FROM Users WHERE Username = ?"
+        return self.GetDataTable(sql, username)
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
