@@ -5,15 +5,14 @@
     <title>Login</title>
   <style type="text/css">
     .logo{
-
-      width: 280px;
-      height: 320px;
-      padding: 10px;
-      margin: 50px auto 80px auto;
+      width: 260px;
+      height: 300px;
+        padding: 10px;
+      margin: 30px auto 10px auto;
     }
     .login{
       position: relative;
-      width: 660px;
+      width: 550px;
       height: 280px;
       margin: 0 auto;
       overflow: hidden;
@@ -29,13 +28,13 @@
       margin: 0;
     }
     input{
-      width: 300px;
-      height: 35px;
-      margin-top: 25px;
+      width: 280px;
+      height: 30px;
+      margin-top: 20px;
     }
     .login_btn{
       width: 110px;
-      height: 45px;
+      height: 48px;
       margin-top: 25px;
       background: yellow;
     }
@@ -48,7 +47,6 @@
         width: 1200px;
         margin: 0 auto;
     }
-
   </style>
 </head>
 <body>
@@ -59,7 +57,7 @@
         {% endfor %}
     </div>
   <div class="logo">
-      <img width="280px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+      <img width="250px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
   </div>
   <div class="login">
     <form class="login_form" method="post">
