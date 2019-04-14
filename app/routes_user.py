@@ -49,7 +49,6 @@ def user():
 @app.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user():
-    refresh = True
     if request.method == 'POST':
         
         dbm = DM.DatabaseMethods()
