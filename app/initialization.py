@@ -10,7 +10,7 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
 
 # load config
-import models
+from app import models
 
 #frontend.config.from_object(config.get('dev'))
 
