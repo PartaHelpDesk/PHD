@@ -1,5 +1,5 @@
-#from app import Datatable, DataRow #Server
-import Datatable, DataRow #DatabaseTests
+from app import Datatable, DataRow #Server
+#import Datatable, DataRow #DatabaseTests
 import pyodbc
 
 class DatabaseMethods:
@@ -89,6 +89,10 @@ class DatabaseMethods:
         sql = "SELECT * FROM Users WHERE Username = ?"
         return self.GetDataTable(sql, username)
 
+    def GetUserPassword(self, username):
+        sql = "SELECT Password FROM Users WHERE Username = ?"
+        return self.GetValue(sql, username)
+
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
         sql = "SELECT * FROM Tickets WHERE TicketID = ?"
@@ -110,7 +114,7 @@ class DatabaseMethods:
         sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?) "
         self.ExecuteSql(sql, (title, category, user_id, status, department, description),False)
 
-    def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description):
+    def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description, comment):
             #Updates the ticket in ticket table and updates ticket history
             update_title = None
             update_category = None
@@ -153,6 +157,8 @@ class DatabaseMethods:
                 update_description = description
                 change_made = True
 
+            if comment is not None:
+                change_made = True
 
             if change_made:
                 #update ticket
@@ -164,10 +170,10 @@ class DatabaseMethods:
 
 
                 #update ticket history
-                sql = "INSERT INTO TicketHistory (TicketID, Title, Category, [Status], Department, [Description], UserID)"
-                sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?)"
+                sql = "INSERT INTO TicketHistory (TicketID, Title, Category, [Status], Department, [Description], UserID, Comment)"
+                sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)"
                 
-                self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id), False)
+                self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
     def GetCategories(self):
         sql = "SELECT * FROM Categories"

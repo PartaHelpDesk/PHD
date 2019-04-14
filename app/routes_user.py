@@ -16,10 +16,7 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         dbm = DM.DatabaseMethods()
-        db_password = dbm.GetValue('SELECT [Password] FROM Users WHERE [Username] = ?', username)
-        print(db_password)
-        print (username)
-        print (password)
+        db_password = dbm.GetUserPassword(username)
         if db_password != password:
             flash('Login failed, user not found.')
             return redirect(url_for('login'))
