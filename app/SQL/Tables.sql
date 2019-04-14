@@ -47,12 +47,13 @@ CREATE TABLE [dbo].[TicketHistory](
 	[TicketHistoryID] [int] IDENTITY(1,1) NOT NULL,
 	[TicketID] [int] NOT NULL,
 	[UserID] [int] NOT NULL,
-	[Category] [varchar](128) NOT NULL,
-	[Title] [varchar](128) NOT NULL,
-	[Status] [varchar](128) NOT NULL,
-	[Department] [varchar](128) NOT NULL,
-	[Description] [varchar](280) NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[Category] [varchar](128),
+	[Title] [varchar](128),
+	[Status] [varchar](128),
+	[Department] [varchar](128),
+	[Description] [varchar](280),
+	[Comment] [varchar](280),
+	[Date] [datetime] DEFAULT GETDATE(),
 
 
 PRIMARY KEY CLUSTERED 
