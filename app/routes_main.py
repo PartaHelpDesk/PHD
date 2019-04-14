@@ -1,8 +1,9 @@
 from . import app
-from flask import render_template, redirect, url_for, abort
+from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
+from app import forms
 
 
 @app.route('/dashboard')
@@ -63,4 +64,8 @@ def view_all():
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required
 def create_ticket():
-    return render_template("create_ticket.html")
+    form = forms.TicketForm()
+    if request.method == 'POST' and form.validate():
+        params = (form.ticketTitle, form.department, form.ticketCategory, form.ticketDescription) 
+        
+    return render_template("create_ticket.html", form=form)

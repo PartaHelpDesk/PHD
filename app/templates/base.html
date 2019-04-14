@@ -11,7 +11,8 @@
         div.nav{
             background: rgb(1, 79, 40);
             height: 150px;
-            width: 1000px;
+            padding: 30px;
+            width: 100%;
         }
         div.logo{
             background-size: contain;
@@ -119,7 +120,6 @@
 
     </style>
     <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
-    {% block head %}{{ super() }}{% endblock %}
 </head>
 <body>
 <div class="main">
@@ -128,8 +128,7 @@
             <img id="logo" src="{{ url_for('static', filename='images/PARTA LOGO.jpg') }}" alt="LOGO" width="100px" height="100px">
               <div class="dropdown-content">
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
-                <a href="{{ url_for('create_ticket')}}">New Ticket</a>
-                <a href="#">New Ticket</a>
+                <a href="{{ url_for('create_ticket') }}">New Ticket</a>
                 <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>

@@ -3,18 +3,13 @@ import Datatable, DataRow #DatabaseTests
 import pyodbc
 
 class DatabaseMethods:
-    server = ''
-    database = ''
-    username = ''
-    password = ''
-    driver = ''
 
     def __init__(self):
         self.server = 'partahelpdeskserver.database.windows.net'
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 17 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -168,6 +163,14 @@ class DatabaseMethods:
                 sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?, ?)"
                 
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id), False)
+
+    def CreateUserAccount(self, username, level, first_name, last_name, email, password, active=1, authenticated=False):
+        sql =  'INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, \
+            [Password], Active, [Authenticated])'
+        sql += 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        params = (username, level, first_name, last_name, email, password, active, authenticated)
+        self.ExecuteSql(sql, params, False)
+
 
     def GetCategories(self):
         sql = "SELECT * FROM Categories"
