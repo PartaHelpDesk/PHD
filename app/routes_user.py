@@ -30,11 +30,11 @@ def login():
     return render_template('login.html')
 
 
-
 @app.route('/logout')
 @login_required
 def logout():
-    login_user(current_user)
+    current_user.authenticated = False
+    logout_user(current_user)
     return redirect(url_for('login'))
 
 
@@ -49,22 +49,9 @@ def user():
 @app.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user():
-
     if request.method == 'POST':
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        password = request.form.get('password')
-        email = request.form.get('email')
-        print(first_name, last_name, password, email)
-        if not first_name or not last_name or not password or not email:
-            flash('Incomplete user information. Please check!')
-            return redirect(url_for(add_user))
-
-        user = User(first_name=first_name, last_name=last_name, password=password, email=email)
-        db.session.add(user)
-        db.session.commit()
-        flash("Successfully create user {} {}!".format(user.first_name, user.last_name))
-        return redirect(url_for("user"))
+        dbm = DM.DatabaseMethods()
+        
     return render_template('add_user.html')
 
 

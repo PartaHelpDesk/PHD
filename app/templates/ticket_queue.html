@@ -51,7 +51,7 @@
                     <td>{{ t.department }}</td>
                     <td>{{ t.create_dt }}</td>
                     <td>TODO</td>
-                    <td><button onclick="location.href='{{ url_for(\'view_ticket\', ticekt_id=ticket_id)'">View</button></td>
+                    <td><button onclick="location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id)}}'">View</button></td>
 
                 </tr>
                     {% endfor %}
@@ -88,7 +88,7 @@
                     <td>TODO</td>
                     <td>
 
-                        <button onclick="location.href='{{ url_for(\'view_ticket\', ticket_id=t.id) }}'">View</button>
+                        <button onclick="location.href='{{ url_for('view_ticket', ticket_id=t.ticket.id) }}'">View</button>
 
                     </td>
                 </tr>
