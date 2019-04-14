@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
 from app import DatabaseMethods as DM
+from werkzeug.security import generate_password_hash
 
 
 @app.route('/')
@@ -16,15 +17,16 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         dbm = DM.DatabaseMethods()
-        db_password = dbm.GetUserPassword(username)
-        if db_password != password:
-            flash('Login failed, user not found.')
-            return redirect(url_for('login'))
-        else:
+
+        if dbm.CheckUserPassword(username, password):
             user = User(username)
             user.authenticated =True 
             login_user(user)
             return redirect(url_for('dashboard'))
+        else:
+            flash('Login failed, user not found.')
+            return redirect(url_for('login'))
+         
     return render_template('login.html')
 
 
