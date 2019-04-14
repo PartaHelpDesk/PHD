@@ -49,9 +49,22 @@ def user():
 @app.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user():
+    refresh = True
     if request.method == 'POST':
-        dbm = DM.DatabaseMethods()
         
+        dbm = DM.DatabaseMethods()
+        username = request.form.get('username')
+        first_name = request.form.get('first_name')
+        last_name= request.form.get('last_name')
+        email = request.form.get('email_address')
+        level = request.form.get('user_level')
+
+       #TODO Check if form is filled out, if not warn user
+        
+        result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
+
+        flash(result)
+
     return render_template('add_user.html')
 
 
