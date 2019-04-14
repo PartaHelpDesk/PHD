@@ -24,7 +24,6 @@ def login():
             flash('Login failed, user not found.')
             return redirect(url_for('login'))
         else:
-            #db_id = dbm.GetUserID(username)
             user = User(username)
             user.authenticated =True 
             login_user(user)
