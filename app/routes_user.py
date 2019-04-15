@@ -18,6 +18,10 @@ def login():
         password = request.form.get('password')
         dbm = DM.DatabaseMethods()
 
+        if username == '' or password == '':
+            flash('Please enter in credentials')
+            return redirect(url_for('login'))
+
         if dbm.CheckUserPassword(username, password):
             user = User(username)
             user.authenticated =True 
