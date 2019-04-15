@@ -67,9 +67,15 @@ def add_user():
         result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
 
         flash(result)
+        if result != 'Success':
+            return render_template('add_user.html')
+
+        return redirect(url_for("users"))
 
     return render_template('add_user.html')
-
+        
+      
+    
 
 @app.route("/edit_user/<int:id>", methods=["POST", "GET"])
 @login_required
@@ -80,20 +86,25 @@ def edit_user(id):
     if not user:
         abort(404)
     if request.method == "POST":
+        new_username = request.form.get("username")
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
-        email = request.form.get('email')
-        print(first_name, last_name, email)
-        if not first_name or not last_name or not email:
-            flash('Incomplete user information. Please check!')
-            return redirect(url_for('add_user'))
+        email = request.form.get('email_address')
+        level = request.form.get('level')
 
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
-        db.session.commit()
-        flash("Successfully save user information!")
-        return redirect(url_for("user"))
+        print(first_name, last_name, email, level)
+        if new_username == '' or first_name == '' or last_name == '' or email == '':
+            flash('Incomplete user information. Please check!')
+            return render_template("edit_user.html", u=user)
+
+        result = dbm.UpdateUserAccount(id, new_username, level, first_name, last_name, email)
+
+        flash(result)
+        if result != 'Success':
+            return render_template("edit_user.html", u=user)
+
+        return redirect(url_for("users"))
+
     return render_template("edit_user.html", u=user)
 
 
