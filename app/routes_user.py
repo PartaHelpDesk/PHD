@@ -38,12 +38,14 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/user')
+@app.route('/users')
 @login_required
-def user():
-    actives = get_active_users()
-    inactives = get_inactive_users()
-    return render_template('user.html', actives=actives, inactives=inactives)
+def users():
+    dbm = DM.DatabaseMethods()
+    active_users = dbm.GetAllUsers(1) 
+    print(active_users)
+    inactives_users = dbm.GetAllUsers(0) 
+    return render_template('users.html', active_users=active_users, inactive_users=inactives_users)
 
 
 @app.route('/add_user', methods=["POST", "GET"])
@@ -72,7 +74,9 @@ def add_user():
 @app.route("/edit_user/<int:id>", methods=["POST", "GET"])
 @login_required
 def edit_user(id):
-    user = User.query.get(id)
+    dbm = DM.DatabaseMethods()
+    username = dbm.GetUsername(id)
+    user = User(username)
     if not user:
         abort(404)
     if request.method == "POST":
@@ -107,7 +111,7 @@ def deactive(id):
     return "ok"
 
 
-@app.route("/active/<int:id>", methods=["POST"])
+@app.route("/activate/<int:id>", methods=["POST"])
 @login_required
 def active(id):
 

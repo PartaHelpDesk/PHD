@@ -1,4 +1,5 @@
 from app import Datatable, DataRow #Server
+from app.models import User
 #import Datatable, DataRow #DatabaseTests
 import pyodbc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -75,6 +76,11 @@ class DatabaseMethods:
             list_of_emails.append(dr.GetColumnValue("Email"))
         return list_of_emails
 
+    def GetUsername(self, user_id):
+        sql = "SELECT Username FROM USERS WHERE UsedID = ?"
+        user_name = self.GetValue(sql, user_id)
+        return user_name
+
     def GetUserID(self, user_name):
         sql = "SELECT UserID FROM USERS WHERE Username = ?"
         id = self.GetValue(sql, user_name)
@@ -100,6 +106,17 @@ class DatabaseMethods:
             return True
         else:
             return False
+
+    def GetAllUsers(self, active):
+        sql = "SELECT Username FROM Users WHERE Active = ?"
+        dt = self.GetDataTable(sql, active)
+        
+        users = []
+        for dr in dt.data_rows:
+            user = User(dr.GetColumnValue('Username'))
+            users.append(user)
+
+        return users
 
     def HashPassword(self, password):
         return generate_password_hash(password)
