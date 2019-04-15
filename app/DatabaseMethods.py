@@ -189,8 +189,8 @@ class DatabaseMethods:
     def CreateUserAccount(self, username, level, first_name, last_name, email):
         sql = 'SELECT * FROM Users WHERE Username like ? OR Email like ?'
         dt = self.GetDataTable(sql, (username, email))
-       
-        if dt.data_rows != 0:
+    
+        if dt.IsEmpty == False:
             dr = dt.GetRow(0)
             if dr.GetColumnValue('Username').lower() == username.lower():
                 return 'Username already exists!'
@@ -217,7 +217,6 @@ class DatabaseMethods:
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
         return 'Success!'
-
 
     def GetCategories(self):
         sql = "SELECT * FROM Categories"

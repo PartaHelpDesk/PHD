@@ -58,7 +58,9 @@ def add_user():
         email = request.form.get('email_address')
         level = request.form.get('user_level')
 
-       #TODO Check if form is filled out, if not warn user
+        if username == '' or first_name == '' or last_name == '' or email == '':
+            flash('Please enter in all fields')
+            return render_template('add_user.html')
         
         result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
 
