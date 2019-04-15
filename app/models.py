@@ -12,15 +12,44 @@ def load_user(user_id):
 class User(UserMixin):
     
     def __init__(self, username):
-        dbm = dm.DatabaseMethods()
-        dt = dbm.GetUserAccountInfo(username)
-        dr = dt.GetRow(0)
+        self.level = None
+        self.user_id = None
+        self.username = None
+        self.first_name = None
+        self.last_name = None
+        self.email = None
+        self.is_active = False
+        self.authenticated = False
 
+        if username is not None:
+
+            dbm = dm.DatabaseMethods()
+            dt = dbm.GetUserAccountInfo(username)
+            dr = dt.GetRow(0)
+
+            level = dr.GetColumnValue('Level')
+            user_id = dr.GetColumnValue('UserID')
+            first_name = dr.GetColumnValue('FirstName')
+            last_name = dr.GetColumnValue('LastName')
+            email = dr.GetColumnValue('Email')
+
+            self.level = level
+            self.user_id = user_id
+            self.username = username
+            self.first_name = first_name
+            self.last_name = last_name
+            self.email = email
+            self.is_active = True
+            self.authenticated = False
+
+    def SetUserInfo(self, dr):
         level = dr.GetColumnValue('Level')
         user_id = dr.GetColumnValue('UserID')
+        username = dr.GetColumnValue('Username')
         first_name = dr.GetColumnValue('FirstName')
         last_name = dr.GetColumnValue('LastName')
         email = dr.GetColumnValue('Email')
+        active = dr.GetColumnValue('Active')
 
         self.level = level
         self.user_id = user_id
@@ -28,8 +57,9 @@ class User(UserMixin):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.is_active = True
+        self.is_active = active
         self.authenticated = False
+
     
     def is_authenticated(self):
         return self.authenticated

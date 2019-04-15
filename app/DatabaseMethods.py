@@ -110,12 +110,13 @@ class DatabaseMethods:
             return False
 
     def GetAllUsers(self, active):
-        sql = "SELECT Username FROM Users WHERE Active = ?"
+        sql = "SELECT * FROM Users WHERE Active = ?"
         dt = self.GetDataTable(sql, active)
         
         users = []
         for dr in dt.data_rows:
-            user = User(dr.GetColumnValue('Username'))
+            user = User(None)
+            user.SetUserInfo(dr)
             users.append(user)
 
         return users
