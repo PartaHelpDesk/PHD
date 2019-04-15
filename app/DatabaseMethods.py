@@ -110,12 +110,13 @@ class DatabaseMethods:
             return False
 
     def GetAllUsers(self, active):
-        sql = "SELECT Username FROM Users WHERE Active = ?"
+        sql = "SELECT * FROM Users WHERE Active = ?"
         dt = self.GetDataTable(sql, active)
         
         users = []
         for dr in dt.data_rows:
-            user = User(dr.GetColumnValue('Username'))
+            user = User(None)
+            user.SetUserInfo(dr)
             users.append(user)
 
         return users
@@ -130,13 +131,17 @@ class DatabaseMethods:
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
-        sql = "SELECT * FROM Tickets WHERE [Status] <> 'Closed'"
+        sql = "SELECT t.*, u.Username FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID  '
+        sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
-        sql = "SELECT * FROM Tickets WHERE CreatedUserID = ? "
-        return self.GetDataTable( sql, user_id)
+        sql = 'SELECT t.*, u.Username FROM Tickets t'
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+        sql = sql + ' WHERE t.CreatedUserID = ?' 
+        return self.GetDataTable(sql, user_id)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
