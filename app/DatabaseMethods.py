@@ -1,4 +1,5 @@
 from app import Datatable, DataRow #Server
+from app.models import User
 #import Datatable, DataRow #DatabaseTests
 import pyodbc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,6 +53,7 @@ class DatabaseMethods:
         column_count = len(column_names)
 
         dt = Datatable.DataTable()
+        dt.IsEmpty = True
 
         for row in cursor.fetchall():
             #create new dr to add
@@ -60,6 +62,7 @@ class DatabaseMethods:
             for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
+                dt.IsEmpty = False
 
             dt.AddRow(dr)
 
@@ -74,6 +77,11 @@ class DatabaseMethods:
         for dr in dt.data_rows:
             list_of_emails.append(dr.GetColumnValue("Email"))
         return list_of_emails
+
+    def GetUsername(self, user_id):
+        sql = "SELECT Username FROM USERS WHERE UserID = ?"
+        user_name = self.GetValue(sql, user_id)
+        return user_name
 
     def GetUserID(self, user_name):
         sql = "SELECT UserID FROM USERS WHERE Username = ?"
@@ -100,6 +108,17 @@ class DatabaseMethods:
             return True
         else:
             return False
+
+    def GetAllUsers(self, active):
+        sql = "SELECT Username FROM Users WHERE Active = ?"
+        dt = self.GetDataTable(sql, active)
+        
+        users = []
+        for dr in dt.data_rows:
+            user = User(dr.GetColumnValue('Username'))
+            users.append(user)
+
+        return users
 
     def HashPassword(self, password):
         return generate_password_hash(password)
@@ -187,16 +206,10 @@ class DatabaseMethods:
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
     def CreateUserAccount(self, username, level, first_name, last_name, email):
-        sql = 'SELECT * FROM Users WHERE Username like ? OR Email like ?'
-        dt = self.GetDataTable(sql, (username, email))
-       
-        if dt.data_rows != 0:
-            dr = dt.GetRow(0)
-            if dr.GetColumnValue('Username').lower() == username.lower():
-                return 'Username already exists!'
-            elif dr.GetColumnValue('Email').lower() == email.lower():
-                return 'Email is already in use!'
-            return 'An error has occured'
+        result = self.CheckIfUserNameEmailExists(username,email)
+
+        if result != '':
+            return result
 
         #if username or email is not already in use, add to DB
 
@@ -216,7 +229,37 @@ class DatabaseMethods:
 
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
-        return 'Success!'
+        return 'Success'
+
+    def UpdateUserAccount(self, user_id, username, level, first_name, last_name, email):
+        result = self.CheckIfUserNameEmailExists(username,email)
+
+        if result != '':
+            return result
+            
+        sql = 'UPDATE Users  \
+        SET Username = ?, Level = ?, FirstName = ?, LastName = ?, Email =? \
+        WHERE UserId = ?'
+
+        params = (username, level, first_name, last_name, email, user_id)
+        self.ExecuteSql(sql, params, False)
+        return 'Success'
+
+    def CheckIfUserNameEmailExists(self, user_name, email):
+        result = ''
+        sql = 'SELECT Username, Email FROM Users WHERE Username like ? OR Email like ?'
+        dt = self.GetDataTable(sql, (user_name, email))
+    
+        if not dt.IsEmpty:
+            print('here')
+            dr = dt.GetRow(0)
+            if dr.GetColumnValue('Username').lower() == user_name.lower():
+                return 'Username already exists!'
+            elif dr.GetColumnValue('Email').lower() == email.lower():
+                return 'Email is already in use!'
+            return 'An error has occured'
+        
+        return result
 
 
     def GetCategories(self):

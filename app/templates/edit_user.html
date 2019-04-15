@@ -40,55 +40,35 @@
     </style>
 {% endblock %}
 {% block body %}
-    <h3>Edit User {{ u.id }}</h3>
+    <h3>Edit User {{ u.username }}</h3>
     <form action="" method="post">
     <div class="table-container">
     <table border="1" cellspacing="0">
-        <tbody>
-            <tr>
-                <td>User ID:</td>
-                <td>{{ u.id }}</td>
-            </tr>
+            <tbody>
             <tr>
                 <td>First Name:</td>
-                <td><input type="text" value="" name="first_name"></td>
+                <td><input type="text" value="{{ u.first_name }}" name="first_name"></td>
             </tr>
             <tr>
                 <td>Last Name:</td>
-                <td><input type="text" value="" name="last_name"></td>
+                <td><input type="text" value="{{ u.last_name }}" name="last_name"></td>
             </tr>
             <tr>
                 <td>Username:</td>
-                <td><input type="text" value="" name="username"></td>
+                <td><input type="text" value="{{ u.username }}" name="username"></td>
             </tr>
             <tr>
                 <td>Email Address:</td>
-                <td><input type="text" value="" name="email_address"></td>
+                <td><input type="text" value="{{ u.email }}" name="email_address"></td>
             </tr>
             <tr>
-                <td>Department:</td>
-                <td><select name="department" id="">
-                    {% for s in department %}
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Marketing</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Information Technology</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Scheduling</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Administration</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Planning</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Human Resources</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Maintenance</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Operations</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Gateway</option>
-                    {% endfor %}
+                <td>Account Level:</td>
+                <td><select name="user_level">
+                    <option value="1"{% if u.level=='1' %} selected="selected"{% endif %}>User</option>
+                    <option value="2"{% if u.level=='2' %} selected="selected"{% endif %}>IT</option>
+                    <option value="3"{% if u.level=='3' %} selected="selected"{% endif %}>Admin</option>
                 </select></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" value="" name="password"></td>
-            </tr>
+            </tr> 
         </tbody>
     </table>
     <div class="submit">

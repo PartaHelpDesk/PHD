@@ -44,7 +44,7 @@ class User(UserMixin):
         return False
     
     def __repr__(self):
-        return "%s" % (sself.username)
+        return "%s" % (self.username)
 
 
 class Tickets:
