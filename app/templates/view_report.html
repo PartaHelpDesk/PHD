@@ -1,0 +1,16 @@
+    {% block content %}
+    <title>View Report</title>
+    <body>
+         <h1>Report For Viewing</h1>
+        {% if ( selection.choice == "Category" ) %}
+         <div>
+        <img src="/static/images/example_category_report.png"" alt="Report">    
+        </div>
+        {% endif %}
+        {% if ( selection.choice == "Department" ) %}
+         <div>
+        <img src="/static/images/example_department_report.png"" alt="Report">    
+        </div>
+        {% endif %}
+    </body>
+    {% endblock %}

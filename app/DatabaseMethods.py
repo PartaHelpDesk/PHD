@@ -1,6 +1,6 @@
 
-#from app import Datatable, DataRow #DEBUG
-import Datatable, DataRow
+from app import Datatable, DataRow #DEBUG
+#import Datatable, DataRow
 
 import pyodbc
 from array import *

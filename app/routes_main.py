@@ -3,6 +3,8 @@ from flask import render_template, redirect, url_for, abort
 from flask_login import login_required
 from .utils import *
 from app.models import Status, Category
+from app.forms import ReportForm
+from app import report_service
 
 
 
@@ -59,3 +61,31 @@ def view_all():
 @login_required
 def create_ticket():
     return render_template("create_ticket.html")
+
+@app.route("/report_test", methods=['GET','POST'])
+def report_test():
+    form = ReportForm()
+    if form.validate_on_submit():
+        selection = { 'choice': form.reportChoice.data }
+        print(selection)
+        if selection['choice'] == 'Category':
+            report_service.report_by_category()
+            return render_template("/view_report.html", selection=selection)
+        if selection['choice'] == 'Department':
+            report_service.report_by_department()
+            return render_template("/view_report.html", selection=selection)
+    return render_template("report_test.html", form=form)
+
+@app.route("/view_report", methods=['GET'])
+def view_report():
+    return '''
+    <html>
+    <title>View Report</title>
+    <body>
+         <h1>Report For Viewing</h1>
+         <div>
+        <img src="/static/images/example_category_report.png" alt="Report">    
+        </div>
+    </body>
+    </html>
+    '''

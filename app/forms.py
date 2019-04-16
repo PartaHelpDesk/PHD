@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField
 from wtforms.validators import DataRequired
 
 class EmailForm(FlaskForm):
@@ -14,3 +14,7 @@ class TicketForm(FlaskForm):
 	ticketCategory = StringField('Category: ', validators=[DataRequired()])
 	#ticketStatus = StringField('Status: ', validators=[DataRequired()])
 	submit = SubmitField('Send Ticket')
+
+class ReportForm(FlaskForm):
+	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department')])
+	submit = SubmitField('Get Report')

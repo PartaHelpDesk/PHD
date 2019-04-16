@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import DatabaseMethods, Datatable, DataRow
+from app import DatabaseMethods, Datatable, DataRow
 from array import *
 
 def report_by_category():
@@ -10,7 +10,7 @@ def report_by_category():
 
     reportTable = dbm.GetDataTable(sql, None)
 
-    reportTable.PrintValues()
+    #reportTable.PrintValues()
 
     slices_hours = []
     activities = []
@@ -19,18 +19,18 @@ def report_by_category():
                 dr = reportTable.GetRow(index)
                 slices_hours.append(dr.GetColumnValue("Count"))
                 index += 1
-    print(slices_hours)
+    #print(slices_hours)
     index = 0
     while index != reportTable.get_Size():
                 dr = reportTable.GetRow(index)
                 activities.append(dr.GetColumnValue("Category"))
                 index += 1
-    print(activities)
+    #print(activities)
     #activities = ['Hardware', 'Internet', 'Login','Network','Phone Server', 'Printer']
     colors = ['r', 'g','b','y','k','m']
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
-    plt.savefig('example_category_report.png')
+    plt.savefig('app/static/images/example_category_report.png')
 
 
 def report_by_department():
@@ -41,7 +41,7 @@ def report_by_department():
 
     reportTable = dbm.GetDataTable(sql, None)
 
-    reportTable.PrintValues()
+    #reportTable.PrintValues()
 
     slices_hours = []
     activities = []
@@ -50,18 +50,16 @@ def report_by_department():
                 dr = reportTable.GetRow(index)
                 slices_hours.append(dr.GetColumnValue("Count"))
                 index += 1
-    print(slices_hours)
+    #print(slices_hours)
     index = 0
     while index != reportTable.get_Size():
                 dr = reportTable.GetRow(index)
                 activities.append(dr.GetColumnValue("Department"))
                 index += 1
-    print(activities)
+    #print(activities)
     #activities = ['Hardware', 'Internet', 'Login','Network','Phone Server', 'Printer']
     colors = ['r', 'g','b','y','k','m']
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
-    plt.savefig('example_department_report.png')
-#emails = []
-#emails = dbm.GetITEmails()
-#print(emails)
+    plt.savefig('app/static/images/example_department_report.png')
+
