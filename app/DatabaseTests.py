@@ -1,4 +1,4 @@
-import DatabaseMethods, Datatable, DataRow
+import DatabaseMethods, Datatable, DataRow, report_service
 
 dbm = DatabaseMethods.DatabaseMethods()
 
@@ -18,9 +18,12 @@ dbm = DatabaseMethods.DatabaseMethods()
 # dbm.CreateTicket('Title',1,2,65,2,0,'A REALLY LONG MESSAGE HERE BECUASE ITS  A TICKET')
 
 
-dt = dbm.GetDataTable("SELECT * FROM Tickets", None)
+#dt = dbm.GetDataTable("SELECT * FROM Tickets", None)
 
-dt.PrintValues()
+#dt.PrintValues()
+
+report_service.report_by_category()
+report_service.report_by_department()
 
 #print(results)
 
