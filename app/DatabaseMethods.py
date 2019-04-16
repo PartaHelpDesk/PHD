@@ -211,7 +211,7 @@ class DatabaseMethods:
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
     def CreateUserAccount(self, username, level, first_name, last_name, email):
-        result = self.CheckIfUserNameEmailExists(username,email)
+        result = self.CheckIfUserNameEmailExists(username,email, None)
 
         if result != '':
             return result
@@ -237,7 +237,7 @@ class DatabaseMethods:
         return 'Success'
 
     def UpdateUserAccount(self, user_id, username, level, first_name, last_name, email):
-        result = self.CheckIfUserNameEmailExists(username,email)
+        result = self.CheckIfUserNameEmailExists(username,email, user_id)
 
         if result != '':
             return result
@@ -250,13 +250,17 @@ class DatabaseMethods:
         self.ExecuteSql(sql, params, False)
         return 'Success'
 
-    def CheckIfUserNameEmailExists(self, user_name, email):
+    def CheckIfUserNameEmailExists(self, user_name, email, user_id):
+        dt = None
         result = ''
-        sql = 'SELECT Username, Email FROM Users WHERE Username like ? OR Email like ?'
-        dt = self.GetDataTable(sql, (user_name, email))
+        sql = 'SELECT Username, Email FROM Users WHERE (Username like ? OR Email like ?) '
+        if user_id is not None:
+            sql = sql + ' AND UserID <> ?'
+            dt = self.GetDataTable(sql, (user_name, email, user_id))
+        else:
+            dt = self.GetDataTable(sql, (user_name, email))
     
         if not dt.IsEmpty:
-            print('here')
             dr = dt.GetRow(0)
             if dr.GetColumnValue('Username').lower() == user_name.lower():
                 return 'Username already exists!'

@@ -9,13 +9,14 @@ from app import forms
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    show_ticket_queue = False
     t = Tickets()
-    tickets_queue = t.getTicketQueue()
-    dbm = dm.DatabaseMethods()
-    dt = dbm.GetAllUserTickets(current_user.user_id)
-    dt.PrintValues()
+    tickets_queue = None
+    if current_user.level != '1':
+        tickets_queue = t.getTicketQueue()
+        show_ticket_queue = True
     user_tickets_queue = t.getAllUserTicket(current_user.user_id)
-    return render_template("dashboard.html", tickets_queue=tickets_queue, my_tickets=user_tickets_queue)
+    return render_template("dashboard.html", tickets_queue=tickets_queue, my_tickets=user_tickets_queue, show_ticket_queue=show_ticket_queue)
 
 
 @app.route("/view_ticket/<int:ticket_id>")

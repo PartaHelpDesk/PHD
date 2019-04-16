@@ -19,7 +19,7 @@ def login():
         dbm = DM.DatabaseMethods()
 
         if username == '' or password == '':
-            flash('Please enter in credentials')
+            flash('Please enter in credentials') #TODO this crashes if one field is empty, throw warning instead
             return redirect(url_for('login'))
 
         if dbm.CheckUserPassword(username, password):
@@ -38,7 +38,7 @@ def login():
 @login_required
 def logout():
     current_user.authenticated = False
-    logout_user(current_user)
+    logout_user()
     return redirect(url_for('login'))
 
 
@@ -94,7 +94,7 @@ def edit_user(id):
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         email = request.form.get('email_address')
-        level = request.form.get('level')
+        level = request.form.get('user_level')
 
         print(first_name, last_name, email, level)
         if new_username == '' or first_name == '' or last_name == '' or email == '':
