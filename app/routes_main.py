@@ -55,7 +55,7 @@ def edit_ticket(ticket_id):
 @login_required
 def view_all():
     # tickets = Ticket.query.all()
-    return render_template("view_all.html", tickets=tickets)
+    return render_template("view_all.html")
 
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
