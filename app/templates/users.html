@@ -66,7 +66,7 @@
                         <td>{{ u.email }}</td>
                         <td>
                             <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
-                           
+                            <button id="deactive_user" post_url="{{ url_for('deactive', id=u.user_id) }}">Deactivate</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -100,6 +100,7 @@
                     <td>{{ u.username }}</td>
                     <td>{{ u.email }}</td>
                     <td>
+                        <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
                         <button id="active_user" post_url="{{ url_for('active', id=u.user_id) }}">Activate</button>
                     </td>
                 </tr>
