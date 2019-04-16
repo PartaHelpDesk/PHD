@@ -198,7 +198,7 @@ class DatabaseMethods:
             if change_made:
                 #update ticket
                 sql = "UPDATE Tickets "
-                sql = sql + " SET Title = ?, Category = ?, [Status] = ?, Department = ?, [Description] = ? "
+                sql = sql + " SET Title = ?, Category = ?, [Status] = ?, Department = ?, [Description] = ?, LastUpdated = GETDATE() "
                 sql = sql + " WHERE TicketID = ?"
                 
                 self.ExecuteSql(sql, (title, category, status, department, description, ticket_id), False)
