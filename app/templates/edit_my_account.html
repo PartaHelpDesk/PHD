@@ -40,53 +40,32 @@
     </style>
 {% endblock %}
 {% block body %}
-    <h3>Edit Your Account</h3>
+    <h3 align="center">Edit Your Account</h3>
     <form action="" method="post">
     <div class="table-container">
     <table border="1" cellspacing="0">
-        <tbody>
-            <tr>
-                <td>First Name: </td>
-                <td><input type="text" value="{{ current_user.first_name }}" name="first_name"></td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td><input type="text" value="{{ current_user.last_name }}" name="last_name"></td>
-            </tr>
-            <tr>
-                <td>Username:</td>
-                <td><input type="text" value="{{ current_user.username }}" name="username"></td>
-            </tr>
-            <tr>
-                <td>Email Address:</td>
-                <td><input type="text" value="{{ current_user.email }}" name="email_address"></td>
-            </tr>
-            <tr>
-                <td>Department:</td>
-                <td>
-                    <select name="new_status" id="">
-                        {% for s in departments %}
-                        <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Training</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Accounting</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Dispatch</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Marketing</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Information Technology</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Scheduling</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Administration</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Planning</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Human Resources</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Maintenance</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Operations</option>
-                    <option value="{{ s.department }}" {% if t.status==s.department %}selected="selected"{% endif %}>Gateway</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" value="" name="password"></td>
-            </tr>
-        </tbody>
+            <tbody>
+                    <tr>
+                        <td>Name: </td>
+                        <td>{{ current_user.first_name + " " + current_user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Username: </td>
+                        <td>{{ current_user.username }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td>{{ current_user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Department: </td>
+                        <td>{{ current_user.department }}</td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="text" value="" name="password"></td>
+                    </tr>
+                    </tbody>
     </table>
     <div class="submit">
         <button type="submit" style="width: 100px; margin-top: 8px;">save</button>

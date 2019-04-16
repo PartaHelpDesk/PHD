@@ -5,13 +5,13 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <style>
         div.main{
-            width: 1000px;
-            margin: 0 auto;
+            width: 1315px;
+            margin: 1px; 
         }
         div.nav{
             background: rgb(1, 79, 40);
-            height: 150px;
-            padding: 30px;
+            height: 120px;
+            padding: 28px;
             width: 100%;
         }
         div.logo{
@@ -132,14 +132,12 @@
                 <a href="{{ url_for('view_all') }}">View All</a>
                 <a href="#">Reports</a>
                 <a href="#">Admin</a>
-                <a href="{{ url_for('user') }}">Users</a>
+                <a href="{{ url_for('users') }}">Users</a>
                 <a href="#">Enumerations</a>
               </div>
         </div>
 
-        <div class="center">
-            <h1>Welcome {{ current_user.first_name }} </h1>
-        </div>
+        
 
         <div class="left-nav">
             <label style="color: white;">{{ current_user.username }}</label>

@@ -33,12 +33,13 @@
 {% block body %}
     <div class="ticket_queue">
         <div class="table-head">
-            <h3>Active Users</h3>
-            <div class="new-user-btn">
-                <button onclick="location.href='{{ url_for("add_user_2") }}'">Add New User</button>
+            <div class="new-user-btn" ></div>
+            <div class="new-user-btn" align="left">
+                <button><a href="{{ url_for('add_user') }}">Add New User</a></button>
             </div>
         </div>
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <h3 align="center">Active Users</h3>
             <thead>
                 <tr>
                     <td>ID</td>
@@ -48,38 +49,51 @@
                 </tr>
             </thead>
             <tbody>
-                {% for t in actives %}
+                {% for u in active_users %}
                     <tr>
-                        <td>{{ t.id }}</td>
-                        <td>{{ t.level }}</td>
-                        <td>{{ t.first_name + ' ' + t.last_name }}</td>
+                        <td>{{ u.user_id }}</td>
+                        {% if u.level=='1' %}
+                            <td>User</td>
+                        {% elif u.level == '2' %}
+                            <td>IT</td>
+                        {% elif u.level == '3' %}
+                            <td>Admin</td>
+                        {% endif %}
+                        <td>{{ u.first_name + ' ' + u.last_name }}</td>
                         <td>
-                            <button><a href="{{ url_for('edit_user_2', id=t.id) }}">Edit</a></button>
-                            <button id="deactive_user" post_url="{{ url_for('deactive_2', id=t.id) }}" user_id="{{ t.id }}">Deactivate</button>
+                            <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
+                            <button id="deactive_user" post_url="{{ url_for('deactive', id=u.user_id) }}">Deactivate</button>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
 
         </table>
-        <h3>Inactive Users</h3>
+        <h3 align="center">Inactive Users</h3>
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>Level</td>
-                    <td>Name</td>
-                    <td>Commands</td>
-                </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>Level</td>
+                        <td>Name</td>
+                        <td>Commands</td>
+                    </tr>
             </thead>
         <tbody>
-            {% for t in inactives %}
+            {% for u in inactive_users %}
                 <tr>
-                    <td>{{ t.id }}</td>
-                    <td>{{ t.level }}</td>
-                    <td>{{ t.first_name + ' ' + t.last_name }}</td>
+                    <td>{{ u.user_id }}</td>
+                    {% if u.level=='1' %}
+                        <td>User</td>
+                    {% elif u.level == '2' %}
+                        <td>IT</td>
+                    {% elif u.level == '3' %}
+                        <td>Admin</td>
+                    {% endif %}
+                    <td>{{ u.first_name + ' ' + u.last_name }}</td>
                     <td>
-                        <button id="active_user" post_url="{{ url_for('active_2', id=t.id) }}">Activate</button>
+                        <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
+                        <button id="active_user" post_url="{{ url_for('active', id=u.user_id) }}">Activate</button>
                     </td>
                 </tr>
             {% endfor %}

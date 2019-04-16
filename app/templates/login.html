@@ -5,15 +5,14 @@
     <title>Login</title>
   <style type="text/css">
     .logo{
-
-      width: 280px;
-      height: 320px;
-      padding: 10px;
-      margin: 50px auto 80px auto;
+      width: 260px;
+      height: 300px;
+        padding: 10px;
+      margin: 30px auto 10px auto;
     }
     .login{
       position: relative;
-      width: 660px;
+      width: 550px;
       height: 280px;
       margin: 0 auto;
       overflow: hidden;
@@ -29,14 +28,24 @@
       margin: 0;
     }
     input{
-      width: 300px;
-      height: 35px;
-      margin-top: 25px;
+      width: 280px;
+      height: 30px;
+      margin-top: 20px;
     }
     .login_btn{
-      width: 110px;
-      height: 45px;
-      margin-top: 25px;
+      margin-top: 45px;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      background-color: rgb(1, 79, 40);
+      color: black;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .login_btn:hover {
+      margin-top: 45px;
       background: yellow;
     }
     .forgot{
@@ -48,7 +57,6 @@
         width: 1200px;
         margin: 0 auto;
     }
-
   </style>
 </head>
 <body>
@@ -59,11 +67,11 @@
         {% endfor %}
     </div>
   <div class="logo">
-      <img width="280px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+      <img width="250px" src="{{ url_for('static', filename='images/logo.png') }}" alt="">
   </div>
   <div class="login">
     <form class="login_form" method="post">
-      <h3 class="login_title">Please Enter Your Credentials</h3>
+      <h3 class="login_title">Enter Your Credentials Below</h3>
       <label>
         <input class="input_username" type="text" placeholder=" Username" name="username">
       </label>
@@ -71,7 +79,7 @@
         <input class="input_password" type="password" placeholder=" Password" name="password">
       </label>
 
-      <button  class="login_btn">Login</button>
+      <button  class="login_btn">Log In</button>
 
     </form>
     <a class="forget" href="#">Forgot Password?</a>

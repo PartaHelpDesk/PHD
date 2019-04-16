@@ -1,4 +1,5 @@
 from app import Datatable, DataRow #Server
+from app.models import User
 #import Datatable, DataRow #DatabaseTests
 import pyodbc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,6 +53,7 @@ class DatabaseMethods:
         column_count = len(column_names)
 
         dt = Datatable.DataTable()
+        dt.IsEmpty = True
 
         for row in cursor.fetchall():
             #create new dr to add
@@ -60,6 +62,7 @@ class DatabaseMethods:
             for i in range(column_count):
                 #parse the row's columns
                 dr.AppendValue(column_names[i], str(row[i]))
+                dt.IsEmpty = False
 
             dt.AddRow(dr)
 
@@ -74,6 +77,11 @@ class DatabaseMethods:
         for dr in dt.data_rows:
             list_of_emails.append(dr.GetColumnValue("Email"))
         return list_of_emails
+
+    def GetUsername(self, user_id):
+        sql = "SELECT Username FROM USERS WHERE UserID = ?"
+        user_name = self.GetValue(sql, user_id)
+        return user_name
 
     def GetUserID(self, user_name):
         sql = "SELECT UserID FROM USERS WHERE Username = ?"
@@ -101,6 +109,18 @@ class DatabaseMethods:
         else:
             return False
 
+    def GetAllUsers(self, active):
+        sql = "SELECT * FROM Users WHERE Active = ?"
+        dt = self.GetDataTable(sql, active)
+        
+        users = []
+        for dr in dt.data_rows:
+            user = User(None)
+            user.SetUserInfo(dr)
+            users.append(user)
+
+        return users
+
     def HashPassword(self, password):
         return generate_password_hash(password)
 
@@ -111,13 +131,17 @@ class DatabaseMethods:
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
-        sql = "SELECT * FROM Tickets WHERE [Status] <> 'Closed'"
+        sql = "SELECT t.*, u.Username FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID  '
+        sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
-        sql = "SELECT * FROM Tickets WHERE CreatedUserID = ? "
-        return self.GetDataTable( sql, user_id)
+        sql = 'SELECT t.*, u.Username FROM Tickets t'
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+        sql = sql + ' WHERE t.CreatedUserID = ?' 
+        return self.GetDataTable(sql, user_id)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
@@ -186,12 +210,65 @@ class DatabaseMethods:
                 
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
-    def CreateUserAccount(self, username, level, first_name, last_name, email, password, active=1, authenticated=False):
+    def CreateUserAccount(self, username, level, first_name, last_name, email):
+        result = self.CheckIfUserNameEmailExists(username,email, None)
+
+        if result != '':
+            return result
+
+        #if username or email is not already in use, add to DB
+
+        #Generate number for middle
+        sql = "SELECT MAX(UserID) + 1 FROM Users"
+        number = self.GetValue(sql, None)
+
+        active = 1
+        authenticated = False
+
+        password = generate_password_hash(last_name + str(number) + first_name)
+        #TODO Email user hashed password
+
         sql =  'INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, \
             [Password], Active, [Authenticated])'
-        sql += 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        sql += 'VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
+
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
+        return 'Success'
+
+    def UpdateUserAccount(self, user_id, username, level, first_name, last_name, email):
+        result = self.CheckIfUserNameEmailExists(username,email, user_id)
+
+        if result != '':
+            return result
+            
+        sql = 'UPDATE Users  \
+        SET Username = ?, Level = ?, FirstName = ?, LastName = ?, Email =? \
+        WHERE UserId = ?'
+
+        params = (username, level, first_name, last_name, email, user_id)
+        self.ExecuteSql(sql, params, False)
+        return 'Success'
+
+    def CheckIfUserNameEmailExists(self, user_name, email, user_id):
+        dt = None
+        result = ''
+        sql = 'SELECT Username, Email FROM Users WHERE (Username like ? OR Email like ?) '
+        if user_id is not None:
+            sql = sql + ' AND UserID <> ?'
+            dt = self.GetDataTable(sql, (user_name, email, user_id))
+        else:
+            dt = self.GetDataTable(sql, (user_name, email))
+    
+        if not dt.IsEmpty:
+            dr = dt.GetRow(0)
+            if dr.GetColumnValue('Username').lower() == user_name.lower():
+                return 'Username already exists!'
+            elif dr.GetColumnValue('Email').lower() == email.lower():
+                return 'Email is already in use!'
+            return 'An error has occured'
+        
+        return result
 
 
     def GetCategories(self):
