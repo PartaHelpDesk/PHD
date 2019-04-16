@@ -19,7 +19,7 @@ def login():
         dbm = DM.DatabaseMethods()
 
         if username == '' or password == '':
-            flash('Please enter in credentials') #TODO this crashes if one field is empty, throw warning instead
+            flash('Please enter your credentials.') #TODO this crashes if one field is empty, throw warning instead
             return redirect(url_for('login'))
 
         if dbm.CheckUserPassword(username, password):
@@ -28,7 +28,7 @@ def login():
             login_user(user)
             return redirect(url_for('dashboard'))
         else:
-            flash('Login failed, user not found.')
+            flash('Login failed. User not found.')
             return redirect(url_for('login'))
          
     return render_template('login.html')
@@ -65,13 +65,13 @@ def add_user():
         level = request.form.get('user_level')
 
         if username == '' or first_name == '' or last_name == '' or email == '':
-            flash('Please enter in all fields')
+            flash('Please fill out all fields.')
             return render_template('add_user.html')
         
         result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
 
         flash(result)
-        if result != 'Success':
+        if result != 'Successfully added user!':
             return render_template('add_user.html')
 
         return redirect(url_for("users"))
@@ -98,13 +98,13 @@ def edit_user(id):
 
         print(first_name, last_name, email, level)
         if new_username == '' or first_name == '' or last_name == '' or email == '':
-            flash('Incomplete user information. Please check!')
+            flash('Incomplete edit of user information. Please check information and try again!')
             return render_template("edit_user.html", u=user)
 
         result = dbm.UpdateUserAccount(id, new_username, level, first_name, last_name, email)
 
         flash(result)
-        if result != 'Success':
+        if result != 'Successfully edited user information!':
             return render_template("edit_user.html", u=user)
 
         return redirect(url_for("users"))
@@ -122,7 +122,7 @@ def deactive(id):
 
     user.active = 0
     db.session.commit()
-    flash("Successfully deactive user {} {}!".format(user.first_name, user.last_name))
+    flash("Successfully deactivated user {} {}!".format(user.first_name, user.last_name))
     return "ok"
 
 
@@ -136,7 +136,7 @@ def active(id):
 
     user.active = 1
     db.session.commit()
-    flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
+    flash("Successfully activated user {} {}!".format(user.first_name, user.last_name))
     return "ok"
 
 
@@ -156,7 +156,7 @@ def edit_my_account():
         password = request.form.get("password")
         username = request.form.get("username")
         department = request.form.get("department")
-        flash("Successfully save your information!")
+        flash("Successfully updated your information!")
         return redirect("account")
 
     return render_template("edit_my_account.html")
