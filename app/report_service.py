@@ -27,7 +27,7 @@ def report_by_category():
                 index += 1
     #print(activities)
     #activities = ['Hardware', 'Internet', 'Login','Network','Phone Server', 'Printer']
-    colors = ['r', 'g','b','y','k','m']
+    colors = ['b', 'g','r','c','m','y']
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
     plt.savefig('app/static/images/example_category_report.png')
@@ -58,7 +58,7 @@ def report_by_department():
                 index += 1
     #print(activities)
     #activities = ['Hardware', 'Internet', 'Login','Network','Phone Server', 'Printer']
-    colors = ['r', 'g','b','y','k','m']
+    colors = ['b', 'g','r','c','m','y']
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
     plt.savefig('app/static/images/example_department_report.png')
