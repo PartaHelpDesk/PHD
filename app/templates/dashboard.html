@@ -21,18 +21,16 @@
     <div class="dashboard_view_tickets">
         {% if show_ticket_queue %}
             <h3 align="center">Current Ticket Queue</h3>
-        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="31" cellspacing="0" align="center">
             <thead>
                 <tr>
                     <th>Ticket</th>
-                    <th>Status</th>
-                    <th>Category</th>
-                    <th>Title</th>
                     <th>Description</th>
                     <th>User</th>
+                    <th>Category</th>
                     <th>Department</th>
-                    <th>Date Created</th>
                     <th>Last Modified</th>
+                    <th>Status</th>
                     <th>Commands</th>
                 </tr>
             </thead>
@@ -40,14 +38,12 @@
                 {% for t in tickets_queue %}
                 <tr>
                     <td>{{ t.ticket_id }}</td>
-                    <td>{{ t.status }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.title }}</td>
                     <td>{{ t.description }}</td>
                     <td>{{ t.username }}</td>
+                    <td>{{ t.category }}</td>
                     <td>{{ t.department }}</td>
-                    <td>{{ t.create_dt }}</td>
                     <td>TODO</td>
+                    <td>{{ t.status }}</td>
                     <td>
                             <button>View</button> <!--TODO Open Ticket-->
                     </td>
@@ -59,36 +55,32 @@
         {% endif %}
 
         <h3 align="center">My Open Tickets</h3>
-        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="31" cellspacing="0" align="center">
             <thead>
                 <tr>
-                    <th>Ticket</th>
-                    <th>Status</th>
-                    <th>Category</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>User</th>
-                    <th>Department</th>
-                    <th>Date Created</th>
-                    <th>Last Modified</th>
-                    <th>Commands</th>
+                        <th>Ticket</th>
+                        <th>Description</th>
+                        <th>User</th>
+                        <th>Category</th>
+                        <th>Department</th>
+                        <th>Last Modified</th>
+                        <th>Status</th>
+                        <th>Commands</th>
                 </tr>
             </thead>
             <tbody>
                 {% for t in my_tickets %}
                 <tr>
-                    <td>{{ t.ticket_id }}</td>
-                    <td>{{ t.status }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.title }}</td>
-                    <td>{{ t.description }}</td>
-                    <td>{{ t.user_id }}</td>
-                    <td>{{ t.department }}</td>
-                    <td>{{ t.create_dt }}</td>
-                    <td>TODO</td>
-                    <td>
-                        <button>View</button> <!--TODO Open Ticket-->
-                    </td>
+                        <td>{{ t.ticket_id }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.username }}</td>
+                        <td>{{ t.category }}</td>
+                        <td>{{ t.department }}</td>
+                        <td>TODO</td>
+                        <td>{{ t.status }}</td>
+                        <td>
+                            <button=""">View</button>
+                        </td>
                 </tr>
                 {% endfor %}
             </tbody>
