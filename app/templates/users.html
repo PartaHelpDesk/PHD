@@ -33,18 +33,19 @@
 {% block body %}
     <div class="ticket_queue">
         <div class="table-head">
-            <h3>Active Users</h3>
-            <div class="new-user-btn">
+            <div class="new-user-btn" ></div>
+            <div class="new-user-btn" align="left">
                 <button><a href="{{ url_for('add_user') }}">Add New User</a></button>
             </div>
+            <h3 align="center">Active Users</h3>
         </div>
-        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="right">
             <thead>
                 <tr>
                     <td>ID</td>
                     <td>Level</td>
                     <td>Name</td>
-                    <td>UserName</td>
+                    <td>Username</td>
                     <td>Email</td>
                     <td>Commands</td>
                 </tr>
@@ -72,8 +73,8 @@
             </tbody>
 
         </table>
-        <h3>Inactive Users</h3>
-        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+        <h3 align="left">Inactive Users</h3>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="left">
             <thead>
                     <tr>
                         <td>ID</td>
