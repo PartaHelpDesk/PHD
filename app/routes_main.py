@@ -67,7 +67,6 @@ def report_test():
     form = ReportForm()
     if form.validate_on_submit():
         selection = { 'choice': form.reportChoice.data }
-        print(selection)
         if selection['choice'] == 'Category':
             report_service.report_by_category()
             return render_template("/view_report.html", selection=selection)
@@ -75,17 +74,3 @@ def report_test():
             report_service.report_by_department()
             return render_template("/view_report.html", selection=selection)
     return render_template("report_test.html", form=form)
-
-@app.route("/view_report", methods=['GET'])
-def view_report():
-    return '''
-    <html>
-    <title>View Report</title>
-    <body>
-         <h1>Report For Viewing</h1>
-         <div>
-        <img src="/static/images/example_category_report.png" alt="Report">    
-        </div>
-    </body>
-    </html>
-    '''
