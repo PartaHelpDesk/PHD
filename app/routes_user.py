@@ -1,9 +1,9 @@
-from app import User
+from app.models import User
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
-from app.utils import *
-#from backend import DatabaseMethods as DM
+from app import DatabaseMethods as DM
+from werkzeug.security import generate_password_hash
 
 
 @app.route('/')
@@ -17,77 +17,98 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         dbm = DM.DatabaseMethods()
-        db_password = dbm.GetValue('SELECT Password FROM Users WHERE Username = ?', username)
-        if db_password != password:
-            flash('Login failed, user not found.')
+
+        if username == '' or password == '':
+            flash('Please enter your credentials.') #TODO this crashes if one field is empty, throw warning instead
             return redirect(url_for('login'))
-        else:
-            db_id = dbm.GetUserID(username)
-            user = User(db_id, username)
+
+        if dbm.CheckUserPassword(username, password):
+            user = User(username)
+            user.authenticated =True 
             login_user(user)
             return redirect(url_for('dashboard'))
+        else:
+            flash('Login failed. User not found.')
+            return redirect(url_for('login'))
+         
     return render_template('login.html')
-
 
 
 @app.route('/logout')
 @login_required
 def logout():
-    login_user(current_user)
+    current_user.authenticated = False
+    logout_user()
     return redirect(url_for('login'))
 
 
-@app.route('/user')
+@app.route('/users')
 @login_required
-def user():
-    actives = get_active_users()
-    inactives = get_inactive_users()
-    return render_template('user.html', actives=actives, inactives=inactives)
+def users():
+    dbm = DM.DatabaseMethods()
+    active_users = dbm.GetAllUsers(1) 
+    print(active_users)
+    inactives_users = dbm.GetAllUsers(0) 
+    return render_template('users.html', active_users=active_users, inactive_users=inactives_users)
 
 
 @app.route('/add_user', methods=["POST", "GET"])
 @login_required
 def add_user():
-
     if request.method == 'POST':
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        password = request.form.get('password')
-        email = request.form.get('email')
-        print(first_name, last_name, password, email)
-        if not first_name or not last_name or not password or not email:
-            flash('Incomplete user information. Please check!')
-            return redirect(url_for(add_user))
+        
+        dbm = DM.DatabaseMethods()
+        username = request.form.get('username')
+        first_name = request.form.get('first_name')
+        last_name= request.form.get('last_name')
+        email = request.form.get('email_address')
+        level = request.form.get('user_level')
 
-        user = User(first_name=first_name, last_name=last_name, password=password, email=email)
-        db.session.add(user)
-        db.session.commit()
-        flash("Successfully create user {} {}!".format(user.first_name, user.last_name))
-        return redirect(url_for("user"))
+        if username == '' or first_name == '' or last_name == '' or email == '':
+            flash('Please fill out all fields.')
+            return render_template('add_user.html')
+        
+        result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
+
+        flash(result)
+        if result != 'Successfully added user!':
+            return render_template('add_user.html')
+
+        return redirect(url_for("users"))
+
     return render_template('add_user.html')
-
+        
+      
+    
 
 @app.route("/edit_user/<int:id>", methods=["POST", "GET"])
 @login_required
 def edit_user(id):
-    user = User.query.get(id)
+    dbm = DM.DatabaseMethods()
+    username = dbm.GetUsername(id)
+    user = User(username)
     if not user:
         abort(404)
     if request.method == "POST":
+        new_username = request.form.get("username")
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
-        email = request.form.get('email')
-        print(first_name, last_name, email)
-        if not first_name or not last_name or not email:
-            flash('Incomplete user information. Please check!')
-            return redirect(url_for('add_user'))
+        email = request.form.get('email_address')
+        level = request.form.get('user_level')
 
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
-        db.session.commit()
-        flash("Successfully save user information!")
-        return redirect(url_for("user"))
+        print(first_name, last_name, email, level)
+        if new_username == '' or first_name == '' or last_name == '' or email == '':
+            flash('Incomplete edit of user information. Please check information and try again!')
+            return render_template("edit_user.html", u=user)
+
+        result = dbm.UpdateUserAccount(id, new_username, level, first_name, last_name, email)
+
+        flash(result)
+        if result != 'Successfully edited user information!':
+            return render_template("edit_user.html", u=user)
+
+        return redirect(url_for("users"))
+
     return render_template("edit_user.html", u=user)
 
 
@@ -101,11 +122,11 @@ def deactive(id):
 
     user.active = 0
     db.session.commit()
-    flash("Successfully deactive user {} {}!".format(user.first_name, user.last_name))
+    flash("Successfully deactivated user {} {}!".format(user.first_name, user.last_name))
     return "ok"
 
 
-@app.route("/active/<int:id>", methods=["POST"])
+@app.route("/activate/<int:id>", methods=["POST"])
 @login_required
 def active(id):
 
@@ -115,7 +136,7 @@ def active(id):
 
     user.active = 1
     db.session.commit()
-    flash("Successfully active user {} {}!".format(user.first_name, user.last_name))
+    flash("Successfully activated user {} {}!".format(user.first_name, user.last_name))
     return "ok"
 
 
@@ -135,7 +156,7 @@ def edit_my_account():
         password = request.form.get("password")
         username = request.form.get("username")
         department = request.form.get("department")
-        flash("Successfully save your information!")
+        flash("Successfully updated your information!")
         return redirect("account")
 
     return render_template("edit_my_account.html")

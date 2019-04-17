@@ -13,7 +13,9 @@ CREATE TABLE [dbo].[Users](
 	[LastName] [varchar](128) NOT NULL,
 	[Email] [varchar](128)NOT NULL,
 	[Password] [varchar](256) NOT NULL,
-	[Active] [bit] NOT NULL,
+	[PasswordResetDate] [datetime] NOT NULL DEFAULT GETDATE(),
+	[Active] [bit] NOT NULL DEFAULT 0,
+	[Authenticated] [bit] NOT NULL DEFAULT 0,
 
 PRIMARY KEY CLUSTERED 
 (
@@ -29,7 +31,8 @@ CREATE TABLE [dbo].[Tickets](
 	[CreatedUserID] [int] NOT NULL,
 	[Status] [varchar](128) NOT NULL,
 	[CreateDate] [datetime] DEFAULT GETDATE(),
-	[ClosedDate] [datetime] ,
+	[ClosedDate] [datetime] DEFAULT NULL,
+	[LastUpdated] [datetime] DEFAULT GETDATE(),
 	[Department] [varchar] (128)NOT NULL,
 	[Description] [varchar](280) NOT NULL 
 
@@ -44,13 +47,14 @@ PRIMARY KEY CLUSTERED
 CREATE TABLE [dbo].[TicketHistory](
 	[TicketHistoryID] [int] IDENTITY(1,1) NOT NULL,
 	[TicketID] [int] NOT NULL,
-	[Category] [int] NOT NULL,
-	[Title] [varchar](128) NOT NULL,
-	[Status] [int] NOT NULL,
-	[Department] [int] NOT NULL,
-	[Location] [int] NOT NULL,
-	[Description] [varchar](280) NOT NULL,
-	[Date] [datetime] NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Category] [varchar](128),
+	[Title] [varchar](128),
+	[Status] [varchar](128),
+	[Department] [varchar](128),
+	[Description] [varchar](280),
+	[Comment] [varchar](280),
+	[Date] [datetime] DEFAULT GETDATE(),
 
 
 PRIMARY KEY CLUSTERED 
@@ -61,14 +65,9 @@ PRIMARY KEY CLUSTERED
 
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[RelatedTickets](
-	[RelatedTicketID] [int] IDENTITY(1,1) NOT NULL,
 	[TicketID1] [int] NOT NULL,
 	[TicketID2] [int] NOT NULL,
 
-PRIMARY KEY CLUSTERED 
-(
-	[RelatedTicketID] ASC
-)
 )
 
 -----------------------------------------------------------------------
@@ -81,42 +80,29 @@ CREATE TABLE [dbo].[TicketAttachments](
 
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Categories](
-	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[CategoryID] ASC
+	[Description] ASC
 )
 )
 
 CREATE TABLE [dbo].[Status](
-	[StatusID] [int] IDENTITY(1,1) NOT NULL,
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[StatusID] ASC
+	[Description] ASC
 )
 )
 -----------------------------------------------------------------------
 CREATE TABLE [dbo].[Departments](
-	[DepartmentID] [int] IDENTITY(1,1) NOT NULL,
 	[Description] [varchar] (32) NOT NULL,
 
 PRIMARY KEY CLUSTERED 
 (
-	[DepartmentID] ASC
+	[Description] ASC
 )
 )
 
------------------------------------------------------------------------
-CREATE TABLE [dbo].[Locations](
-	[LocationID] [int] IDENTITY(1,1) NOT NULL,
-	[Description] [varchar] (32) NOT NULL,
-
-PRIMARY KEY CLUSTERED 
-(
-	[LocationID] ASC
-)
-)

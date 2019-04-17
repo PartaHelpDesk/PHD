@@ -14,7 +14,7 @@
         height: 64px;
     }
     div.container{
-        width: 600px;
+        width: 60px;
         margin: 0 auto;
     }
 
@@ -37,22 +37,20 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <p class="important">
-          Welcome to your account page.
-        </p>
+        <h1 align="left" class="important">
+          My Account
+        </h1>
         <div class="header">
-            <div class="avatar">
-                <img src="{{ url_for('static', filename='images/icon logo.png') }}" alt="avatar" id="avatar">
-            </div>
+            
             <div class="title">
-                Your Account
+                
             </div>
-            <div class="btn-float">
+            <div align="center" class="btn-float">
                 <button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button>
             </div>
         </div>
         <div class="account_info">
-            <table border="1" cellspacing="0">
+            <table align="center" border="1" cellspacing="0">
                 <tbody>
                 <tr>
                     <td>Name: </td>
