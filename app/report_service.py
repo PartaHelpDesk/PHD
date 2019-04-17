@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from app import DatabaseMethods, Datatable, DataRow
 from array import *
@@ -5,7 +7,7 @@ from datetime import datetime
 import os
 
 def report_by_category():
-    dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
+    dir_name = "/Users/macbook/Documents/GitHub/PHD/app/static/images"
     test = os.listdir(dir_name)
     for item in test:
         if item.startswith('example'):
@@ -47,7 +49,7 @@ def report_by_category():
 
 
 def report_by_department():
-    dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
+    dir_name = "/Users/macbook/Documents/GitHub/PHD/app/static/images"
     test = os.listdir(dir_name)
     for item in test:
         if item.startswith('example'):
