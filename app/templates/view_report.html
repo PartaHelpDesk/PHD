@@ -1,0 +1,17 @@
+    
+    {% block content %}
+    <title>View Report</title>
+    <body>
+         <h1>Report for Tickets By {{ selection.choice }} </h1>
+        {% if ( selection.choice == "Category" ) %}
+         <div>
+        <img src= {{ fileSavePath }} alt="Report">    
+        </div>
+        {% endif %}
+        {% if ( selection.choice == "Department" ) %}
+         <div>
+        <img src= {{ fileSavePath }} alt="Report">    
+        </div>
+        {% endif %}
+    </body>
+    {% endblock %}

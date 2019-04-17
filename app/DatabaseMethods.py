@@ -1,6 +1,8 @@
-from app import Datatable, DataRow #Server
+
+from app import Datatable, DataRow #DEBUG
+#import Datatable, DataRow
 from app.models import User
-#import Datatable, DataRow #DatabaseTests
+
 import pyodbc
 from werkzeug.security import generate_password_hash, check_password_hash
 
