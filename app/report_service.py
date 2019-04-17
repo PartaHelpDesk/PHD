@@ -80,8 +80,6 @@ def report_by_department():
     colors = ['b', 'g','r','c','m','y']
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
-    plt.savefig('app/static/images/example_department_report.png')
-
     dt = datetime.now()
     dateStr = str(dt.day) + str(dt.hour) + str(dt.minute) 
     fileSavePath = 'app/static/images/example_department_report' + dateStr + '.png'
