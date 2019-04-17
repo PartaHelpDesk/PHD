@@ -68,9 +68,9 @@ def report_test():
     if form.validate_on_submit():
         selection = { 'choice': form.reportChoice.data }
         if selection['choice'] == 'Category':
-            report_service.report_by_category()
-            return render_template("/view_report.html", selection=selection)
+            fileSavePath = report_service.report_by_category()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
         if selection['choice'] == 'Department':
-            report_service.report_by_department()
-            return render_template("/view_report.html", selection=selection)
+            fileSavePath = report_service.report_by_department()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
     return render_template("report_test.html", form=form)
