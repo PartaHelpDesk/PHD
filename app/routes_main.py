@@ -63,8 +63,23 @@ def view_all():
 @login_required
 def create_ticket():
   form = forms.TicketForm()
-  if request.method == 'POST' and form.validate():
-    params = (form.ticketTitle, form.department, form.ticketCategory, form.ticketDescription)
+  
+  dbm = dm.DatabaseMethods()
+  dt = dbm.GetCategories()
+  categories = [('-','-')]
+  
+  for c in dt.data_rows:
+      des = c.GetColumnValue('Description')
+      categories.append((des, des))
+  form.ticketCategory.choices = categories
+
+  if request.method == 'POST' and form.validate_on_submit():
+    selection = {
+      'Deparment': 'filler',
+      'Title': form.ticketTitle.data,
+      'Description': form.ticketDescription.data,
+      'Category': form.ticketCategory.data
+    }
     
   return render_template("create_ticket.html", form=form)
 
