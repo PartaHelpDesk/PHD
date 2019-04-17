@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app import forms
+from app.forms import ReportForm
 from app import report_service
 
 
