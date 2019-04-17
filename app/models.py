@@ -87,6 +87,7 @@ class Tickets:
         self.status = None
         self.create_dt = None
         self.close_dt = None
+        self.last_update_dt = None
         self.department = None
         self.description = None
         self.username = None
@@ -100,6 +101,7 @@ class Tickets:
         t.status = dr.GetColumnValue('Status')
         t.create_dt = dr.GetColumnValue('CreateDate')
         t.close_dt = dr.GetColumnValue('ClosedDate')
+        t.last_update_dt = dr.GetColumnValue('LastUpdated')
         t.department = dr.GetColumnValue('Department')
         t.description = dr.GetColumnValue('Description')
         t.username = dr.GetColumnValue('Username')

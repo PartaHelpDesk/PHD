@@ -37,22 +37,20 @@
 {% endblock %}
 {% block body %}
     <div class="container">
-        <p class="important">
+        <h1 align="left" class="important">
           My Account
-        </p>
+        </h1>
         <div class="header">
-            <div class="avatar">
-                <img src="{{ url_for('static', filename='images/PARTA ad.png') }}" alt="avatar" style="width:50px" id="avatar">
-            </div>
+            
             <div class="title">
                 
             </div>
-            <div class="btn-float">
+            <div align="center" class="btn-float">
                 <button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button>
             </div>
         </div>
         <div class="account_info">
-            <table border="1" cellspacing="0">
+            <table align="center" border="1" cellspacing="0">
                 <tbody>
                 <tr>
                     <td>Name: </td>

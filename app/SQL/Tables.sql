@@ -32,6 +32,7 @@ CREATE TABLE [dbo].[Tickets](
 	[Status] [varchar](128) NOT NULL,
 	[CreateDate] [datetime] DEFAULT GETDATE(),
 	[ClosedDate] [datetime] DEFAULT NULL,
+	[LastUpdated] [datetime] DEFAULT GETDATE(),
 	[Department] [varchar] (128)NOT NULL,
 	[Description] [varchar](280) NOT NULL 
 

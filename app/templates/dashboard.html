@@ -21,7 +21,7 @@
     <div class="dashboard_view_tickets">
         {% if show_ticket_queue %}
             <h3 align="center">Current Ticket Queue</h3>
-        <table class="table" width="500" cellpadding="31" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
             <thead>
                 <tr>
                     <th>Ticket</th>
@@ -29,6 +29,7 @@
                     <th>User</th>
                     <th>Category</th>
                     <th>Department</th>
+                    <th>Create Date</th>
                     <th>Last Modified</th>
                     <th>Status</th>
                     <th>Commands</th>
@@ -42,7 +43,8 @@
                     <td>{{ t.username }}</td>
                     <td>{{ t.category }}</td>
                     <td>{{ t.department }}</td>
-                    <td>TODO</td>
+                    <td>{{ t.create_dt}}</td>
+                    <td>{{ t.last_update_dt }}</td>
                     <td>{{ t.status }}</td>
                     <td>
                             <button>View</button> <!--TODO Open Ticket-->
@@ -55,7 +57,7 @@
         {% endif %}
 
         <h3 align="center">My Open Tickets</h3>
-        <table class="table" width="500" cellpadding="31" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
             <thead>
                 <tr>
                         <th>Ticket</th>
@@ -63,6 +65,7 @@
                         <th>User</th>
                         <th>Category</th>
                         <th>Department</th>
+                        <th>Create Date</th>
                         <th>Last Modified</th>
                         <th>Status</th>
                         <th>Commands</th>
@@ -76,11 +79,12 @@
                         <td>{{ t.username }}</td>
                         <td>{{ t.category }}</td>
                         <td>{{ t.department }}</td>
-                        <td>TODO</td>
+                        <td>{{ t.create_dt}}</td>
+                        <td>{{ t.last_update_dt }}</td>
                         <td>{{ t.status }}</td>
                         <td>
-                            <button=""">View</button>
-                        </td>
+                            <button>View</button> <!--TODO Open Ticket-->
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

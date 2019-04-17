@@ -3,7 +3,8 @@ from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app import forms
+from app.forms import ReportForm
+from app import report_service
 
 
 @app.route('/dashboard')
@@ -61,8 +62,37 @@ def view_all():
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required
 def create_ticket():
-    form = forms.TicketForm()
-    if request.method == 'POST' and form.validate():
-        params = (form.ticketTitle, form.department, form.ticketCategory, form.ticketDescription) 
-        
-    return render_template("create_ticket.html", form=form)
+  form = forms.TicketForm()
+  
+  dbm = dm.DatabaseMethods()
+  dt = dbm.GetCategories()
+  categories = [('-','-')]
+  
+  for c in dt.data_rows:
+      des = c.GetColumnValue('Description')
+      categories.append((des, des))
+  form.ticketCategory.choices = categories
+
+  if request.method == 'POST' and form.validate_on_submit():
+    selection = {
+      'Deparment': 'filler',
+      'Title': form.ticketTitle.data,
+      'Description': form.ticketDescription.data,
+      'Category': form.ticketCategory.data
+    }
+    
+  return render_template("create_ticket.html", form=form)
+
+@app.route("/report_test", methods=['GET','POST'])
+def report_test():
+    form = ReportForm()
+    if form.validate_on_submit():
+        selection = { 'choice': form.reportChoice.data }
+        if selection['choice'] == 'Category':
+            fileSavePath = report_service.report_by_category()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
+        if selection['choice'] == 'Department':
+            fileSavePath = report_service.report_by_department()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
+    return render_template("report_test.html", form=form)
+

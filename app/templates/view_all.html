@@ -14,10 +14,10 @@
 {% endblock %}
 {% block body %}
     <div class="view_all">
-        <h1>View Ticket History</h1>
+        <h3 align="center">Ticket History</h3>
         <p class="important">
         </p>
-        <table class="table" width="500" cellpadding="31" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
         <thead>
             <tr>
                 <th>Ticket</th>
@@ -40,7 +40,7 @@
                     <td>{{ t.department }}</td>
                     <td>TODO</td>
                     <td>{{ t.status }}</td>
-                    <td><button onclick="location.href='{{ url_for("view_ticket", ticket_id=t.id) }}'">View</button></td>
+                    <td><button>View</button></td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -5,13 +5,12 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <style>
         div.main{
-            width: 1200px;
-            margin: 1 auto;
+            width: 1260px;
+            margin: 0 auto;
         }
         div.nav{
             background: rgb(1, 79, 40);
-            height: 120px;
-            padding: 28px;
+            height: 100px;
             width: 100%;
         }
         div.logo{
@@ -22,41 +21,9 @@
             margin: 20px 20px;
             background: white;
             border-radius: 5px;
-        }
-        div.logo:hover{
-            cursor: pointer;
-        }
-        .logo:hover .dropdown-content {
-            display: block;
-        }
-        .head-pic:hover .dropdown-content{
-            display: block;
-        }
-        
-        .dropdown-content a {
-            color: white;
-            padding: 10px 8px;
-            text-decoration: none;
-            display: block;
-            border-top: 1px solid rgba(240, 255, 252, 0.99);
+            border: 1px solid black;
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            background: rgb(1, 79, 40);
-            border-radius: 10px;
-            font-size: 12px;
-        }
-        div.center{
-            float: left;
-            width: 700px;
-            height: 100px;
-            text-align: center;
-            color: white;
-        }
         div.left-nav{
             float: right;
             width: 100px;
@@ -70,54 +37,134 @@
             margin-top: 50px;
         }
 
-    button{
-        background-color: rgb(1, 79, 40);
-        color: rgb(227, 204, 4);
-        border-radius: 5px;
-        border: 0;
-        padding: 8px;
-        margin: 2px;
-        outline: none;
-    }
+        button{
+            background-color: rgb(1, 79, 40);
+            color: rgb(227, 204, 4);
+            border-radius: 5px;
+            border: 0;
+            padding: 8px;
+            margin: 2px;
+            outline: none;
+        }
 
-    button:hover{
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        cursor: pointer;
-    }
+        button:hover{
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
 
-    .table thead tr{
-        background-color: rgb(1, 79, 40);
-        border: 0;
-        border-radius: 8px;
-    }
+        .table thead tr{
+            background-color: rgb(1, 79, 40);
+            border: 0;
+            border-radius: 8px;
+        }
 
-    .table{
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid black;
-    }
+        .table{
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid black;
+        }
 
-    .table td,th{
-        border-right: 1px solid black;
-        border-bottom: 1px solid black;
-    }
+        .table td,th{
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+        }
 
-    .table tbody tr:nth-child(odd){
-        background-color: rgb(189, 189, 189);
-    }
+        .table tbody tr:nth-child(odd){
+            background-color: rgb(189, 189, 189);
+        }
 
-    .table thead{
-        color: white;
-        font-weight: bold;
-    }
+        .table thead{
+            color: white;
+            font-weight: bold;
+        }
 
-    div.message{
-        background-color: rgb(159, 240, 72);
-        border-radius: 5px;
-        margin-top: 5px;
-        padding: 10px;
-    }
 
+
+        div.nav-center a{
+            text-decoration: none;
+            color: white;
+            padding: 0 5px;
+        }
+
+        div.message{
+            background-color: rgb(159, 240, 72);
+            border-radius: 5px;
+            margin-top: 30px;
+            padding: 10px;
+        }
+
+        div.center{
+            width: 800px;
+            height: 35px;
+            float: left;
+            margin-top: 60px;
+            font-size: 20px;
+     }
+
+        div.right{
+            width: 210px;
+            height: 80px;
+            margin-top: 10px;
+            float: right;
+        }
+
+        div.right img{
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+        }
+
+        div.user-pic, div.logout{
+            float: left;
+            width: 80px;
+            height: 80px;
+            margin: 0 10px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 20px;
+            height: 30px;
+        }
+        
+        .dropdown-content a:hover{
+            color: rgb(227, 204, 4);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background: rgb(1, 79, 40);
+            border-radius: 10px;
+            font-size: 12px;
+            display: none;
+        }
+        
+        .dropdown span{
+            cursor: default;
+            color: white;
+        }
+
+        .center a{
+            text-decoration: none;
+            color: white;
+            margin: 0 10px;
+        }
+        
+        .center a:hover{
+            color: rgb(227, 204, 4);
+        }
     </style>
     <title>{% block title %} - PartaHelpDesk {% endblock %}</title>
 </head>
@@ -125,30 +172,44 @@
 <div class="main">
     <div class="nav">
         <div class="logo">
-            <img id="logo" src="{{ url_for('static', filename='images/PARTA LOGO.jpg') }}" alt="LOGO" width="100px" height="100px">
-              <div class="dropdown-content">
-                <a href="{{ url_for('dashboard') }}">Dashboard</a>
-                <a href="{{ url_for('create_ticket') }}">New Ticket</a>
-                <a href="{{ url_for('view_all') }}">View All</a>
-                <a href="#">Reports</a>
-                <a href="#">Admin</a>
-                <a href="{{ url_for('users') }}">Users</a>
-                <a href="#">Enumerations</a>
-              </div>
+            <img id="logo" src="../static/images/PARTA%20LOGO.png" alt="LOGO" width="100px" height="100px">
         </div>
-
         <div class="center">
-            <h1>Welcome {{ current_user.first_name }} </h1>
-        </div>
 
-        <div class="left-nav">
-            <label style="color: white;">{{ current_user.username }}</label>
-            <div class="head-pic">
-                <img id="head-pic" src="{{ url_for('static', filename='images/icon logo.png') }}" alt="loading..">
-            <div class="dropdown-content">
-                <a href="{{ url_for('account') }}">Account</a>
-                <a href="{{ url_for('logout') }}">Log Out</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a href="{{ url_for('create_ticket') }}">New Ticket</a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a href="{{ url_for('view_all') }}">View All</a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a href="">Reports</a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <a> </a>
+            <div class="dropdown">
+                <span>Admin</span>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('users') }}">Users</a>
+                    <a href="">Enumerations</a>
+                </div>
             </div>
+        </div>
+        <div class="right">
+            <div class="user-pic">
+                <a href="{{ url_for('account') }}"><img src="../static/images/user_pic.png" alt=""></a>
+            </div>
+            <div class="logout">
+                <a href="{{ url_for('logout') }}"><img src="../static/images/logout_pic.png" alt=""></a>
             </div>
         </div>
 
@@ -159,10 +220,10 @@
         </div>
         {% endfor %}
     <script>
-        setTimeout("$('div.message').slideUp();", 3000)
+        setTimeout("$('div.message').hide();", 3000)
     </script>
-    {% block body %}
-    {% endblock %}
+     {% block body %}
+     {% endblock %}
 </div>
 </body>
 </html>
