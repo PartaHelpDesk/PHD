@@ -177,14 +177,14 @@
         <div class="center">
 
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('new_ticket') }}">New Ticket</a>
+            <a href="{{ url_for('create_ticket') }}">New Ticket</a>
             <a href="{{ url_for('view_all') }}">View All</a>
-            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="">Reports</a>
             <div class="dropdown">
                 <span>Admin</span>
                 <div class="dropdown-content">
                     <a href="{{ url_for('users') }}">Users</a>
-                    <a href="{{ url_for('enumerations') }}">Enumerations</a>
+                    <a href="">Enumerations</a>
                 </div>
             </div>
         </div>
@@ -198,12 +198,16 @@
         </div>
 
     </div>
+        {% for msg in get_flashed_messages() %}
         <div class="message">
                 {{ msg }}
         </div>
+        {% endfor %}
     <script>
         setTimeout("$('div.message').hide();", 3000)
     </script>
+     {% block body %}
+     {% endblock %}
 </div>
 </body>
 </html>
