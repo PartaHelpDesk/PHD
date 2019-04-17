@@ -3,8 +3,8 @@ from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app import forms
-from app import report_service
+from app.forms import ReportForm, TicketForm, EmailForm
+from app import report_service, email_service
 
 
 @app.route('/dashboard')
@@ -62,10 +62,29 @@ def view_all():
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required
 def create_ticket():
-  form = forms.TicketForm()
-  if request.method == 'POST' and form.validate():
-    params = (form.ticketTitle, form.department, form.ticketCategory, form.ticketDescription)
-    
+  form = TicketForm()
+  dbm = dm.DatabaseMethods()
+  if request.method == 'POST':
+    selection = {
+      'Department': 'filler',
+      'Title': form.ticketTitle.data,
+      'Description': form.ticketDescription.data,
+      'Category': form.ticketCategory.data
+    }
+    recipients = dbm.GetITEmails()
+    emailMessage = email_service.format_email(selection['Title'],selection['Department'],selection['Category'],'New',selection['Description'])
+    email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
+    dbm.CreateTicket(selection['Title'],selection['Category'],133,'New',selection['Department'],selection['Description'])
+    return redirect(url_for('dashboard'))
+  
+  dt = dbm.GetCategories()
+  categories = [('-','-')]
+  
+  for c in dt.data_rows:
+      des = c.GetColumnValue('Description')
+      categories.append((des, des))
+  form.ticketCategory.choices = categories
+
   return render_template("create_ticket.html", form=form)
 
 @app.route("/report_test", methods=['GET','POST'])

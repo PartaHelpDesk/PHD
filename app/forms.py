@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 
 from wtforms.validators import DataRequired
 #from app import DatabaseMethods as dm
-import DatabaseMethods as dm
+#import DatabaseMethods as dm
 
 class EmailForm(FlaskForm):
     Addr = StringField('Reciever Address:', validators=[DataRequired()])
