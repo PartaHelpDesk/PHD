@@ -3,9 +3,8 @@ from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-#from app.forms import ReportForm, TicketForm, EmailForm
+from app.forms import ReportForm, TicketForm, EmailForm
 from app import report_service, email_service
-from app import forms
 
 
 @app.route('/dashboard')
