@@ -36,7 +36,7 @@ def send_group_email(sender, email_recipients, email_message, html_body):
 	with mail.connect() as conn:
 		for user in email_recipients:
 			message = email_message
-			subject = "Hello, %s" % user
+			subject = ticketTitle
 			msg = Message(recipients=[user],
 						body=message,
 						subject=subject,
