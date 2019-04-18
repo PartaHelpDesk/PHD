@@ -3,8 +3,9 @@ from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app.forms import ReportForm, TicketForm, EmailForm
+#from app.forms import ReportForm, TicketForm, EmailForm
 from app import report_service, email_service
+from app import forms
 
 
 @app.route('/dashboard')
@@ -76,7 +77,8 @@ def create_ticket():
     email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
     dbm.CreateTicket(selection['Title'],selection['Category'],133,'New',selection['Department'],selection['Description'])
     return redirect(url_for('dashboard'))
-  
+ 
+  dbm = dm.DatabaseMethods()
   dt = dbm.GetCategories()
   categories = [('-','-')]
   
