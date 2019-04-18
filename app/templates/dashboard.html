@@ -62,7 +62,7 @@
                 <tr>
                         <th>Ticket</th>
                         <th>Description</th>
-                        <th>User</th>
+                        <th>Requestor</th>
                         <th>Category</th>
                         <th>Department</th>
                         <th>Create Date</th>
@@ -76,7 +76,7 @@
                 <tr>
                         <td>{{ t.ticket_id }}</td>
                         <td>{{ t.description }}</td>
-                        <td>{{ t.username }}</td>
+                        <td>{{ t.first_name + “ “ t.last_name }}</td>
                         <td>{{ t.category }}</td>
                         <td>{{ t.department }}</td>
                         <td>{{ t.create_dt}}</td>
