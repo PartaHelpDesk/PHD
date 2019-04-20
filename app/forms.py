@@ -11,7 +11,7 @@ class EmailForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class TicketForm(FlaskForm):
-	department = StringField('Department:', validators=[DataRequired()])
+	ticketDepartment = SelectField('Department:', choices=[],validators=[DataRequired()])
 	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
