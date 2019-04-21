@@ -51,6 +51,7 @@
                     <tr>
                         <td>ID</td>
                         <td>Level</td>
+                        <td>Username</td>
                         <td>Name</td>
                         <td>Commands</td>
                     </tr>
@@ -66,6 +67,7 @@
                             {% elif u.level == '3' %}
                                 <td>Admin</td>
                             {% endif %}
+                            <td>{{ u.username}}</td>
                             <td>{{ u.first_name + ' ' + u.last_name }}</td>
                             <td>
                                 <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
@@ -83,6 +85,7 @@
                     <tr>
                         <td>ID</td>
                         <td>Level</td>
+                        <td>Username</td>
                         <td>Name</td>
                         <td>Commands</td>
                     </tr>
@@ -98,6 +101,7 @@
                     {% elif u.level == '3' %}
                         <td>Admin</td>
                     {% endif %}
+                    <td>{{ u.username}}</td>
                     <td>{{ u.first_name + ' ' + u.last_name }}</td>
                     <td>
                         <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
