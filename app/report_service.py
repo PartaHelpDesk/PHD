@@ -5,6 +5,7 @@ from datetime import datetime
 import os
 
 def report_by_category():
+        # enter own directory here
     dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
     test = os.listdir(dir_name)
     for item in test:
@@ -47,6 +48,7 @@ def report_by_category():
 
 
 def report_by_department():
+        # enter own directory here
     dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
     test = os.listdir(dir_name)
     for item in test:
