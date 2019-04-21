@@ -14,7 +14,3 @@ login_manager.login_view = 'login'
 
 #for Jacob don't delete
 import models
-
-
-#frontend.config.from_object(config.get('dev'))
-

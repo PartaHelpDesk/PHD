@@ -23,11 +23,8 @@ def dashboard():
 @app.route("/view_ticket/<int:ticket_id>")
 @login_required
 def view_ticket(ticket_id):
-    # ticket = Ticket.query.get(ticket_id)
-    # if not ticket:
-    #     abort(404)
-
-    return render_template("view_ticket.html", t=ticket)
+  ticket = Tickets.getTicketFromID(ticket_id)  
+  return render_template("view_ticket.html", ticket=ticket)
 
 
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])

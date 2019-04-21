@@ -100,9 +100,6 @@ class DatabaseMethods:
         sql = "SELECT Password FROM Users WHERE Username = ?"
         db_password = self.GetValue(sql, username)
 
-        print (username)
-        print (db_password)
-
         #Hash what users entered
 
         #compare
@@ -128,13 +125,15 @@ class DatabaseMethods:
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
-        sql = "SELECT * FROM Tickets WHERE TicketID = ?"
+        sql = "SELECT t.*, u.Username FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+        sql = sql + ' WHERE TicketID = ?'
         return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
         sql = "SELECT t.*, u.Username FROM Tickets t "
-        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID  '
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
