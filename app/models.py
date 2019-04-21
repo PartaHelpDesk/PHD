@@ -120,10 +120,19 @@ class Tickets:
     def getTicketQueue(self):
         dbm = dm.DatabaseMethods()
         data_tbl = dbm.GetAllActiveTickets()
+        data_tbl.PrintValues()
         queue = []
         for i in data_tbl.data_rows:
             queue.append(self.createTicketObject(i))
         return queue
+    
+    @classmethod
+    def getTicketFromID(cls, id):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetTicketInfo(id)
+        t = Tickets()
+        dt.PrintValues()
+        return t.createTicketObject(dt.data_rows[0])
         
 
 
