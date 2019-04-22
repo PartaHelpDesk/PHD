@@ -116,13 +116,17 @@ def edit_user(id):
 @login_required
 def deactive(id):
 
-    user = User.query.get(id)
-    if not user:
+    dbm = DM.DatabaseMethods()
+
+    user_name = dbm.GetUsername(id)
+
+    if not user_name:
         abort(404)
 
-    user.active = 0
-    db.session.commit()
-    flash("Successfully deactivated user {} {}!".format(user.first_name, user.last_name))
+    sql = "UPDATE Users SET Active = 0 WHERE UserID = ?"
+    dbm.ExecuteSql(sql, id, False)
+
+    flash("Successfully deactivated user {}!".format(user_name))
     return "ok"
 
 
@@ -130,13 +134,17 @@ def deactive(id):
 @login_required
 def active(id):
 
-    user = User.query.get(id)
-    if not user:
+    dbm = DM.DatabaseMethods()
+
+    user_name = dbm.GetUsername(id)
+
+    if not user_name:
         abort(404)
 
-    user.active = 1
-    db.session.commit()
-    flash("Successfully activated user {} {}!".format(user.first_name, user.last_name))
+    sql = "UPDATE Users SET Active = 1 WHERE UserID = ?"
+    dbm.ExecuteSql(sql, id, False)
+
+    flash("Successfully activated user {}!".format(user_name))
     return "ok"
 
 

@@ -2,6 +2,8 @@ from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
 from app.initialization import login_manager
 from app import DatabaseMethods as dm
+#for jacob don't delete
+#import DatabaseMethods as dm
 
 
 @login_manager.user_loader
@@ -91,7 +93,7 @@ class Tickets:
         self.department = None
         self.description = None
         self.username = None
-
+    
     def createTicketObject(self, dr):
         t = Tickets()
         t.ticket_id = dr.GetColumnValue('TicketID')
@@ -118,10 +120,19 @@ class Tickets:
     def getTicketQueue(self):
         dbm = dm.DatabaseMethods()
         data_tbl = dbm.GetAllActiveTickets()
+        data_tbl.PrintValues()
         queue = []
         for i in data_tbl.data_rows:
             queue.append(self.createTicketObject(i))
         return queue
+    
+    @classmethod
+    def getTicketFromID(cls, id):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetTicketInfo(id)
+        t = Tickets()
+        dt.PrintValues()
+        return t.createTicketObject(dt.data_rows[0])
         
 
 

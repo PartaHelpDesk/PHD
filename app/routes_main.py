@@ -23,11 +23,8 @@ def dashboard():
 @app.route("/view_ticket/<int:ticket_id>")
 @login_required
 def view_ticket(ticket_id):
-    # ticket = Ticket.query.get(ticket_id)
-    # if not ticket:
-    #     abort(404)
-
-    return render_template("view_ticket.html", t=ticket)
+  ticket = Tickets.getTicketFromID(ticket_id)  
+  return render_template("view_ticket.html", ticket=ticket)
 
 
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
@@ -55,13 +52,18 @@ def edit_ticket(ticket_id):
 @app.route("/view_all")
 @login_required
 def view_all():
-    # tickets = Ticket.query.all()
-    return render_template("view_all.html")
+  # dt = dm.DatabaseMethods.GetAllActiveTickets()
+  
+  # for ticket in dt.data_rows:
+  #   t = Ticket.createTicketObject(ticket)
+  return render_template("view_all.html")
 
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required
 def create_ticket():
+  #form = forms.TicketForm()
+  
   form = TicketForm()
   dbm = dm.DatabaseMethods()
   if request.method == 'POST':
@@ -78,14 +80,35 @@ def create_ticket():
     return redirect(url_for('dashboard'))
  
   dbm = dm.DatabaseMethods()
-  dt = dbm.GetCategories()
-  categories = [('-','-')]
+  dt_c = dbm.GetCategories()
+  dt_d = dbm.GetDepartments()
   
-  for c in dt.data_rows:
+  """
+  Add junk entry this to deal with begining null entry
+  we will have to handle this later in DB Methods because 
+  it is not a valid category
+  """
+  categories = [('-','-')]
+  for c in dt_c.data_rows:
       des = c.GetColumnValue('Description')
       categories.append((des, des))
   form.ticketCategory.choices = categories
 
+
+  deparments = [('-','-')]
+  for d in dt_d.data_rows:
+    dep = d.GetColumnValue('Description')
+    deparments.append((dep,dep))
+
+  form.ticketDepartment.choices = deparments
+
+  if request.method == 'POST' and form.validate_on_submit():
+    selection = {
+      'Deparment': form.ticketDepartment.data,
+      'Title': form.ticketTitle.data,
+      'Description': form.ticketDescription.data,
+      'Category': form.ticketCategory.data
+    }
   return render_template("create_ticket.html", form=form)
 
 @app.route("/report_test", methods=['GET','POST'])

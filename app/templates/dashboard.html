@@ -15,18 +15,22 @@
         text-align: center;
     }
 
+    h3 {
+        text-align: center;
+    }
+
     </style>
 {% endblock %}
 {% block body %}
     <div class="dashboard_view_tickets">
         {% if show_ticket_queue %}
             <h3 align="center">Current Ticket Queue</h3>
-        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
                     <th>Ticket</th>
                     <th>Description</th>
-                    <th>User</th>
+                    <th>Requestor</th>
                     <th>Category</th>
                     <th>Department</th>
                     <th>Create Date</th>
@@ -47,7 +51,7 @@
                     <td>{{ t.last_update_dt }}</td>
                     <td>{{ t.status }}</td>
                     <td>
-                            <button>View</button> <!--TODO Open Ticket-->
+                        <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
                     </td>
                 </tr>
                     {% endfor %}
@@ -57,12 +61,12 @@
         {% endif %}
 
         <h3 align="center">My Open Tickets</h3>
-        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
                         <th>Ticket</th>
                         <th>Description</th>
-                        <th>User</th>
+                        <th>Requestor</th>
                         <th>Category</th>
                         <th>Department</th>
                         <th>Create Date</th>
@@ -83,8 +87,8 @@
                         <td>{{ t.last_update_dt }}</td>
                         <td>{{ t.status }}</td>
                         <td>
-                            <button>View</button> <!--TODO Open Ticket-->
-                    </td>
+                            <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        </td>
                 </tr>
                 {% endfor %}
             </tbody>

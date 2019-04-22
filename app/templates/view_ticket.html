@@ -26,35 +26,31 @@
 <div class="container">
     <div class="ticket_detail">
         <h3>Ticket Details</h3>
-        <button onclick="location.href='{{ url_for("update_ticket", ticket_id=t.id) }}'">Update</button>
-        <button onclick="location.href='{{ url_for("edit_ticket", ticket_id=t.id) }}'">Edit</button>
+        <button onclick="location.href='{{ url_for("update_ticket", ticket_id=ticket.ticket_id) }}'">Update</button>
+        <button onclick="location.href='{{ url_for("edit_ticket", ticket_id=ticket.ticket_id) }}'">Edit</button>
         <table border="1" cellspacing="0">
             <tr>
-                <td>Requestor:</td>
-                <td>{{ t.requestor }}</td>
+                <td>Title:</td>
+                <td>{{ ticket.ticket_id }} {{ ticket.title }}</td>
             </tr>
             <tr>
                 <td>Category:</td>
-                <td>{{ t.category.description }}</td>
+                <td>{{ ticket.category }}</td>
             </tr>
             <tr>
                 <td>Last Modified:</td>
-                <td>{{ t.last_modified }}</td>
+                <td>{{ ticket.last_update_dt }}</td>
             </tr>
             <tr>
                 <td>Status:</td>
-                <td>{{ t.status }}</td>
+                <td>{{ ticket.status }}</td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td>{{ t.description }}</td>
+                <td>{{ ticket.description }}</td>
             </tr>
         </table>
         <hr>
-    </div>
-    <div class="ticket_comment">
-        comments({{ t.comments.__len__() }})<br>
-        Developing...
     </div>
 </div>
 {% endblock %}

@@ -24,7 +24,11 @@
         <p>
         {{ form.ticketTitle.label }}
         {{ form.ticketTitle(size=32) }}
-    </p><br>
+        </p><br>
+        <p>
+          {{form.ticketDepartment.label}}
+          {{form.ticketDepartment()}}
+        </p><br>
       <p>
           {{ form.ticketCategory.label }}
           {{ form.ticketCategory() }}
