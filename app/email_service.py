@@ -32,7 +32,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg.html = html_body
     mail.send(msg)
 
-def send_group_email(sender, email_recipients, email_message, html_body):
+def send_group_email(sender, email_recipients, email_message, html_body, ticketTitle):
 	with mail.connect() as conn:
 		for user in email_recipients:
 			message = email_message
