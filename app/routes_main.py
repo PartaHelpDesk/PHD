@@ -111,8 +111,8 @@ def create_ticket():
     }
   return render_template("create_ticket.html", form=form)
 
-@app.route("/report_test", methods=['GET','POST'])
-def report_test():
+@app.route("/reporting", methods=['GET','POST'])
+def reporting():
     form = ReportForm()
     if form.validate_on_submit():
         selection = { 'choice': form.reportChoice.data }
@@ -122,5 +122,8 @@ def report_test():
         if selection['choice'] == 'Department':
             fileSavePath = report_service.report_by_department()
             return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
-    return render_template("report_test.html", form=form)
+        if selection['choice'] == 'Status':
+            fileSavePath = report_service.report_by_status()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
+    return render_template("reporting.html", form=form)
 

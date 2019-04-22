@@ -19,6 +19,6 @@ class TicketForm(FlaskForm):
 	submit = SubmitField('Send Ticket')
 
 class ReportForm(FlaskForm):
-	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department')])
+	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department'),('Status','Report By Ticket Status')])
 	submit = SubmitField('Get Report')
 
