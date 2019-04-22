@@ -13,4 +13,4 @@ login_manager.login_view = 'login'
 #from app import models
 
 #for Jacob don't delete
-import models
+#import models

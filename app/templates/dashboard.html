@@ -44,7 +44,7 @@
                 <tr>
                     <td>{{ t.ticket_id }}</td>
                     <td>{{ t.description }}</td>
-                    <td>{{ t.first_name + " " + t.last_name }}</td>
+                    <td>{{ t.username }}</td>
                     <td>{{ t.category }}</td>
                     <td>{{ t.department }}</td>
                     <td>{{ t.create_dt}}</td>
@@ -80,13 +80,15 @@
                 <tr>
                         <td>{{ t.ticket_id }}</td>
                         <td>{{ t.description }}</td>
-                        <td>{{ t.first_name + " " + t.last_name }}</td>
+                        <td>{{ t.username }}</td>
                         <td>{{ t.category }}</td>
                         <td>{{ t.department }}</td>
                         <td>{{ t.create_dt}}</td>
                         <td>{{ t.last_update_dt }}</td>
                         <td>{{ t.status }}</td>
-                    <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        <td>
+                            <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        </td>
                 </tr>
                 {% endfor %}
             </tbody>

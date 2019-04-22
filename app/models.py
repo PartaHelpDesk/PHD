@@ -1,9 +1,9 @@
 from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
 from app.initialization import login_manager
-#from app import DatabaseMethods as dm
+from app import DatabaseMethods as dm
 #for jacob don't delete
-import DatabaseMethods as dm
+#import DatabaseMethods as dm
 
 
 @login_manager.user_loader
