@@ -86,7 +86,9 @@
                         <td>{{ t.create_dt}}</td>
                         <td>{{ t.last_update_dt }}</td>
                         <td>{{ t.status }}</td>
-                    <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        <td>
+                            <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        </td>
                 </tr>
                 {% endfor %}
             </tbody>
