@@ -39,16 +39,31 @@ def update_ticket(ticket_id):
 
 
 
-@app.route("/view_all")
+@app.route("/view_all/")
 @login_required
 def view_all():
   dbm = dm.DatabaseMethods()
-  dt = dbm.GetAllActiveTickets()
+  dt = dbm.GetTicketFiltered(None)
   t = Tickets()
   tickets = []
   for dr in dt.data_rows:
       tickets.append(t.createTicketObject(dr))
-  return render_template("view_all.html", tickets=tickets)
+  return render_template("view_queue.html", tickets=tickets)
+
+
+@app.route("/view_all_filter", methods=["POST"])
+@login_required
+def view_all_filter():
+  dbm = dm.DatabaseMethods()
+  filter_text = request.form.get("filter_text")
+  dt = dbm.GetTicketFiltered(filter_text)
+  print ('here')
+  t = Tickets()
+  tickets = []
+  for dr in dt.data_rows:
+      tickets.append(t.createTicketObject(dr))
+  return render_template("view_queue.html", tickets=tickets)
+
 
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
