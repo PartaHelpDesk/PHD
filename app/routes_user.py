@@ -47,7 +47,6 @@ def logout():
 def users():
     dbm = DM.DatabaseMethods()
     active_users = dbm.GetAllUsers(1) 
-    print(active_users)
     inactives_users = dbm.GetAllUsers(0) 
     return render_template('users.html', active_users=active_users, inactive_users=inactives_users)
 
