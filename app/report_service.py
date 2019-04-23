@@ -6,11 +6,11 @@ import os
 
 def report_by_category():
         # enter own directory here
-    dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
-    test = os.listdir(dir_name)
-    for item in test:
-        if item.startswith('PHDReport'):
-            os.remove(os.path.join(dir_name, item))
+    #dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
+    #test = os.listdir(dir_name)
+    #for item in test:
+        #if item.startswith('PHDReport'):
+            #os.remove(os.path.join(dir_name, item))
 
     dbm = DatabaseMethods.DatabaseMethods()
     sql = "SELECT DISTINCT Category, COUNT( Category ) AS Count "
@@ -43,6 +43,11 @@ def report_by_category():
     #plt.show()
     dt = datetime.now()
     dateStr = str(dt.day) + str(dt.hour) + str(dt.minute) 
+    dir_name = "app/static/images/"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.startswith('PHDReport'):
+            os.remove(os.path.join(dir_name, item)) 
     fileSavePath = 'app/static/images/PHDReport_Category' + dateStr + '.png'
     plt.savefig(fileSavePath)
     fileSavePath = fileSavePath[len('app/'):]
@@ -51,11 +56,11 @@ def report_by_category():
 
 def report_by_department():
         # enter own directory here
-    dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
-    test = os.listdir(dir_name)
-    for item in test:
-        if item.startswith('PHDReport'):
-            os.remove(os.path.join(dir_name, item))
+    #dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
+    #test = os.listdir(dir_name)
+    #for item in test:
+        #if item.startswith('PHDReport'):
+            #os.remove(os.path.join(dir_name, item))
 
     dbm = DatabaseMethods.DatabaseMethods()
     sql = "SELECT DISTINCT Department, COUNT( Department ) AS Count "
@@ -87,7 +92,12 @@ def report_by_department():
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
     dt = datetime.now()
-    dateStr = str(dt.day) + str(dt.hour) + str(dt.minute) 
+    dateStr = str(dt.day) + str(dt.hour) + str(dt.minute)
+    dir_name = "app/static/images/"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.startswith('PHDReport'):
+            os.remove(os.path.join(dir_name, item)) 
     fileSavePath = 'app/static/images/PHDReport_Department' + dateStr + '.png'
     plt.savefig(fileSavePath)
     fileSavePath = fileSavePath[len('app/'):]
@@ -95,11 +105,11 @@ def report_by_department():
 
 def report_by_status():
         # enter own directory here
-    dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
-    test = os.listdir(dir_name)
-    for item in test:
-        if item.startswith('PHDReport'):
-            os.remove(os.path.join(dir_name, item))
+    #dir_name = "C:/Users/BEN/Desktop/PHD_Project2/app/static/images/"
+    #test = os.listdir(dir_name)
+    #for item in test:
+        #if item.startswith('PHDReport'):
+            #os.remove(os.path.join(dir_name, item))
 
     dbm = DatabaseMethods.DatabaseMethods()
     sql = "SELECT DISTINCT Status, COUNT( Status ) AS Count "
@@ -131,7 +141,12 @@ def report_by_status():
     plt.pie(slices_hours, labels=activities, colors=colors, startangle=90, autopct='%.1f%%')
     #plt.show()
     dt = datetime.now()
-    dateStr = str(dt.day) + str(dt.hour) + str(dt.minute) 
+    dateStr = str(dt.day) + str(dt.hour) + str(dt.minute)
+    dir_name = "app/static/images/"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.startswith('PHDReport'):
+            os.remove(os.path.join(dir_name, item))  
     fileSavePath = 'app/static/images/PHDReport_Status' + dateStr + '.png'
     plt.savefig(fileSavePath)
     fileSavePath = fileSavePath[len('app/'):]
