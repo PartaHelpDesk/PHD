@@ -19,12 +19,15 @@
         margin: 0 auto;
     }
 
-    button a{
-        text-decoration: none;
-        color: rgb(227, 204, 4);
-        width: 100%;
-        height: 100%;
-    }
+     button.edit {
+        /* background-color: rgb(1, 79, 40); */
+        color: black;
+        border-radius: 5px;
+        border: 0;
+        padding: 4px;
+        margin: 2px;
+        outline: none;
+    } 
 
     div.table-left{
         float: left;
@@ -70,7 +73,7 @@
                             {% endif %}
                             <td>{{ u.first_name + ' ' + u.last_name }}</td>
                             <td>
-                                <button><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
+                                <button class="edit"><a href="{{ url_for('edit_user', id=u.user_id) }}">Edit</a></button>
                                 <button id="deactive_user" post_url="{{ url_for('deactive', id=u.user_id) }}">Deactivate</button>
                             </td>
                         </tr>
