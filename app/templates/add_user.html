@@ -1,100 +1,62 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Users
+    Add User Account
 {% endblock %}
 
 {% block head %}
-    <style>
-    h3{
-        text-align: center;
-    }
-    table tbody tr td:nth-child(1){
-        background-color: rgb(1, 79, 40);
-        color: white;
-        text-align: right;
-    }
-    .table-container{
-        width: 500px;
+<style>
+    .ticket_queue table{
+        width: 1000px;
         margin: 0 auto;
     }
 
-    table{
-        width: 100%;
-    }
-
-    table tr{
-        height: 30px;
-    }
-
-    input[type='text']{
-        width: 90%;
-    }
-
-    div.submit{
+    .ticket_queue h3{
         text-align: center;
     }
 
+    h3 {
+        text-align: center;
+    }
 
     </style>
 {% endblock %}
 {% block body %}
 <br></br>
-    <h1 align="center" >Add User</h1>
-    <form action="" method="post">
     <div class="table-container">
-    <table align="center" border="1" cellspacing="0">
-        <tbody>
-            <tr>
-                <td>First Name:</td>
-                <td><input type="text" value="" name="first_name"></td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td><input type="text" value="" name="last_name"></td>
-            </tr>
-            <tr>
-                <td>Username:</td>
-                <td><input type="text" value="" name="username"></td>
-            </tr>
-            <tr>
-                <td>Email Address:</td>
-                <td><input type="text" value="" name="email_address"></td>
-            </tr>
-            <tr>
-                <td>Department: </td>
-                <td><select name="department" id="">
-                    <option value="1">Accounting</option>
-                    <option value="2">Administration</option>
-                    <option value="3">Dispatch</option>
-                    <option value="4">Gateway</option>
-                    <option value="5">Human Resources</option>
-                    <option value="6" >Information Technology</option>                        
-                    <option value="7">Maintenance</option>
-                    <option value="8">Marketing</option>
-                    <option value="9">Operations</option>
-                    <option value="10">Planning</option>
-                    <option value="11">Scheduling</option>
-                    <option value="12">Training</option>
-                    </select></td>
-            </tr>
-            <tr>
-                <td>Account Level:</td>
-                <td><select name="user_level">
-                    <option value="1">User</option>
-                    <option value="2">IT</option>
-                    <option value="3">Admin</option>
-                </select></td>
-            </tr> 
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" value="" name="password"></td>
-            </tr>
-        </tbody>
-    </table>
-    <div align="center" class="submit">
-        <button type="submit" style="width: 100px; margin-top: 8px;">Add</button>
+            <h1 align="center">Add User Account</h1>
+            <form action="" method="post"></form>
+        <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Account Level</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" value="" name="first_name"></td>
+                    <td><input type="text" value="" name="last_name"></td>
+                    <td><input type="text" value="" name="username"></td>
+                    <td><input type="text" value="" name="email_address"></td>
+                    <td><select name="user_level">
+                            <option value="1">User</option>
+                            <option value="2">IT</option>
+                            <option value="3">Admin</option>
+                        </select></td>
+                    <td><input type="text" value="" name="password"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    </div>
-    </form>
+</form>
+    <br></br>
+        <div align="center" class="submit">
+            <button type="submit" style="width: 100px; margin-top: 8px;">Save</button>
+        </div>
 {% endblock %}
+
