@@ -22,12 +22,8 @@
     </style>
 {% endblock %}
 {% block body %}
-<<<<<<< HEAD
-    <div class="ticket_queue">
-=======
 <br></br>
     <div class="dashboard_view_tickets">
->>>>>>> master
         {% if show_ticket_queue %}
             <br>
             <h3 align="center">Ticket Queue</h3>
@@ -81,18 +77,6 @@
             <tbody>
                 {% for t in  my_tickets %}
                 <tr>
-<<<<<<< HEAD
-                    <td>{{ t.ticket_id }}</td>
-                    <td>{{ t.status }}</td>
-                    <td>{{ t.title }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.username }}</td>
-                    <td>{{ t.days_open }} days</td>
-                    <td>{{ t.last_update_dt }}</td>
-                    <td>
-                        <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
-                    </td>
-=======
                         <td>{{ t.ticket_id }}</td>
                         <td>{{ t.description }}</td>
                         <td>{{ t.username }}</td>
@@ -104,7 +88,6 @@
                         <td>
                             <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
                         </td>
->>>>>>> eac92b178c0afcabc9e44fe807e57885f35abdde
                 </tr>
                     {% endfor %}
             </tbody>
