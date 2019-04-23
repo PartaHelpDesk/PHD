@@ -76,6 +76,7 @@
             <tbody>
                 {% for t in  my_tickets %}
                 <tr>
+<<<<<<< HEAD
                     <td>{{ t.ticket_id }}</td>
                     <td>{{ t.status }}</td>
                     <td>{{ t.title }}</td>
@@ -86,6 +87,19 @@
                     <td>
                         <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
                     </td>
+=======
+                        <td>{{ t.ticket_id }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.username }}</td>
+                        <td>{{ t.category }}</td>
+                        <td>{{ t.department }}</td>
+                        <td>{{ t.create_dt}}</td>
+                        <td>{{ t.last_update_dt }}</td>
+                        <td>{{ t.status }}</td>
+                        <td>
+                            <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        </td>
+>>>>>>> eac92b178c0afcabc9e44fe807e57885f35abdde
                 </tr>
                     {% endfor %}
             </tbody>
