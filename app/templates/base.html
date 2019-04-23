@@ -44,12 +44,12 @@
             margin-top: 50px;
         }
 
-        button{
+        button.searchbutton {
             background-color: rgb(1, 79, 40);
             color: rgb(227, 204, 4);
             border-radius: 5px;
             border: 0;
-            padding: 8px;
+            padding: 4px;
             margin: 2px;
             outline: none;
         }
@@ -110,15 +110,26 @@
             float: left;
         }
 
-        a:link {
+        a.nav-links:link {
             width:100px;
             display: block;
             padding: 15px;
             color: white;
-            /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
             font-size: 20px;
             text-align: center;
             margin-top: 35px;
+            text-decoration: none;
+        }
+
+        a:link {
+            width:20px;
+            display: block;
+            padding: 0px;
+            /* background-color: rgb(1, 79, 40); */
+            color: black;
+            font-size: 12px;
+            text-align: center;
+            /* margin-top: 35px; */
             text-decoration: none;
         }
 
@@ -148,16 +159,16 @@
             <img id="logo" src="../static/images/PARTA%20LOGO.png" alt="LOGO" width="100px" height="100px">
         </div>
         <ul>
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('create_ticket') }}">New Ticket</a> </li>
-            <li><a href="{{ url_for('view_all') }}">View All</a> </li>
-            <li><a href="{{ url_for('reporting')}}">Reports</a></li>
-            <li><a href="{{ url_for('users') }}">Admin</a></li>
-            <li><a href="{{ url_for('account') }}">Account</a></li>
+            <li><a class="nav-links" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a class="nav-links" href="{{ url_for('create_ticket') }}">New Ticket</a> </li>
+            <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
+            <li><a class="nav-links" href="{{ url_for('reporting')}}">Reports</a></li>
+            <li><a class="nav-links" href="{{ url_for('users') }}">Admin</a></li>
+            <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
             <li>
                 <form method="POST" action="{{ url_for('view_all_filter') }}">
                     <input type="text" placeholder="Search" class='search'name="filter_text">
-                    <button type="submit">Search</button>
+                    <button class="searchbutton" type="submit">Search</button>
                 </form>
             </li> 
         
