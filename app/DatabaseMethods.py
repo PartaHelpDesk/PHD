@@ -2,6 +2,7 @@
 from app import Datatable, DataRow #DEBUG
 #import Datatable, DataRow
 from app.models import User
+from app import email_service
 
 import pyodbc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -242,8 +243,13 @@ class DatabaseMethods:
         active = 1
         authenticated = False
 
-        password = generate_password_hash(last_name + str(number) + first_name)
-        #TODO Email user hashed password
+        user_password = last_name + str(number) + first_name
+        password = generate_password_hash(user_password)
+        
+        recip = []
+        recip.append(email)
+        emailMessage = "Your PHD Account has been created:\nUsername: " + username + "\nPassword: " + user_password
+        email_service.send_email("PHD Account Created", "partahelpdesk@gmail.com", recip,emailMessage, None)
 
         sql =  'INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, \
             [Password], Active, [Authenticated])'
