@@ -1,79 +1,55 @@
 {% extends "base.html" %}
 {% block title %}My Account{% endblock %}
 {% block head %}
-    <style type="text/css">
-    .important { color: #336699; }
-    table tbody tr td:nth-child(1){
-        background-color: rgb(1, 79, 40);
-        color: white;
-        text-align: right;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
     }
-
-    img#avatar{
-        width: 64px;
-        height: 64px;
+    
+    .title {
+      color: grey;
+      font-size: 18px;
     }
-    div.container{
-        width: 60px;
-        margin: 0 auto;
+    
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
     }
-
-    table{
-        width: 100%;
+    
+    a {
+      text-decoration: none;
+      font-size: 22px;
+      color: black;
     }
-
-    div.btn-float{float: right;}
-
-    div.avatar{float:left;}
-
-    div.title{
-        padding-top: 10px;
-        text-align: center;
-        width: 500px;
-        float: left;
+    
+    button:hover, a:hover {
+      opacity: 0.7;
     }
-
     </style>
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <h1 align="left" class="important">
-          My Account
-        </h1>
-        <div class="header">
-            
-            <div class="title">
-                
-            </div>
-            <div align="center" class="btn-float">
-                <button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button>
-            </div>
-        </div>
-        <div class="account_info">
-            <table align="center" border="1" cellspacing="0">
-                <tbody>
-                <tr>
-                    <td>Name: </td>
-                    <td>{{ current_user.first_name + " " + current_user.last_name }}</td>
-                </tr>
-                <tr>
-                    <td>Username: </td>
-                    <td>{{ current_user.username }}</td>
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td>{{ current_user.email }}</td>
-                </tr>
-                <tr>
-                    <td>Department: </td>
-                    <td>{{ current_user.department }}</td>
-                </tr>
-                <tr>
-                    <td>Password: </td>
-                    <td>******</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<br></br>
+<h2 style="text-align:center">{{current_user.first_name + " " + current_user.last_name }}</h2>
+
+<div align=center class="card">
+  <img src="../static/images/PARTA ad.png" alt="User" style="width:25%">
+  <p>Username: {{ current_user.username }}</p>
+  <p>Email: {{ current_user.email }}</p>
+  <p>Password: ***** </p>
+  </div>
+  <p align=center><button onclick="location.href='{{ url_for("edit_my_account") }}'">edit</button></p>
+</div>
 {% endblock %}
