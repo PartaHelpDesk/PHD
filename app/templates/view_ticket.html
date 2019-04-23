@@ -25,6 +25,7 @@
 {% block body %}
 <div class="container">
     <div class="ticket_detail">
+        <br><br>
         <h3>Ticket Details</h3>
         <button onclick="location.href='{{ url_for("update_ticket", ticket_id=ticket.ticket_id) }}'">Update</button>
         <table border="1" cellspacing="0">
