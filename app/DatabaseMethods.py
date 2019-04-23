@@ -13,7 +13,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -299,4 +299,11 @@ class DatabaseMethods:
     def GetStatuses(self):
         sql = "SELECT * FROM Status"
         return self.GetDataTable(sql, None)
-        
+
+    def UpdateUserPassword(self, accountName, newpassword):
+        sql = "Update users \
+            SET [Password] = ? \
+            WHERE Username = ?"
+
+        HashedPassword = generate_password_hash(newpassword)
+        self.ExecuteSql(sql, (HashedPassword,accountName), False)

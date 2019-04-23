@@ -38,6 +38,19 @@
     button:hover, a:hover {
       opacity: 0.7;
     }
+
+    .ticket_queue table{
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    .ticket_queue h3{
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
     </style>
 {% endblock %}
 {% block body %}
@@ -46,10 +59,28 @@
 
 <div align="center" class="card">
   <img src="../static/images/PARTA ad.png" alt="User" style="width:25%">
-  <p>Username: {{ current_user.username }}</p>
-  <p>Email: {{ current_user.email }}</p>
-  <p>Password: ***** </p>
-  </div>
   <p align=center><button onclick="location.href='{{ url_for("edit_my_account") }}'">Edit</button></p>
+</div>
+
+<div class="table-container">
+  <form action="" method="post"></form>
+  <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Password</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td align="center">{{ current_user.first_name + " " + current_user.last_name }}</td>
+              <td align="center">{{ current_user.username }}</td>
+              <td align="center">{{ current_user.email}}</td>
+              <td align="center">******</td>
+          </tr>
+      </tbody>
+  </table>
 </div>
 {% endblock %}

@@ -13,8 +13,14 @@
             background: rgb(1, 79, 40);
             height: 90px;
             width: 100%;
-            padding: 6px;
+            
         }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         div.logo{
             background-size: contain;
             width: 100px;
@@ -193,7 +199,7 @@
             <a> </a>
             <a> </a>
             <a> </a>
-            <a href="{{ url_for('report_test')}}">Reports</a>
+            <a href="{{ url_for('reporting')}}">Reports</a>
             <a> </a>
             <a> </a>
             <a> </a>
