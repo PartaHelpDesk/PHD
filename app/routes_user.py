@@ -70,8 +70,8 @@ def add_user():
         result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
 
         flash(result)
-        if result != 'Successfully added user!':
-            return render_template('add_user.html')
+        #if result != 'Successfully added user!':
+            #return render_template('add_user.html')
 
         return redirect(url_for("users"))
 

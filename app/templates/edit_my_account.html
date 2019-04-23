@@ -25,7 +25,7 @@
 <br></br>
     <div class="table-container">
         <h1 align="center">Edit Account</h1>
-        <form action="" method="post"></form>
+        <form action="" method="post">
         <table class="table" width="500" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
@@ -40,14 +40,15 @@
                     <td align="center">{{ current_user.first_name + " " + current_user.last_name }}</td>
                     <td align="center">{{ current_user.username }}</td>
                     <td align="center">{{ current_user.email}}</td>
-                    <td><input type="text" value="" name="password"></td>
+                    <td><a href=/password_reset> <button>Reset Password</button></a></td>
                 </tr>
             </tbody>
         </table>
     </div>
-</form>
+
     <br></br>
         <div align="center" class="submit">
             <button type="submit" style="width: 100px; margin-top: 8px;">Save</button>
         </div>
+    </form>
 {% endblock %}
