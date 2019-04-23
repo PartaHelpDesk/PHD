@@ -13,7 +13,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -144,8 +144,21 @@ class DatabaseMethods:
         sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
         DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
-        sql = sql + ' WHERE t.CreatedUserID = ?' 
+        sql = sql + " WHERE t.CreatedUserID = ? AND t.Status <> 'Closed'" 
         return self.GetDataTable(sql, user_id)
+
+    def GetTicketFiltered(self, filter_text):
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
+        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+
+        if not filter_text is None:
+            sql = sql + ' WHERE t.Title LIKE ? OR t.Category LIKE ? OR t.[Status] LIKE ? OR t.Department LIKE ? OR t.[Description] LIKE ? OR '
+            sql = sql + ' u.UserName LIKE ? OR u.FirstName LIKE ? OR u.LastName LIKE ? '
+            filter_text = '%' + filter_text + '%' #add wildcards
+            return self.GetDataTable(sql, (filter_text,filter_text,filter_text,filter_text,filter_text,filter_text,filter_text,filter_text))
+        else:
+            return self.GetDataTable(sql, None)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
@@ -286,4 +299,11 @@ class DatabaseMethods:
     def GetStatuses(self):
         sql = "SELECT * FROM Status"
         return self.GetDataTable(sql, None)
-        
+
+    def UpdateUserPassword(self, accountName, newpassword):
+        sql = "Update users \
+            SET [Password] = ? \
+            WHERE Username = ?"
+
+        HashedPassword = generate_password_hash(newpassword)
+        self.ExecuteSql(sql, (HashedPassword,accountName), False)

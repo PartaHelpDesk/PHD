@@ -1,10 +1,11 @@
 from . import app
-from flask import render_template, redirect, url_for, abort, request
+from flask import render_template, redirect, url_for, abort, request, flash
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app.forms import ReportForm, TicketForm, EmailForm
+from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm
 from app import report_service, email_service
+from random import randint
 
 
 @app.route('/dashboard')
@@ -30,25 +31,38 @@ def view_ticket(ticket_id):
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
 @login_required
 def update_ticket(ticket_id):
-    # ticket = Ticket.query.get(ticket_id)
-    # if not ticket:
-    #     abort(404)
-
-    # status = Status.query.all()
-    return render_template("update_ticket.html", t=ticket, status=status)
+    ticket = Tickets.getTicketFromID(ticket_id)
+    if request.method == 'POST':
+      a
+    return render_template("update_ticket.html", t=ticket)
 
 
 
-@app.route("/view_all")
+@app.route("/view_all/")
 @login_required
 def view_all():
   dbm = dm.DatabaseMethods()
-  dt = dbm.GetAllActiveTickets()
+  dt = dbm.GetTicketFiltered(None)
   t = Tickets()
   tickets = []
   for dr in dt.data_rows:
       tickets.append(t.createTicketObject(dr))
-  return render_template("view_all.html", tickets=tickets)
+  return render_template("view_queue.html", tickets=tickets)
+
+
+@app.route("/view_all_filter", methods=["POST"])
+@login_required
+def view_all_filter():
+  dbm = dm.DatabaseMethods()
+  filter_text = request.form.get("filter_text")
+  dt = dbm.GetTicketFiltered(filter_text)
+  print ('here')
+  t = Tickets()
+  tickets = []
+  for dr in dt.data_rows:
+      tickets.append(t.createTicketObject(dr))
+  return render_template("view_queue.html", tickets=tickets)
+
 
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
@@ -94,8 +108,9 @@ def create_ticket():
   form.ticketDepartment.choices = deparments
   return render_template("create_ticket.html", form=form)
 
-@app.route("/report_test", methods=['GET','POST'])
-def report_test():
+@app.route("/reporting", methods=['GET','POST'])
+@login_required
+def reporting():
     form = ReportForm()
     if form.validate_on_submit():
         selection = { 'choice': form.reportChoice.data }
@@ -105,5 +120,24 @@ def report_test():
         if selection['choice'] == 'Department':
             fileSavePath = report_service.report_by_department()
             return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
-    return render_template("report_test.html", form=form)
+        if selection['choice'] == 'Status':
+            fileSavePath = report_service.report_by_status()
+            return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
+    return render_template("reporting.html", form=form)
 
+@app.route("/password_reset", methods=['GET','POST'])
+def password_reset():
+  form = PasswordResetForm()
+  if form.validate_on_submit():
+    accountName = form.accUsername.data
+    user = User(accountName)
+    newpass = str(randint(1, 9))
+    passMessage = "Your New Password is: " + newpass
+    recip = []
+    recip.append(user.email)
+    email_service.send_email("Password Reset","partahelpdesk@gmail.com",recip,passMessage, None)
+    dbm = dm.DatabaseMethods()
+    dbm.UpdateUserPassword(accountName, newpass)
+    flash('Email With New Password Sent')
+    return redirect(url_for('login'))
+  return render_template("password_reset.html", form=form)
