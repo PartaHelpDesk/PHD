@@ -25,3 +25,12 @@ class ReportForm(FlaskForm):
 class PasswordResetForm(FlaskForm):
 	accUsername = StringField('Account Username: ', validators=[DataRequired()])
 	submit = SubmitField('Send New Password to Account Email')
+
+class UpdateTicketForm(FlaskForm):
+	ticketDepartment = SelectField('Department:', choices=[],validators=[DataRequired()])
+	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
+	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
+	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
+	ticketStatus = StringField('Status: ', validators=[DataRequired()])
+	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
+	submit = SubmitField('Send Ticket')

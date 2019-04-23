@@ -31,12 +31,10 @@ def view_ticket(ticket_id):
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
 @login_required
 def update_ticket(ticket_id):
-    # ticket = Ticket.query.get(ticket_id)
-    # if not ticket:
-    #     abort(404)
-
-    # status = Status.query.all()
-    return render_template("update_ticket.html", t=ticket, status=status)
+    ticket = Tickets.getTicketFromID(ticket_id)
+    if request.method == 'POST':
+      a
+    return render_template("update_ticket.html", t=ticket)
 
 
 
@@ -113,7 +111,6 @@ def reporting():
     return render_template("reporting.html", form=form)
 
 @app.route("/password_reset", methods=['GET','POST'])
-@login_required
 def password_reset():
   form = PasswordResetForm()
   if form.validate_on_submit():
