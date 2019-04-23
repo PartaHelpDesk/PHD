@@ -98,8 +98,11 @@ class DatabaseMethods:
 
     def CheckUserPassword(self, username, password):
         #Get hashed user pw
-        sql = "SELECT Password FROM Users WHERE Username = ?"
+       
+        sql = "SELECT Password FROM Users WHERE Username = ? AND Active = 1"
         db_password = self.GetValue(sql, username)
+        if db_password is None:
+            return False
 
         #Hash what users entered
 
