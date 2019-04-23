@@ -13,7 +13,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 17 for SQL Server}'
+        self.driver= '{ODBC Driver 13 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -125,21 +125,24 @@ class DatabaseMethods:
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
-        sql = "SELECT t.*, u.Username FROM Tickets t "
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
+        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + ' WHERE TicketID = ?'
         return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
-        sql = "SELECT t.*, u.Username FROM Tickets t "
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
+        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
-        sql = 'SELECT t.*, u.Username FROM Tickets t'
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
+        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + ' WHERE t.CreatedUserID = ?' 
         return self.GetDataTable(sql, user_id)

@@ -93,6 +93,9 @@ class Tickets:
         self.department = None
         self.description = None
         self.username = None
+        self.first_name = None
+        self.last_name = None
+        self.days_open = None
     
     def createTicketObject(self, dr):
         t = Tickets()
@@ -107,6 +110,9 @@ class Tickets:
         t.department = dr.GetColumnValue('Department')
         t.description = dr.GetColumnValue('Description')
         t.username = dr.GetColumnValue('Username')
+        t.first_name = dr.GetColumnValue('FirstName')
+        t.last_name = dr.GetColumnValue('LastName')
+        t.days_open = dr.GetColumnValue('DaysOpen')
         return t
     
     def getAllUserTicket(self, user_id):

@@ -39,45 +39,37 @@ def update_ticket(ticket_id):
     return render_template("update_ticket.html", t=ticket, status=status)
 
 
-@app.route("/edit_ticket/<int:ticket_id>", methods=["POST", "GET"])
-@login_required
-def edit_ticket(ticket_id):
-    # ticket = Ticket.query.get(ticket_id)
-    # if not ticket:
-    #     abort(404)
-    # status = Status.query.all()
-    # categories = Category.query.all()
-    return render_template("edit_ticket.html", t=ticket, status=status, categories=categories)
-
 
 @app.route("/view_all")
 @login_required
 def view_all():
-  # dt = dm.DatabaseMethods.GetAllActiveTickets()
-  
-  # for ticket in dt.data_rows:
-  #   t = Ticket.createTicketObject(ticket)
-  return render_template("view_all.html")
+  dbm = dm.DatabaseMethods()
+  dt = dbm.GetAllActiveTickets()
+  t = Tickets()
+  tickets = []
+  for dr in dt.data_rows:
+      tickets.append(t.createTicketObject(dr))
+  return render_template("view_all.html", tickets=tickets)
 
 
 @app.route("/create_ticket", methods=['GET', 'POST'])
 @login_required
 def create_ticket():
-  #form = forms.TicketForm()
   
   form = TicketForm()
   dbm = dm.DatabaseMethods()
-  if request.method == 'POST':
+
+  if request.method == 'POST':      
     selection = {
-      'Department': 'filler',
+      'Department': form.ticketDepartment.data,
       'Title': form.ticketTitle.data,
       'Description': form.ticketDescription.data,
       'Category': form.ticketCategory.data
     }
     recipients = dbm.GetITEmails()
+    dbm.CreateTicket(selection['Title'],selection['Category'], current_user.user_id,'New',selection['Department'],selection['Description'])
     emailMessage = email_service.format_email(selection['Title'],selection['Department'],selection['Category'],'New',selection['Description'])
-    email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None)
-    dbm.CreateTicket(selection['Title'],selection['Category'],133,'New',selection['Department'],selection['Description'])
+    email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None, selection['Title'])
     return redirect(url_for('dashboard'))
  
   dbm = dm.DatabaseMethods()
@@ -95,21 +87,12 @@ def create_ticket():
       categories.append((des, des))
   form.ticketCategory.choices = categories
 
-
   deparments = [('-','-')]
   for d in dt_d.data_rows:
     dep = d.GetColumnValue('Description')
     deparments.append((dep,dep))
 
   form.ticketDepartment.choices = deparments
-
-  if request.method == 'POST' and form.validate_on_submit():
-    selection = {
-      'Deparment': form.ticketDepartment.data,
-      'Title': form.ticketTitle.data,
-      'Description': form.ticketDescription.data,
-      'Category': form.ticketCategory.data
-    }
   return render_template("create_ticket.html", form=form)
 
 @app.route("/reporting", methods=['GET','POST'])

@@ -10,7 +10,7 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'login'
 
 # load config
-#from app import models
+from app import models
 
 #for Jacob don't delete
 #import models
