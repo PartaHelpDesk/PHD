@@ -22,3 +22,6 @@ class ReportForm(FlaskForm):
 	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department'),('Status','Report By Ticket Status')])
 	submit = SubmitField('Get Report')
 
+class PasswordResetForm(FlaskForm):
+	accUsername = StringField('Account Username: ', validators=[DataRequired()])
+	submit = SubmitField('Send New Password to Account Email')

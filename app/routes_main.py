@@ -1,10 +1,11 @@
 from . import app
-from flask import render_template, redirect, url_for, abort, request
+from flask import render_template, redirect, url_for, abort, request, flash
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app.forms import ReportForm, TicketForm, EmailForm
+from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm
 from app import report_service, email_service
+from random import randint
 
 
 @app.route('/dashboard')
@@ -112,6 +113,7 @@ def create_ticket():
   return render_template("create_ticket.html", form=form)
 
 @app.route("/reporting", methods=['GET','POST'])
+@login_required
 def reporting():
     form = ReportForm()
     if form.validate_on_submit():
@@ -127,3 +129,20 @@ def reporting():
             return render_template("/view_report.html", selection=selection, fileSavePath=fileSavePath)
     return render_template("reporting.html", form=form)
 
+@app.route("/password_reset", methods=['GET','POST'])
+@login_required
+def password_reset():
+  form = PasswordResetForm()
+  if form.validate_on_submit():
+    accountName = form.accUsername.data
+    user = User(accountName)
+    newpass = str(randint(1, 9))
+    passMessage = "Your New Password is: " + newpass
+    recip = []
+    recip.append(user.email)
+    email_service.send_email("Password Reset","partahelpdesk@gmail.com",recip,passMessage, None)
+    dbm = dm.DatabaseMethods()
+    dbm.UpdateUserPassword(accountName, newpass)
+    flash('Email With New Password Sent')
+    return redirect(url_for('login'))
+  return render_template("password_reset.html", form=form)

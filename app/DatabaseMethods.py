@@ -283,4 +283,11 @@ class DatabaseMethods:
     def GetStatuses(self):
         sql = "SELECT * FROM Status"
         return self.GetDataTable(sql, None)
-        
+
+    def UpdateUserPassword(self, accountName, newpassword):
+        sql = "Update users \
+            SET [Password] = ? \
+            WHERE Username = ?"
+
+        HashedPassword = generate_password_hash(newpassword)
+        self.ExecuteSql(sql, (HashedPassword,accountName), False)
