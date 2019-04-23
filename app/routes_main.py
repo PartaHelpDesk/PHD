@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, abort, request, flash
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
 from app.models import Tickets, User
-from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm
+from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm, UpdateTicketForm
 from app import report_service, email_service
 from random import randint
 
@@ -32,10 +32,50 @@ def view_ticket(ticket_id):
 @login_required
 def update_ticket(ticket_id):
     ticket = Tickets.getTicketFromID(ticket_id)
-    if request.method == 'POST':
-      a
-    return render_template("update_ticket.html", t=ticket)
+    form = UpdateTicketForm()
+    #form.ticketComment = ticket.comment
+    dbm = dm.DatabaseMethods()
 
+    if request.method == 'POST':      
+      selection = {
+        'Department': form.ticketDepartment.data,
+        'Title': form.ticketTitle.data,
+        'Description': form.ticketDescription.data,
+        'Category': form.ticketCategory.data,
+        'Status': form.ticketStatus.data,
+        'Comment': form.ticketComment.data
+      }
+      print(selection)
+      dbm.UpdateTicket(current_user.user_id, ticket.ticket_id, selection['Title'], selection['Category'], selection['Status'], selection['Department'], selection['Description'], selection['Comment'])
+      flash('Ticket has been updated!')
+      return redirect(url_for('dashboard'))
+  
+    dt_c = dbm.GetCategories()
+    dt_d = dbm.GetDepartments()
+
+    form.ticketTitle.data = ticket.title
+    form.ticketCategory.data = ticket.category
+    form.ticketDepartment.data = ticket.department
+    form.ticketDescription.data = ticket.description
+    form.ticketStatus.data = ticket.status
+    """
+    Add junk entry this to deal with begining null entry
+    we will have to handle this later in DB Methods because 
+    it is not a valid category
+    """
+    categories = [('-','-')]
+    for c in dt_c.data_rows:
+        des = c.GetColumnValue('Description')
+        categories.append((des, des))
+    form.ticketCategory.choices = categories
+
+    deparments = [('-','-')]
+    for d in dt_d.data_rows:
+      dep = d.GetColumnValue('Description')
+      deparments.append((dep,dep))
+
+    form.ticketDepartment.choices = deparments
+    return render_template("update_ticket.html", form=form, ticket=ticket)
 
 
 @app.route("/view_all/")
