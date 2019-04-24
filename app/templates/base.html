@@ -167,8 +167,8 @@
         <ul>
             <li><a class="nav-links" href="{{ url_for('dashboard') }}">Dashboard</a></li>
             <li><a class="nav-links" href="{{ url_for('create_ticket') }}">New Ticket</a> </li>
-            <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
             {% if (current_user.level != "1") %}
+            <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
             <li><a class="nav-links" href="{{ url_for('reporting')}}">Reports</a></li>
             <li><a class="nav-links" href="{{ url_for('users') }}">Admin</a></li>
             {%endif%}
