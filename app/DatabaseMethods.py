@@ -4,7 +4,7 @@ from app import Datatable, DataRow #DEBUG
 from app.models import User
 from app import email_service
 
-import pyodbc
+import pyodbc, random, string
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class DatabaseMethods:
@@ -14,7 +14,7 @@ class DatabaseMethods:
         self.database = 'PartaHelpDesk'
         self.username = 'phdadmin'
         self.password = 'Capstone2019!'
-        self.driver= '{ODBC Driver 13 for SQL Server}'
+        self.driver= '{ODBC Driver 17 for SQL Server}'
 
     def ExecuteSql(self, sqlstring, params, return_value):
         #Will return a value if return_value
@@ -239,14 +239,10 @@ class DatabaseMethods:
 
         #if username or email is not already in use, add to DB
 
-        #Generate number for middle
-        sql = "SELECT MAX(UserID) + 1 FROM Users"
-        number = self.GetValue(sql, None)
-
         active = 1
         authenticated = False
 
-        user_password = last_name + str(number) + first_name
+        user_password = self.GenerateRandomPassword()
         password = generate_password_hash(user_password)
         
         recip = []
@@ -261,6 +257,10 @@ class DatabaseMethods:
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
         return 'Success'
+
+    def GenerateRandomPassword(self):
+        password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        return password
 
     def UpdateUserAccount(self, user_id, username, level, first_name, last_name, email):
         result = self.CheckIfUserNameEmailExists(username,email, user_id)
