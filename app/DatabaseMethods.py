@@ -129,31 +129,35 @@ class DatabaseMethods:
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
-        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
-        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + ' WHERE TicketID = ?'
         return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
-        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
-        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
-        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
-        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t"
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + " WHERE t.CreatedUserID = ? AND t.Status <> 'Closed'" 
         return self.GetDataTable(sql, user_id)
 
     def GetTicketFiltered(self, filter_text):
-        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, \
-        DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen FROM Tickets t "
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
 
         if not filter_text is None:
