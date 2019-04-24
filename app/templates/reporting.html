@@ -1,16 +1,34 @@
 {% extends 'base.html' %}
 {% block body %}
     <style>
+          
+    #tickForm {
+      display: none;
+      align: center;
+    }
+      
+      #f1 {
+        width: 100%;
+        align: center;
+    }
+      
     </style>
     <body>
-        <br><br>
-    <h1>Select a Report to Generate</h1>
-    <form action="" method="post" novalidate>
+        <br>
+        <br>
+    <h1>Reports</h1>
+    <form  action="" method="post" novalidate>
+        <fieldset>
         {{ form.hidden_tag() }}
+        <legend>Select a Report to Generate</legend>
         <div>
             {{ form.reportChoice }}
         </div>
+        <p><br>
         <div>{{ form.submit() }}</div>
+        </p>
+        </fieldset>
     </form>
+    <br>
     </body>
 {% endblock %}

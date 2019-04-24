@@ -14,3 +14,6 @@
 # OR
 # set FLASK_APP=phd.py
 # flask run
+
+#set MAIL_USERNAME = email
+#set MAIL_PASSWORD = mail password
