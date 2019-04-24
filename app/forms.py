@@ -34,8 +34,6 @@ class UpdateTicketForm(FlaskForm):
 	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'),('On Hold', 'On Hold'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('Reopened', 'Reopened')], validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
 	submit = SubmitField('Update Ticket')
-<<<<<<< HEAD
-=======
 
 class UpdatePasswordForm(FlaskForm):
 	oldpassword = PasswordField('Old Password: ', validators=[DataRequired()])
@@ -43,5 +41,3 @@ class UpdatePasswordForm(FlaskForm):
 	verifypassword = PasswordField('Verify Password: ', validators=[DataRequired()])
 	submit = SubmitField('Update Password')
 
-
->>>>>>> master
