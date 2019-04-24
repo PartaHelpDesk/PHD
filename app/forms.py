@@ -16,7 +16,7 @@ class TicketForm(FlaskForm):
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
 	#ticketStatus = StringField('Status: ', validators=[DataRequired()])
-	submit = SubmitField('Send Ticket')
+	submit = SubmitField('Create Ticket')
 
 class ReportForm(FlaskForm):
 	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department'),('Status','Report By Ticket Status')])
@@ -33,7 +33,7 @@ class UpdateTicketForm(FlaskForm):
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
 	ticketStatus = StringField('Status: ', validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
-	submit = SubmitField('Send Ticket')
+	submit = SubmitField('Update Ticket')
 
 class UpdatePasswordForm(FlaskForm):
 	oldpassword = StringField('Old Password: ', validators=[DataRequired()])
