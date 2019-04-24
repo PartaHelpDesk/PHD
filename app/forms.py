@@ -31,14 +31,14 @@ class UpdateTicketForm(FlaskForm):
 	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
-	ticketStatus = StringField('Status: ', validators=[DataRequired()])
+	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('On Hold', 'On Hold')], validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
 	submit = SubmitField('Update Ticket')
 
 class UpdatePasswordForm(FlaskForm):
-	oldpassword = StringField('Old Password: ', validators=[DataRequired()])
-	newpassword = StringField('New Password: ', validators=[DataRequired()])
-	verifypassword = StringField('Verify Password: ', validators=[DataRequired()])
+	oldpassword = PasswordField('Old Password: ', validators=[DataRequired()])
+	newpassword = PasswordField('New Password: ', validators=[DataRequired()])
+	verifypassword = PasswordField('Verify Password: ', validators=[DataRequired()])
 	submit = SubmitField('Update Password')
 
 

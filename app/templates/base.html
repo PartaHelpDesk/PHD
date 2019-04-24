@@ -134,7 +134,7 @@
         }
 
         a:visited {
-            color: black;
+            color: white;
             text-decoration: none;
         }
 
@@ -147,6 +147,12 @@
             margin-top: 35px;
         }
      
+        .centerfooter {
+            display: table;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
         
      
     </style>
@@ -187,6 +193,6 @@
      {% endblock %}
 </div>
 </body>
-<footer><a href="{{ url_for('logout') }}"><button>Logout</button></a></footer>
+<footer><br><a class="centerfooter" href="{{ url_for('logout') }}"><button>Logout</button></a></footer>
 
 </html>
