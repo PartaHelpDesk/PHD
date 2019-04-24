@@ -31,7 +31,7 @@ class UpdateTicketForm(FlaskForm):
 	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
-	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('On Hold', 'On Hold')], validators=[DataRequired()])
+	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'),('On Hold', 'On Hold'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('Reopened', 'Reopened')], validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
 	submit = SubmitField('Update Ticket')
 
