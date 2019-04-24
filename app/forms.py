@@ -34,3 +34,11 @@ class UpdateTicketForm(FlaskForm):
 	ticketStatus = StringField('Status: ', validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
 	submit = SubmitField('Send Ticket')
+
+class UpdatePasswordForm(FlaskForm):
+	oldpassword = StringField('Old Password: ', validators=[DataRequired()])
+	newpassword = StringField('New Password: ', validators=[DataRequired()])
+	verifypassword = StringField('Verify Password: ', validators=[DataRequired()])
+	submit = SubmitField('Update Password')
+
+
