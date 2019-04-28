@@ -235,6 +235,16 @@ class DatabaseMethods:
                 
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
+    def GetTicketHistory(self, ticket_id):
+        sql = "SELECT th.TicketHistoryID,th.Category, th.Title, th.[Status], th.Department, th.[Description], th.Comment, \
+            concat(u.FirstName, ' ', u.LastName) AS EnteredBy, CONVERT(nvarchar, th.[Date], 22) AS [Date] \
+            FROM tickethistory th \
+            JOIN users u ON u.UserID = th.UserID \
+            WHERE th.TicketID = ?"
+
+        return self.GetDataTable(sql, ticket_id)
+        
+
     def CreateUserAccount(self, username, level, first_name, last_name, email):
         result = self.CheckIfUserNameEmailExists(username,email, None)
 

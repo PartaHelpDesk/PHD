@@ -52,5 +52,39 @@
                 </tr>
             </tbody>
         </table>
+        {% for event in ticket_history_events %}
+            <div style="width: 650px;">
+                <p style="border:3px; border-style: solid; border-width: 2px; border-radius: 5px; text-align: left; background-color: lightgray">
+                    <b>{{ event.Date }}</b><br/>  
+                    <b>Updated by</b>: {{ event.Entered_By }}<br/>  
+
+                    {% if event.Category != 'None' %}
+                    <b>Category</b>: {{ event.Category }}<br/>  
+                    {% endif %}
+
+                    {% if event.Title != 'None' %}
+                    <b>Title</b>: {{ event.Title }}<br/>  
+                    {% endif %}
+
+                    {% if event.Status != 'None' %}
+                    <b>Status</b>: {{ event.Status }}<br/>  
+                    {% endif %}
+
+                    {% if event.Department != 'None' %}
+                    <b>Department</b>: {{ event.Department }}<br/>  
+                    {% endif %}
+
+                    {% if event.Description != 'None' %}
+                    <b>Description</b>: {{ event.Description }}<br/>  
+                    {% endif %}
+
+                    {% if event.Comment != 'None' %}
+                    <b>Comment</b>: {{ event.Comment }}<br/>  
+                    {% endif %}  
+            
+                </p>    
+            </div>
+        {% endfor %}
+
     </div>  
 {% endblock %}
