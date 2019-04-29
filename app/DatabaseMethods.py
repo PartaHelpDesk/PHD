@@ -173,6 +173,13 @@ class DatabaseMethods:
         sql = "INSERT INTO Tickets (Title, Category, CreatedUserID, [Status], Department, [Description]) "
         sql = sql + "VALUES ( ?, ?, ?, ?, ?, ?) "
         self.ExecuteSql(sql, (title, category, user_id, status, department, description),False)
+        #Get Ticekt id of newly created ticket
+        id_sql = "SELECT MAX(TicketID) as TicketID FROM Tickets "
+        id_sql += " WHERE Title = ? AND CreatedUserID = ?"
+        dt = self.GetDataTable(id_sql, (title, user_id))
+        dr = dt.GetRow(0)
+        
+        return dr.GetColumnValue('TicketID')  
 
     def UpdateTicket(self, user_id, ticket_id, title, category, status, department, description, comment):
             #Updates the ticket in ticket table and updates ticket history
