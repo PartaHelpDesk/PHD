@@ -15,5 +15,5 @@
 # set FLASK_APP=phd.py
 # flask run
 
-#set MAIL_USERNAME = email
-#set MAIL_PASSWORD = mail password
+# export MAIL_USERNAME = 'partahelpdesk@gmail.com'
+# export MAIL_PASSWORD = 'Capstone2019!'
