@@ -12,7 +12,7 @@ How to Run PHD
 		c. Once installed, type 'python' again and this time time 'import flask' before exiting
 	b. Then type 'python3 -m venv venv' to install a virtual environment and 'venv/Scripts/activate' to activate it
 	c. Then type 'pip3 install -r requirements.txt' and 'export FLASK_APP=phd.py'
-	d. To allow set up ticket/user creation and update functionality, type 'set MAIL_USERNAME='******' and 'set MAIL_PASSWORD='******'
+	d. To allow set up ticket/user creation and update functionality, type (set MAIL_USERNAME='email') and (set MAIL_PASSWORD='password')
 	e. After this, type 'flask run' and Ctrl + Click to navigate to the webpage
 7. To view the database in real time, install MS SQL Server Management Studio
 	a. Connection type: MS SQL Server
