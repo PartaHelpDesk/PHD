@@ -6,32 +6,37 @@
 
 {% block head %}
     <style>
-    .ticket_queue table{
+    /* .ticket_queue table{
         width: 1000px;
         margin: 0 auto;
     }
 
     .ticket_queue h3{
         text-align: center;
+    } */
+
+    h3 {
+        text-align: center;
     }
 
     </style>
 {% endblock %}
 {% block body %}
+<br></br>
     <div class="dashboard_view_tickets">
         {% if show_ticket_queue %}
-            <h3 align="center">Current Ticket Queue</h3>
-        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
+            <br>
+            <h3 align="center">Ticket Queue</h3>
+        <table class="table" width="1000" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
-                    <th>Ticket</th>
-                    <th>Description</th>
-                    <th>User</th>
-                    <th>Category</th>
-                    <th>Department</th>
-                    <th>Create Date</th>
-                    <th>Last Modified</th>
+                    <th>TicketID</th>
                     <th>Status</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Requestor</th>
+                    <th>Age</th>
+                    <th>Last Modified</th>
                     <th>Commands</th>
                 </tr>
             </thead>
@@ -39,15 +44,14 @@
                 {% for t in tickets_queue %}
                 <tr>
                     <td>{{ t.ticket_id }}</td>
-                    <td>{{ t.description }}</td>
-                    <td>{{ t.username }}</td>
-                    <td>{{ t.category }}</td>
-                    <td>{{ t.department }}</td>
-                    <td>{{ t.create_dt}}</td>
-                    <td>{{ t.last_update_dt }}</td>
                     <td>{{ t.status }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.category }}</td>
+                    <td>{{ t.username }}</td>
+                    <td>{{ t.days_open }} days</td>
+                    <td>{{ t.last_update_dt }}</td>
                     <td>
-                            <button>View</button> <!--TODO Open Ticket-->
+                        <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
                     </td>
                 </tr>
                     {% endfor %}
@@ -55,38 +59,36 @@
 
         </table>
         {% endif %}
-
+    <br></br>
         <h3 align="center">My Open Tickets</h3>
-        <table class="table" width="500" cellpadding="21" cellspacing="0" align="center">
+        <table class="table" width="1000" cellpadding="10" cellspacing="0" align="center">
             <thead>
                 <tr>
-                        <th>Ticket</th>
-                        <th>Description</th>
-                        <th>User</th>
-                        <th>Category</th>
-                        <th>Department</th>
-                        <th>Create Date</th>
-                        <th>Last Modified</th>
-                        <th>Status</th>
-                        <th>Commands</th>
+                    <th>TicketID</th>
+                    <th>Status</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Requestor</th>
+                    <th>Age</th>
+                    <th>Last Modified</th>
+                    <th>Commands</th>
                 </tr>
             </thead>
             <tbody>
-                {% for t in my_tickets %}
+                {% for t in  my_tickets %}
                 <tr>
                         <td>{{ t.ticket_id }}</td>
-                        <td>{{ t.description }}</td>
-                        <td>{{ t.username }}</td>
-                        <td>{{ t.category }}</td>
-                        <td>{{ t.department }}</td>
-                        <td>{{ t.create_dt}}</td>
-                        <td>{{ t.last_update_dt }}</td>
                         <td>{{ t.status }}</td>
+                        <td>{{ t.title }}</td>
+                        <td>{{ t.category }}</td>
+                        <td>{{ t.username }}</td>
+                        <td>{{ t.days_open }}</td>
+                        <td>{{ t.last_update_dt }}</td>
                         <td>
-                            <button>View</button> <!--TODO Open Ticket-->
-                    </td>
+                            <button type="button" onclick="window.location.href='{{ url_for('view_ticket', ticket_id=t.ticket_id) }}'">View</button> <!--TODO Open Ticket-->
+                        </td>
                 </tr>
-                {% endfor %}
+                    {% endfor %}
             </tbody>
         </table>
     </div>

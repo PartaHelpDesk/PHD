@@ -1,53 +1,58 @@
 {% extends 'base.html' %}
-{% block title %}Update Ticket{% endblock %}
-
-{% block head %}
-    <style>
-    div.update_detail{
-        margin: 20px auto 0 auto;
-        width: 400px;
-    }
-    table{
-        width: 100%;
-    }
-    table tbody tr td:nth-child(1){
-        background-color: rgb(1, 79, 40);
-        color: white;
-        text-align: right;
-        width: 100px;
-        height: 32px;
-    }
-    </style>
-{% endblock %}
-
 {% block body %}
-    <div class="update_detail">
-        <h3>Update Ticket {{ t.id }}</h3>
-        <form action="">
-            <table border="1" cellspacing="0">
-                <tr>
-                    <td>New Status: </td>
-                    <td>
-                        <select name="new_status" id="">
-                            {% for s in status %}
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Recieved</option>
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>On Hold</option>
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>In Processs</option>
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Closed</option>
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Escalated</option>
-                            <option value="{{ s.description }}" {% if t.status==s.description %}selected="selected"{% endif %}>Reopened</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Comment: </td>
-                    <td>
-                        <textarea name="new_comment" id="" cols="50" rows="8"></textarea>
-                    </td>
-                </tr>
-            </table>
-            <button type="submit">Save</button>
-        </form>
+    <style>
+      
+    #tickForm {
+      display: none;
+      align: center;
+    }
+      
+      #f1 {
+        width: 100%;
+        align: center;
+    }
+      
+    </style>
+    <body>
+      <br>
+      <br>
+    <h1>Update Your Ticket</h1>
+    <form action="" method="post" novalidate>
+        <fieldset>
+        {{ form.hidden_tag() }}
+        <legend>Update the Fields Below</legend>
+        <p>
+        {{ form.ticketTitle.label }}
+        {{ form.ticketTitle(size=32) }}
+        </p><br>
+        <p>
+          {{form.ticketDepartment.label}}
+          {{form.ticketDepartment()}}
+        </p><br>
+      <p>
+          {{ form.ticketCategory.label }}
+          {{ form.ticketCategory() }}
+      </p><br>
+        <p>
+          {{ form.ticketDescription.label }}
+          {{ form.ticketDescription(size=128) }}
+      </p>
+      <p>
+            {{ form.ticketStatus.label }}
+            {{ form.ticketStatus() }}
+        </p>
+        <p>
+                {{ form.ticketComment.label }}
+                {{ form.ticketComment(size=128) }}
+            </p>
+            <p><br>
+        <p><br>
+      <p><br>
+          {{ form.submit() }}
+      </p>
+    </fieldset>
+      </form>
     </div>
+    </body>
+
 {% endblock %}

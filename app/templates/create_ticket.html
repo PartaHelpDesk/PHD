@@ -14,7 +14,8 @@
       
     </style>
     <body>
-    <h1>Create a Ticket Test:</h1>
+      <br><br>
+    <h1>Create Ticket</h1>
     <!-- <button onclick="startTicket()">Start a Ticket</button><br><br> 
     <div id="tickForm">-->
     <form action="" method="post" novalidate>
@@ -24,7 +25,11 @@
         <p>
         {{ form.ticketTitle.label }}
         {{ form.ticketTitle(size=32) }}
-    </p><br>
+        </p><br>
+        <p>
+          {{form.ticketDepartment.label}}
+          {{form.ticketDepartment()}}
+        </p><br>
       <p>
           {{ form.ticketCategory.label }}
           {{ form.ticketCategory() }}
@@ -40,16 +45,5 @@
       </form>
     </div>
     </body>
-    <!--
-    <script>
-    function startTicket() {
-      var x = document.getElementById("tickForm");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
-    }
-    </script> -->
 
 {% endblock %}

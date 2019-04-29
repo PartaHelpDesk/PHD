@@ -2,8 +2,9 @@
 from app import Datatable, DataRow #DEBUG
 #import Datatable, DataRow
 from app.models import User
+from app import email_service
 
-import pyodbc
+import pyodbc, random, string
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class DatabaseMethods:
@@ -97,11 +98,11 @@ class DatabaseMethods:
 
     def CheckUserPassword(self, username, password):
         #Get hashed user pw
-        sql = "SELECT Password FROM Users WHERE Username = ?"
+       
+        sql = "SELECT Password FROM Users WHERE Username = ? AND Active = 1"
         db_password = self.GetValue(sql, username)
-
-        print (username)
-        print (db_password)
+        if db_password is None:
+            return False
 
         #Hash what users entered
 
@@ -128,22 +129,44 @@ class DatabaseMethods:
 
     def GetTicketInfo(self, ticket_id):
         #Gets ticket infor for one ticket
-        sql = "SELECT * FROM Tickets WHERE TicketID = ?"
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+        sql = sql + ' WHERE TicketID = ?'
         return self.GetDataTable(sql, ticket_id)
 
     def GetAllActiveTickets(self):
         #Gets all active tickets (admin/IT)
-        sql = "SELECT t.*, u.Username FROM Tickets t "
-        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID  '
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
         sql = sql + " WHERE [Status] <> 'Closed'"
         return self.GetDataTable(sql, None)
 
     def GetAllUserTickets(self, user_id):
         #Dashboard Tickets related to user
-        sql = 'SELECT t.*, u.Username FROM Tickets t'
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
         sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
-        sql = sql + ' WHERE t.CreatedUserID = ?' 
+        sql = sql + " WHERE t.CreatedUserID = ? AND t.Status <> 'Closed'" 
         return self.GetDataTable(sql, user_id)
+
+    def GetTicketFiltered(self, filter_text):
+        sql = "SELECT t.*, u.Username, u.FirstName, u.LastName, "
+        sql = sql + " DATEDIFF(DAY, t.CreateDate, GETDATE()) as DaysOpen, convert(nvarchar(10), t.LastUpdated, 101) as MLastUpdated, "
+        sql = sql + " convert(nvarchar(10), t.CreateDate, 101) as MCreateDate FROM Tickets t "
+        sql = sql + ' JOIN Users u ON t.CreatedUserID = u.UserID '
+
+        if not filter_text is None:
+            sql = sql + ' WHERE t.Title LIKE ? OR t.Category LIKE ? OR t.[Status] LIKE ? OR t.Department LIKE ? OR t.[Description] LIKE ? OR '
+            sql = sql + ' u.UserName LIKE ? OR u.FirstName LIKE ? OR u.LastName LIKE ? '
+            filter_text = '%' + filter_text + '%' #add wildcards
+            return self.GetDataTable(sql, (filter_text,filter_text,filter_text,filter_text,filter_text,filter_text,filter_text,filter_text))
+        else:
+            return self.GetDataTable(sql, None)
 
     def CreateTicket(self, title, category, user_id, status, department, description):
         #Creates a ticket
@@ -212,6 +235,16 @@ class DatabaseMethods:
                 
                 self.ExecuteSql(sql, (ticket_id, update_title, update_category, update_status, update_department, update_description ,user_id, comment), False)
 
+    def GetTicketHistory(self, ticket_id):
+        sql = "SELECT th.TicketHistoryID,th.Category, th.Title, th.[Status], th.Department, th.[Description], th.Comment, \
+            concat(u.FirstName, ' ', u.LastName) AS EnteredBy, CONVERT(nvarchar, th.[Date], 22) AS [Date] \
+            FROM tickethistory th \
+            JOIN users u ON u.UserID = th.UserID \
+            WHERE th.TicketID = ?"
+
+        return self.GetDataTable(sql, ticket_id)
+        
+
     def CreateUserAccount(self, username, level, first_name, last_name, email):
         result = self.CheckIfUserNameEmailExists(username,email, None)
 
@@ -220,15 +253,16 @@ class DatabaseMethods:
 
         #if username or email is not already in use, add to DB
 
-        #Generate number for middle
-        sql = "SELECT MAX(UserID) + 1 FROM Users"
-        number = self.GetValue(sql, None)
-
         active = 1
         authenticated = False
 
-        password = generate_password_hash(last_name + str(number) + first_name)
-        #TODO Email user hashed password
+        user_password = self.GenerateRandomPassword()
+        password = generate_password_hash(user_password)
+        
+        recip = []
+        recip.append(email)
+        emailMessage = "Your PHD Account has been created:\nUsername: " + username + "\nPassword: " + user_password
+        email_service.send_email("PHD Account Created", "partahelpdesk@gmail.com", recip,emailMessage, None)
 
         sql =  'INSERT INTO [dbo].[Users](Username, [Level], FirstName, LastName, Email, \
             [Password], Active, [Authenticated])'
@@ -237,6 +271,10 @@ class DatabaseMethods:
         params = (username, level, first_name, last_name, email, password, active, authenticated)
         self.ExecuteSql(sql, params, False)
         return 'Success'
+
+    def GenerateRandomPassword(self):
+        password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        return password
 
     def UpdateUserAccount(self, user_id, username, level, first_name, last_name, email):
         result = self.CheckIfUserNameEmailExists(username,email, user_id)
@@ -284,4 +322,11 @@ class DatabaseMethods:
     def GetStatuses(self):
         sql = "SELECT * FROM Status"
         return self.GetDataTable(sql, None)
-        
+
+    def UpdateUserPassword(self, accountName, newpassword):
+        sql = "Update users \
+            SET [Password] = ? \
+            WHERE Username = ?"
+
+        HashedPassword = generate_password_hash(newpassword)
+        self.ExecuteSql(sql, (HashedPassword,accountName), False)

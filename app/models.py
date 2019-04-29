@@ -2,6 +2,8 @@ from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
 from app.initialization import login_manager
 from app import DatabaseMethods as dm
+#for jacob don't delete
+#import DatabaseMethods as dm
 
 
 @login_manager.user_loader
@@ -91,7 +93,10 @@ class Tickets:
         self.department = None
         self.description = None
         self.username = None
-
+        self.first_name = None
+        self.last_name = None
+        self.days_open = None
+    
     def createTicketObject(self, dr):
         t = Tickets()
         t.ticket_id = dr.GetColumnValue('TicketID')
@@ -99,12 +104,15 @@ class Tickets:
         t.category = dr.GetColumnValue('Category')
         t.user_id = dr.GetColumnValue('CreatedUserID')
         t.status = dr.GetColumnValue('Status')
-        t.create_dt = dr.GetColumnValue('CreateDate')
+        t.create_dt = dr.GetColumnValue('MCreateDate')
         t.close_dt = dr.GetColumnValue('ClosedDate')
-        t.last_update_dt = dr.GetColumnValue('LastUpdated')
+        t.last_update_dt = dr.GetColumnValue('MLastUpdated')
         t.department = dr.GetColumnValue('Department')
         t.description = dr.GetColumnValue('Description')
         t.username = dr.GetColumnValue('Username')
+        t.first_name = dr.GetColumnValue('FirstName')
+        t.last_name = dr.GetColumnValue('LastName')
+        t.days_open = dr.GetColumnValue('DaysOpen')
         return t
     
     def getAllUserTicket(self, user_id):
@@ -122,6 +130,38 @@ class Tickets:
         for i in data_tbl.data_rows:
             queue.append(self.createTicketObject(i))
         return queue
+    
+    @classmethod
+    def getTicketFromID(cls, id):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetTicketInfo(id)
+        t = Tickets()
+        return t.createTicketObject(dt.data_rows[0])
+
+
+
+class TicketHistory:
+    def __init__(self, ticketID):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetTicketHistory(ticketID)
+
+        self.TicketHistoryEvents = []
+        for dr in dt.data_rows:
+            self.TicketHistoryEvents.append(TickeHistoryEvent(dr))
+
+class TickeHistoryEvent:
+    def __init__(self, dr):
+        self.Category = dr.GetColumnValue('Category')
+        self.Title = dr.GetColumnValue('Title')
+        self.Status = dr.GetColumnValue('Status')
+        self.Department = dr.GetColumnValue('Department')
+        self.Description = dr.GetColumnValue('Description')
+        self.Comment = dr.GetColumnValue('Comment')
+        self.Entered_By = dr.GetColumnValue('EnteredBy')
+        self.Date = dr.GetColumnValue('Date')
+
+
+
         
 
 

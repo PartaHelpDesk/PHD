@@ -47,7 +47,6 @@ def logout():
 def users():
     dbm = DM.DatabaseMethods()
     active_users = dbm.GetAllUsers(1) 
-    print(active_users)
     inactives_users = dbm.GetAllUsers(0) 
     return render_template('users.html', active_users=active_users, inactive_users=inactives_users)
 
@@ -71,8 +70,8 @@ def add_user():
         result = dbm.CreateUserAccount(username, level, first_name, last_name, email)
 
         flash(result)
-        if result != 'Successfully added user!':
-            return render_template('add_user.html')
+        #if result != 'Successfully added user!':
+            #return render_template('add_user.html')
 
         return redirect(url_for("users"))
 
@@ -96,7 +95,6 @@ def edit_user(id):
         email = request.form.get('email_address')
         level = request.form.get('user_level')
 
-        print(first_name, last_name, email, level)
         if new_username == '' or first_name == '' or last_name == '' or email == '':
             flash('Incomplete edit of user information. Please check information and try again!')
             return render_template("edit_user.html", u=user)
@@ -116,13 +114,17 @@ def edit_user(id):
 @login_required
 def deactive(id):
 
-    user = User.query.get(id)
-    if not user:
+    dbm = DM.DatabaseMethods()
+
+    user_name = dbm.GetUsername(id)
+
+    if not user_name:
         abort(404)
 
-    user.active = 0
-    db.session.commit()
-    flash("Successfully deactivated user {} {}!".format(user.first_name, user.last_name))
+    sql = "UPDATE Users SET Active = 0 WHERE UserID = ?"
+    dbm.ExecuteSql(sql, id, False)
+
+    flash("Successfully deactivated user {}!".format(user_name))
     return "ok"
 
 
@@ -130,13 +132,17 @@ def deactive(id):
 @login_required
 def active(id):
 
-    user = User.query.get(id)
-    if not user:
+    dbm = DM.DatabaseMethods()
+
+    user_name = dbm.GetUsername(id)
+
+    if not user_name:
         abort(404)
 
-    user.active = 1
-    db.session.commit()
-    flash("Successfully activated user {} {}!".format(user.first_name, user.last_name))
+    sql = "UPDATE Users SET Active = 1 WHERE UserID = ?"
+    dbm.ExecuteSql(sql, id, False)
+
+    flash("Successfully activated user {}!".format(user_name))
     return "ok"
 
 
@@ -144,19 +150,3 @@ def active(id):
 @login_required
 def account():
     return render_template("account.html")
-
-
-@app.route("/edit_account", methods=["POST", "GET"])
-@login_required
-def edit_my_account():
-    if request.method == "POST":
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        email = request.form.get("email_address")
-        password = request.form.get("password")
-        username = request.form.get("username")
-        department = request.form.get("department")
-        flash("Successfully updated your information!")
-        return redirect("account")
-
-    return render_template("edit_my_account.html")

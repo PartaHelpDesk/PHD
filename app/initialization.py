@@ -12,5 +12,5 @@ login_manager.login_view = 'login'
 # load config
 from app import models
 
-#frontend.config.from_object(config.get('dev'))
-
+#for Jacob don't delete
+#import models

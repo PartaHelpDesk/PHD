@@ -1,7 +1,16 @@
-    
-    {% block content %}
+{% extends 'base.html' %}
+{% block body %}
     <title>View Report</title>
-    <body>
+    <style>
+        h1 {
+            text-align: center
+        }
+        div {
+            text-align: center
+        }
+    </style>
+    <p>
+        <br>
          <h1>Report for Tickets By {{ selection.choice }} </h1>
         {% if ( selection.choice == "Category" ) %}
          <div>
@@ -13,5 +22,11 @@
         <img src= {{ fileSavePath }} alt="Report">    
         </div>
         {% endif %}
-    </body>
-    {% endblock %}
+        {% if ( selection.choice == "Status" ) %}
+         <div>
+        <img src= {{ fileSavePath }} alt="Report">    
+        </div>
+        {% endif %}
+        <a href={{ fileSavePath }} download> <button>Download Above Report</button></a>
+    </p>
+{% endblock %}

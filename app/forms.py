@@ -11,14 +11,34 @@ class EmailForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class TicketForm(FlaskForm):
-	department = StringField('Department:', validators=[DataRequired()])
+	ticketDepartment = SelectField('Department:', choices=[],validators=[DataRequired()])
 	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
 	#ticketStatus = StringField('Status: ', validators=[DataRequired()])
-	submit = SubmitField('Send Ticket')
+	submit = SubmitField('Create Ticket')
 
 class ReportForm(FlaskForm):
-	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department')])
+	reportChoice = RadioField('Label', choices=[('Category','Report By Category'),('Department','Report By Department'),('Status','Report By Ticket Status')])
 	submit = SubmitField('Get Report')
+
+class PasswordResetForm(FlaskForm):
+	accUsername = StringField('Account Username: ', validators=[DataRequired()])
+	submit = SubmitField('Send New Password to Account Email')
+
+class UpdateTicketForm(FlaskForm):
+	ticketDepartment = SelectField('Department:', choices=[],validators=[DataRequired()])
+	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
+	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
+	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
+	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'),('On Hold', 'On Hold'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('Reopened', 'Reopened')], validators=[DataRequired()])
+	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
+	submit = SubmitField('Update Ticket')
+
+class UpdatePasswordForm(FlaskForm):
+	oldpassword = PasswordField('Old Password: ', validators=[DataRequired()])
+	newpassword = PasswordField('New Password: ', validators=[DataRequired()])
+	verifypassword = PasswordField('Verify Password: ', validators=[DataRequired()])
+	submit = SubmitField('Update Password')
+
 
