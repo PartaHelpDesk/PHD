@@ -170,7 +170,9 @@
             <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
             {% if (current_user.level != "1") %}
             <li><a class="nav-links" href="{{ url_for('reporting')}}">Reports</a></li>
+            {% if (current_user.level != "2") %}
             <li><a class="nav-links" href="{{ url_for('users') }}">Admin</a></li>
+            {%endif%}
             {%endif%}
             <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
             <li><a class="nav-links" href="{{ url_for('logout') }}">Log Out</a></li>
