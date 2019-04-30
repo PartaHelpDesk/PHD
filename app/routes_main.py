@@ -123,7 +123,7 @@ def create_ticket():
     recipients = dbm.GetITEmails()
     ticket_id = dbm.CreateTicket(selection['Title'],selection['Category'], current_user.user_id,'New',selection['Department'],selection['Description'])
     
-    selection['Link'] = '127.0.0.1:5000/' + ticket_id
+    selection['Link'] = '127.0.0.1:5000/view_ticket/' + ticket_id
 
 
     emailMessage = email_service.format_email(selection['Title'],selection['Department'],
