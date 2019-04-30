@@ -97,7 +97,6 @@ def view_all_filter():
   dbm = dm.DatabaseMethods()
   filter_text = request.form.get("filter_text")
   dt = dbm.GetTicketFiltered(filter_text)
-  print ('here')
   t = Tickets()
   tickets = []
   for dr in dt.data_rows:
