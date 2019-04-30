@@ -167,18 +167,16 @@
         <ul>
             <li><a class="nav-links" href="{{ url_for('dashboard') }}">Dashboard</a></li>
             <li><a class="nav-links" href="{{ url_for('create_ticket') }}">New Ticket</a> </li>
-            {% if (current_user.level != "1") %}
             <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
+            {% if (current_user.level != "1") %}
             <li><a class="nav-links" href="{{ url_for('reporting')}}">Reports</a></li>
-            {% if (current_user.level != "2") %}
             <li><a class="nav-links" href="{{ url_for('users') }}">Admin</a></li>
-            {%endif%}
             {%endif%}
             <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
             <li><a class="nav-links" href="{{ url_for('logout') }}">Log Out</a></li>
             <li style="float: right; padding-right: 5px; ">
                 <form method="POST" action="{{ url_for('view_all_filter') }}">
-                    <input type="text" placeholder="Search" class='search'name="filter_text">
+                    <input type="text" placeholder="Search" class='search' name="filter_text">
                     <button class="searchbutton" type="submit">Search</button>
                 </form>
             </li> 

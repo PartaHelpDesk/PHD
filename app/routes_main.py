@@ -117,11 +117,18 @@ def create_ticket():
       'Department': form.ticketDepartment.data,
       'Title': form.ticketTitle.data,
       'Description': form.ticketDescription.data,
-      'Category': form.ticketCategory.data
+      'Category': form.ticketCategory.data,
+      'Email': current_user.email
     }
     recipients = dbm.GetITEmails()
-    dbm.CreateTicket(selection['Title'],selection['Category'], current_user.user_id,'New',selection['Department'],selection['Description'])
-    emailMessage = email_service.format_email(selection['Title'],selection['Department'],selection['Category'],'New',selection['Description'])
+    ticket_id = dbm.CreateTicket(selection['Title'],selection['Category'], current_user.user_id,'New',selection['Department'],selection['Description'])
+    
+    selection['Link'] = '127.0.0.1:5000/' + ticket_id
+
+
+    emailMessage = email_service.format_email(selection['Title'],selection['Department'],
+      selection['Category'],'New',selection['Description'], selection['Link'], selection['Email'])
+
     email_service.send_group_email("PartaHelpDesk@gmail.com", recipients, emailMessage, None, selection['Title'])
     return redirect(url_for('dashboard'))
  

@@ -16,14 +16,17 @@ from app import mail
 		#self.receivers = recieversAddrs
 		#self.email = Message(str(self.message), self.senderAddr, self.receivers)
 
-def format_email(ticketTitle, ticketDepartment, ticketCategory, ticketStatus, ticketDescription):
+def format_email(ticketTitle, ticketDepartment, ticketCategory, ticketStatus, ticketDescription, ticketLink, email):
 	result = '' 
 	result += ('Ticket Title:\t\t' + ticketTitle + '\n\n')
 	result += ('Department:\t\t' + ticketDepartment + '\n\n')
 	result += ('Category:\t\t' + ticketCategory + '\n\n')
 	result += ('Status of Ticket:\t\t' + ticketStatus + '\n\n')
 	result += ('What\'s the problem?:\n' + ticketDescription + '\n\n')
+	result += ('User\'s email: ' + email + '\n\n')
+	result += ('View ticket: ' + ticketLink)
 	return result
+
 
 
 def send_email(subject, sender, recipients, text_body, html_body):
