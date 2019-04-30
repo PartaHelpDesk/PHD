@@ -1,5 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, RadioField
+
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, RadioField, validators
+
 from wtforms.validators import DataRequired
 
 class EmailForm(FlaskForm):
@@ -34,8 +36,16 @@ class UpdateTicketForm(FlaskForm):
 
 class UpdatePasswordForm(FlaskForm):
 	oldpassword = PasswordField('Old Password: ', validators=[DataRequired()])
-	newpassword = PasswordField('New Password: ', validators=[DataRequired()])
-	verifypassword = PasswordField('Verify Password: ', validators=[DataRequired()])
+	# newpassword = PasswordField('New Password: ', validators=[DataRequired()])
+	newpassword = PasswordField('New Password: ',  
+	[
+        validators.DataRequired()
+    ])
+	verifypassword = PasswordField('Verify Password: ',
+	[
+        validators.DataRequired(),
+        validators.EqualTo('newpassword', message='Passwords must match')
+    ])
 	submit = SubmitField('Update Password')
 
 
