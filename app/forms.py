@@ -1,9 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, RadioField
-
 from wtforms.validators import DataRequired
-#from app import DatabaseMethods as dm
-#import DatabaseMethods as dm
 
 class EmailForm(FlaskForm):
     Addr = StringField('Reciever Address:', validators=[DataRequired()])
@@ -31,7 +28,7 @@ class UpdateTicketForm(FlaskForm):
 	ticketTitle = StringField('Ticket Title: ', validators=[DataRequired()])
 	ticketDescription = StringField('Description of problem: ', validators=[DataRequired()])
 	ticketCategory = SelectField('Category: ', choices=[], validators=[DataRequired()])
-	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'),('On Hold', 'On Hold'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('Reopened', 'Reopened')], validators=[DataRequired()])
+	ticketStatus = SelectField('Status: ', choices=[('New','New'), ('In Process', 'In Process'), ('Escalated', 'Escalated'), ('Closed', 'Closed'), ('On Hold', 'On Hold')], validators=[DataRequired()])
 	ticketComment = StringField('Comment on the Update: ', validators=[DataRequired()])
 	submit = SubmitField('Update Ticket')
 
