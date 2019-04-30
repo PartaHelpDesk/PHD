@@ -11,7 +11,6 @@ from werkzeug.security import generate_password_hash
 def before_request():
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=5)
-    flash('Session timed out, ')
 
 @app.route('/')
 def index():
