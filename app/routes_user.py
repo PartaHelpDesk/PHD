@@ -1,10 +1,16 @@
 from app.models import User
-from flask import render_template, redirect, url_for, request, flash, abort
+from flask import render_template, redirect, url_for, request, flash, abort, session
+from datetime import timedelta
 from flask_login import login_user, logout_user, current_user, login_required
 from . import app
 from app import DatabaseMethods as DM
 from werkzeug.security import generate_password_hash
 
+
+@app.before_request
+def before_request():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.route('/')
 def index():
@@ -95,7 +101,6 @@ def edit_user(id):
         email = request.form.get('email_address')
         level = request.form.get('user_level')
 
-        print(first_name, last_name, email, level)
         if new_username == '' or first_name == '' or last_name == '' or email == '':
             flash('Incomplete edit of user information. Please check information and try again!')
             return render_template("edit_user.html", u=user)
@@ -151,19 +156,3 @@ def active(id):
 @login_required
 def account():
     return render_template("account.html")
-
-
-@app.route("/edit_account", methods=["POST", "GET"])
-@login_required
-def edit_my_account():
-    if request.method == "POST":
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
-        email = request.form.get("email_address")
-        password = request.form.get("password")
-        username = request.form.get("username")
-        department = request.form.get("department")
-        flash("Successfully updated your information!")
-        return redirect("account")
-
-    return render_template("edit_my_account.html")

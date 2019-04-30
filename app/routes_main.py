@@ -2,8 +2,8 @@ from . import app
 from flask import render_template, redirect, url_for, abort, request, flash
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
-from app.models import Tickets, User
-from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm, UpdateTicketForm
+from app.models import Tickets, User, TicketHistory
+from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm, UpdateTicketForm, UpdatePasswordForm
 from app import report_service, email_service
 from random import randint
 
@@ -24,8 +24,9 @@ def dashboard():
 @app.route("/view_ticket/<int:ticket_id>")
 @login_required
 def view_ticket(ticket_id):
-  ticket = Tickets.getTicketFromID(ticket_id)  
-  return render_template("view_ticket.html", ticket=ticket)
+  ticket = Tickets.getTicketFromID(ticket_id)
+  ticket_history = TicketHistory(ticket_id)  
+  return render_template("view_ticket.html", ticket=ticket, ticket_history_events = ticket_history.TicketHistoryEvents)
 
 
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])
@@ -168,15 +169,40 @@ def reporting():
 def password_reset():
   form = PasswordResetForm()
   if form.validate_on_submit():
+    dbm = dm.DatabaseMethods()  
     accountName = form.accUsername.data
     user = User(accountName)
-    newpass = str(randint(1, 9))
+    newpass = dbm.GenerateRandomPassword()
     passMessage = "Your New Password is: " + newpass
     recip = []
     recip.append(user.email)
     email_service.send_email("Password Reset","partahelpdesk@gmail.com",recip,passMessage, None)
-    dbm = dm.DatabaseMethods()
     dbm.UpdateUserPassword(accountName, newpass)
     flash('Email With New Password Sent')
     return redirect(url_for('login'))
   return render_template("password_reset.html", form=form)
+
+@app.route("/update_password", methods=['GET','POST'])
+def update_password():
+  form = UpdatePasswordForm()
+  dbm = dm.DatabaseMethods()  
+
+  if form.validate_on_submit():
+    old_password = form.oldpassword.data
+    new_password = form.newpassword.data
+    verify_password = form.verifypassword.data
+
+    if verify_password != new_password or not dbm.CheckUserPassword(current_user.username, old_password):
+      return redirect(url_for("update_password"))
+
+    else:  
+      dbm.UpdateUserPassword(current_user.username, new_password)
+      passMessage = "The password for this account has been updated"
+      recip = []
+      recip.append(current_user.email)
+      email_service.send_email("Password Reset","partahelpdesk@gmail.com",recip,passMessage, None)
+      flash('Password succesfully changed!')
+      return render_template("account.html")
+
+
+  return render_template("update_password.html", form=form)

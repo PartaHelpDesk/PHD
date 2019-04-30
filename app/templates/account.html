@@ -55,11 +55,12 @@
 {% endblock %}
 {% block body %}
 <br></br>
+<br></br>
 <h1 style="text-align:center">{{current_user.first_name + " " + current_user.last_name }}</h1>
 
 <div align="center" class="card">
   <img src="../static/images/PARTA ad.png" alt="User" style="width:25%">
-  <p align=center><button onclick="location.href='{{ url_for("edit_my_account") }}'">Edit</button></p>
+  <p align=center><button type="button" onclick="window.location.href='{{ url_for('update_password') }}'">Edit Password</button> 
 </div>
 
 <div class="table-container">
