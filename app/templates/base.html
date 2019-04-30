@@ -176,7 +176,7 @@
             {%endif%}
             <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
             <li><a class="nav-links" href="{{ url_for('logout') }}">Log Out</a></li>
-            <li>
+            <li style="float: right; padding-right: 5px; ">
                 <form method="POST" action="{{ url_for('view_all_filter') }}">
                     <input type="text" placeholder="Search" class='search'name="filter_text">
                     <button class="searchbutton" type="submit">Search</button>
