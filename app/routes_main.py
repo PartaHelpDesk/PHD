@@ -2,7 +2,7 @@ from . import app
 from flask import render_template, redirect, url_for, abort, request, flash
 from flask_login import login_required, current_user
 from app import DatabaseMethods as dm
-from app.models import Tickets, User
+from app.models import Tickets, User, TicketHistory
 from app.forms import ReportForm, TicketForm, EmailForm, PasswordResetForm, UpdateTicketForm, UpdatePasswordForm
 from app import report_service, email_service
 from random import randint
@@ -24,8 +24,9 @@ def dashboard():
 @app.route("/view_ticket/<int:ticket_id>")
 @login_required
 def view_ticket(ticket_id):
-  ticket = Tickets.getTicketFromID(ticket_id)  
-  return render_template("view_ticket.html", ticket=ticket)
+  ticket = Tickets.getTicketFromID(ticket_id)
+  ticket_history = TicketHistory(ticket_id)  
+  return render_template("view_ticket.html", ticket=ticket, ticket_history_events = ticket_history.TicketHistoryEvents)
 
 
 @app.route("/update_ticket/<int:ticket_id>", methods=["POST", "GET"])

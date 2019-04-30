@@ -137,6 +137,31 @@ class Tickets:
         dt = dbm.GetTicketInfo(id)
         t = Tickets()
         return t.createTicketObject(dt.data_rows[0])
+
+
+
+class TicketHistory:
+    def __init__(self, ticketID):
+        dbm = dm.DatabaseMethods()
+        dt = dbm.GetTicketHistory(ticketID)
+
+        self.TicketHistoryEvents = []
+        for dr in dt.data_rows:
+            self.TicketHistoryEvents.append(TickeHistoryEvent(dr))
+
+class TickeHistoryEvent:
+    def __init__(self, dr):
+        self.Category = dr.GetColumnValue('Category')
+        self.Title = dr.GetColumnValue('Title')
+        self.Status = dr.GetColumnValue('Status')
+        self.Department = dr.GetColumnValue('Department')
+        self.Description = dr.GetColumnValue('Description')
+        self.Comment = dr.GetColumnValue('Comment')
+        self.Entered_By = dr.GetColumnValue('EnteredBy')
+        self.Date = dr.GetColumnValue('Date')
+
+
+
         
 
 

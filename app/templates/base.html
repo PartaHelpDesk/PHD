@@ -5,7 +5,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <style>
         div.main{
-            width: 1260px;
+            width: 1300px;
             padding: 6px;
             margin: 0 auto;
         }
@@ -21,14 +21,14 @@
         }
 
         .logo{
-            background-size: contain;
+            /* background-size: contain; */
             width: 100px;
             height: 100px;
             float: left;
             margin: 20px 20px;
-            background: white;
-            border-radius: 5px;
-            border: 1px solid black;
+            /* background: white; */
+            /* border-radius: 5px;
+            border: 1px solid black; */
         }
 
         div.left-nav{
@@ -162,7 +162,7 @@
 <div class="main">
     <div class="nav">
         <div class="logo">
-            <img id="logo" src="../static/images/PARTA%20LOGO.png" alt="LOGO" width="100px" height="100px">
+            <img id="logo" src="../static/images/PHDLogo.png" alt="LOGO" width="100px" height="50px">
         </div>
         <ul>
             <li><a class="nav-links" href="{{ url_for('dashboard') }}">Dashboard</a></li>
@@ -170,9 +170,12 @@
             {% if (current_user.level != "1") %}
             <li><a class="nav-links" href="{{ url_for('view_all') }}">View All</a> </li>
             <li><a class="nav-links" href="{{ url_for('reporting')}}">Reports</a></li>
+            {% if (current_user.level != "2") %}
             <li><a class="nav-links" href="{{ url_for('users') }}">Admin</a></li>
             {%endif%}
+            {%endif%}
             <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
+            <li><a class="nav-links" href="{{ url_for('logout') }}">Log Out</a></li>
             <li>
                 <form method="POST" action="{{ url_for('view_all_filter') }}">
                     <input type="text" placeholder="Search" class='search'name="filter_text">
@@ -195,6 +198,4 @@
      {% endblock %}
 </div>
 </body>
-<footer><br><a class="centerfooter" href="{{ url_for('logout') }}"><button>Logout</button></a></footer>
-
 </html>
