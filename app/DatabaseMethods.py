@@ -178,6 +178,7 @@ class DatabaseMethods:
         id_sql += " WHERE Title = ? AND CreatedUserID = ?"
         dt = self.GetDataTable(id_sql, (title, user_id))
         dr = dt.GetRow(0)
+
         
         return dr.GetColumnValue('TicketID')  
 

@@ -126,6 +126,7 @@ def create_ticket():
     
     selection['Link'] = '127.0.0.1:5000/' + ticket_id
 
+
     emailMessage = email_service.format_email(selection['Title'],selection['Department'],
       selection['Category'],'New',selection['Description'], selection['Link'], selection['Email'])
 
