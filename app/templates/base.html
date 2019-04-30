@@ -5,7 +5,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <style>
         div.main{
-            width: 1260px;
+            width: 1300px;
             padding: 6px;
             margin: 0 auto;
         }
@@ -175,6 +175,7 @@
             {%endif%}
             {%endif%}
             <li><a class="nav-links" href="{{ url_for('account') }}">Account</a></li>
+            <li><a class="nav-links" href="{{ url_for('logout') }}">Log Out</a></li>
             <li>
                 <form method="POST" action="{{ url_for('view_all_filter') }}">
                     <input type="text" placeholder="Search" class='search'name="filter_text">
@@ -197,6 +198,4 @@
      {% endblock %}
 </div>
 </body>
-<footer><br><a class="centerfooter" href="{{ url_for('logout') }}"><button>Logout</button></a></footer>
-
 </html>
