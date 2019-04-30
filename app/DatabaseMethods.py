@@ -74,7 +74,7 @@ class DatabaseMethods:
 
     def GetITEmails(self):
         #Gets all emails from IT and admin accounts
-        sql = "SELECT Email from Users WHERE [Level] in (2,3)"
+        sql = "SELECT Email from Users WHERE [Level] in (2,3) AND Active = 1"
         dt = self.GetDataTable( sql, None)
         list_of_emails = []
         for dr in dt.data_rows:
